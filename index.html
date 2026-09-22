@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mieles Los Primos - Impenetrable Chaqueño</title>
+</head>
+<body>
+
+    <!-- Encabezado Principal y Navegación (Común a todas las pantallas) -->
+    <header>
+        <div>
+            <!-- Logo Mieles Los Primos -->
+            <a href="#inicio">
+                <img src="assets/logo.png" alt="Mieles Los Primos Logo">
+                <span>Mieles LOS PRIMOS</span>
+            </a>
+        </div>
+        
+        <nav>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#catalogo">Catálogo</a></li>
+                <li><a href="#origen">Origen</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <div>
+            <a href="#carrito" aria-label="Carrito de compras">
+                <span>🛒</span>
+                <span>(0)</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Contenido Principal de la Tienda -->
+    <main>
+
+        <!-- 01. SECCIÓN: INICIO / HERO & DESTACADOS -->
+        <section id="inicio">
+            <div>
+                <h1>Miel Natural del Impenetrable Chaqueño</h1>
+                <p>Miel pura de abeja, artesanal y multifloral, del monte nativo (algarrobo, chañar y más).</p>
+                <a href="#catalogo">Ver catálogo &rarr;</a>
+            </div>
+
+            <!-- Nuestros Productos (Destacados de Portada) -->
+            <section id="productos-destacados">
+                <h2>Nuestros productos</h2>
+                <p>Miel, panal y polen. Sabores auténticos del monte chaqueño.</p>
+
+                <div>
+                    <article>
+                        <img src="assets/miel-400-800.png" alt="Miel Natural de Abeja">
+                        <h3>Miel Natural de Abeja</h3>
+                        <p>400g / 800g</p>
+                    </article>
+
+                    <article>
+                        <img src="assets/panal-porcion.png" alt="Panal de Miel">
+                        <h3>Panal de Miel</h3>
+                        <p>Porción natural</p>
+                    </article>
+
+                    <article>
+                        <img src="assets/caja-madera.png" alt="Caja de Madera con 3 frascos">
+                        <h3>Caja de Madera</h3>
+                        <p>con 3 frascos de miel</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Sellos de Confianza y Calidad -->
+            <section id="beneficios">
+                <ul>
+                    <li>
+                        <strong>100% Natural</strong>
+                        <span>Sin aditivos ni conservantes</span>
+                    </li>
+                    <li>
+                        <strong>Del Impenetrable Chaqueño</strong>
+                        <span>Juan José Castelli, Chaco</span>
+                    </li>
+                    <li>
+                        <strong>Producción Artesanal</strong>
+                        <span>Cosecha y envasado cuidado</span>
+                    </li>
+                    <li>
+                        <strong>Compra Segura</strong>
+                        <span>Pagá con Mercado Pago</span>
+                    </li>
+                </ul>
+            </section>
+        </section>
+
+        <hr>
+
+        <!-- 02. SECCIÓN: CATÁLOGO DE PRODUCTOS -->
+        <section id="catalogo">
+            <h2>Catálogo de productos</h2>
+            <p>Seleccioná tu producto favorito y llevate lo mejor del monte chaqueño.</p>
+
+            <!-- Filtros por Categorías -->
+            <aside>
+                <h3>Categorías</h3>
+                <ul>
+                    <li><button type="button">Todos</button></li>
+                    <li><button type="button">Miel</button></li>
+                    <li><button type="button">Panal</button></li>
+                    <li><button type="button">Polen</button></li>
+                </ul>
+            </aside>
+
+            <!-- Grilla de Productos -->
+            <section id="grilla-productos">
+                <!-- Producto 1 -->
+                <article>
+                    <img src="assets/botella-miel-800.png" alt="Botella de miel 800g">
+                    <h3>Botella de miel 800g</h3>
+                    <p><strong>$8.850</strong></p>
+                    <button type="button">Agregar al carrito</button>
+                </article>
+
+                <!-- Producto 2 -->
+                <article>
+                    <img src="assets/botella-miel-400.png" alt="Botella de miel 400g">
+                    <h3>Botella de miel 400g</h3>
+                    <p><strong>$6.600</strong></p>
+                    <button type="button">Agregar al carrito</button>
+                </article>
+
+                <!-- Producto 3 -->
+                <article>
+                    <img src="assets/frasco-polen-100.png" alt="Frasco de polen 100g">
+                    <h3>Frasco de polen 100g</h3>
+                    <p><strong>$9.000</strong></p>
+                    <button type="button">Agregar al carrito</button>
+                </article>
+
+                <!-- Producto 4 -->
+                <article>
+                    <img src="assets/panal-miel-100.png" alt="Panal de miel 100g">
+                    <h3>Panal de miel 100g</h3>
+                    <p><strong>$6.000</strong></p>
+                    <button type="button">Agregar al carrito</button>
+                </article>
+            </section>
+        </section>
+
+        <hr>
+
+        <!-- 03. SECCIÓN: CARRITO DE COMPRAS -->
+        <section id="carrito">
+            <h2>Mi carrito</h2>
+            <p>Revisá tus productos antes de continuar con la compra.</p>
+
+            <!-- Tabla de Detalle del Carrito -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio unitario</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <img src="assets/botella-miel-400.png" alt="Botella de miel 400g" width="50">
+                            Botella de miel 400g
+                        </td>
+                        <td>$6.600</td>
+                        <td>
+                            <button type="button">-</button>
+                            <input type="number" value="1" min="1" readonly>
+                            <button type="button">+</button>
+                        </td>
+                        <td>$6.600</td>
+                        <td><button type="button" aria-label="Eliminar producto">🗑️</button></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="assets/panal-miel-100.png" alt="Panal de miel 100g" width="50">
+                            Panal de miel 100g
+                        </td>
+                        <td>$6.000</td>
+                        <td>
+                            <button type="button">-</button>
+                            <input type="number" value="1" min="1" readonly>
+                            <button type="button">+</button>
+                        </td>
+                        <td>$6.000</td>
+                        <td><button type="button" aria-label="Eliminar producto">🗑️</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <a href="#catalogo">&larr; Seguir comprando</a>
+
+            <!-- Resumen del Pedido -->
+            <aside>
+                <h3>Resumen del pedido</h3>
+                <p>Subtotal (2 productos): <span>$12.600</span></p>
+                <p>Envío: <span>A calcular</span></p>
+                <p><strong>Total: $12.600</strong></p>
+                <a href="#checkout">Continuar al checkout &rarr;</a>
+            </aside>
+
+            <div>
+                <p><strong>Envíos a todo el país:</strong> El costo de envío se calcula en el checkout según tu ubicación.</p>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- 04. SECCIÓN: CHECKOUT / FINALIZAR COMPRA -->
+        <section id="checkout">
+            <h2>Finalizar compra</h2>
+            <p>Completá tus datos para procesar el pedido.</p>
+
+            <form action="#" method="post">
+                
+                <!-- 1. Datos del comprador -->
+                <fieldset>
+                    <legend>1. Datos del comprador</legend>
+                    <p>
+                        <label for="nombre">Nombre y apellido *</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Pérez" required>
+                    </p>
+                    <p>
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
+                    </p>
+                    <p>
+                        <label for="telefono">Teléfono *</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="Ej: 11 1234 5678" required>
+                    </p>
+                </fieldset>
+
+                <!-- 2. Dirección de entrega -->
+                <fieldset>
+                    <legend>2. Dirección de entrega</legend>
+                    <p>
+                        <label for="provincia">Provincia *</label>
+                        <select id="provincia" name="provincia" required>
+                            <option value="">Seleccioná tu provincia</option>
+                            <option value="chaco" selected>Chaco</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label for="localidad">Localidad *</label>
+                        <select id="localidad" name="localidad" required>
+                            <option value="">Seleccioná tu localidad</option>
+                            <option value="castelli" selected>Juan José Castelli</option>
+                            <option value="resistencia">Resistencia</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label for="direccion">Dirección *</label>
+                        <input type="text" id="direccion" name="direccion" placeholder="Ej: Av. San Martín 123" required>
+                    </p>
+                    <p>
+                        <label for="cp">Código postal *</label>
+                        <input type="text" id="cp" name="cp" placeholder="Ej: 3500" required>
+                    </p>
+                </fieldset>
+
+                <!-- 3. Método de envío -->
+                <fieldset>
+                    <legend>3. Método de envío</legend>
+                    <p>
+                        <input type="radio" id="envio-domicilio" name="envio" value="domicilio" checked>
+                        <label for="envio-domicilio">
+                            <strong>Envío a domicilio</strong> (A calcular)<br>
+                            El costo se calcula según tu ubicación.
+                        </label>
+                    </p>
+                    <p>
+                        <input type="radio" id="retiro-sucursal" name="envio" value="retiro">
+                        <label for="retiro-sucursal">
+                            <strong>Retiro en sucursal</strong> (Consultar disponibilidad)
+                        </label>
+                    </p>
+                </fieldset>
+
+                <!-- 4. Método de pago -->
+                <fieldset>
+                    <legend>4. Método de pago</legend>
+                    <p>
+                        <input type="radio" id="pago-mp" name="pago" value="mercadopago" checked>
+                        <label for="pago-mp">
+                            <strong>Mercado Pago</strong><br>
+                            Tarjeta de crédito, débito, transferencia y más.
+                        </label>
+                    </p>
+                    <p>
+                        <input type="radio" id="pago-transferencia" name="pago" value="transferencia">
+                        <label for="pago-transferencia">
+                            <strong>Transferencia bancaria</strong><br>
+                            Te enviaremos los datos por email.
+                        </label>
+                    </p>
+                </fieldset>
+
+                <!-- Resumen Lateral de la Compra -->
+                <aside>
+                    <h3>Resumen de la compra</h3>
+                    <ul>
+                        <li>Botella de miel 400g x1 - $6.600</li>
+                        <li>Panal de miel 100g x1 - $6.000</li>
+                    </ul>
+                    <p>Subtotal: <span>$12.600</span></p>
+                    <p>Envío: <span>A calcular</span></p>
+                    <p><strong>Total: $12.600</strong></p>
+
+                    <button type="submit">Pagar con Mercado Pago</button>
+                    <p><small>🔒 Tu compra está protegida</small></p>
+                </aside>
+
+            </form>
+        </section>
+
+    </main>
+
+    <!-- Pie de Página (Footer) -->
+    <footer>
+        <section id="origen">
+            <h3>Mieles Los Primos</h3>
+            <p>Miel pura de abeja recolectada en el monte nativo de Juan José Castelli, Chaco, Argentina.</p>
+        </section>
+
+        <section id="contacto">
+            <h4>Contacto y Redes</h4>
+            <p>Atención directas para pedidos y envíos en Chaco y todo el país.</p>
+        </section>
+
+        <p>&copy; 2026 Mieles Los Primos. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
