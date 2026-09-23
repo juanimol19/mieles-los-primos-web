@@ -859,6 +859,11 @@ header nav a[aria-current="page"] {
   font-size: 0.9rem;
 }
 
+.casilla a {
+  color: var(--color-amber-texto);
+  text-decoration: underline;
+}
+
 /* Resumen lateral: reutiliza .tarjeta, .resumen-fila y .resumen-total del carrito */
 .checkout-resumen {
   gap: var(--space-3);

@@ -418,15 +418,21 @@
                         </div>
                     </fieldset>
 
-                    <!-- Consentimiento (Ley 25.326). TEXTOS PENDIENTES: los redacta Juana -->
+                    <!-- Consentimiento (Ley 25.326). Ninguna casilla viene marcada por defecto:
+                         el consentimiento tiene que ser una acción expresa del usuario.
+                         El link abre en otra pestaña para no perder lo cargado en el formulario. -->
                     <div class="consentimientos">
                         <div class="casilla">
                             <input type="checkbox" id="acepto-privacidad" name="acepto_privacidad" required>
-                            <label for="acepto-privacidad">[TEXTO PENDIENTE: consentimiento obligatorio] *</label>
+                            <label for="acepto-privacidad">
+                                Leí y acepto la <a href="privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a>. Autorizo el uso de mis datos personales para procesar y enviar mi pedido, conforme a la Ley N° 25.326. *
+                            </label>
                         </div>
                         <div class="casilla">
                             <input type="checkbox" id="acepto-promociones" name="acepto_promociones">
-                            <label for="acepto-promociones">[TEXTO PENDIENTE: promociones, opcional]</label>
+                            <label for="acepto-promociones">
+                                Quiero recibir novedades y promociones de Mieles Los Primos por correo electrónico. Puedo darme de baja en cualquier momento. (Opcional)
+                            </label>
                         </div>
                     </div>
                 </div>
