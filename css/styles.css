@@ -351,6 +351,7 @@ header nav a[aria-current="page"] {
   padding: var(--space-3);
 }
 
+.tarjeta-texto h2,
 .tarjeta-texto h3 {
   font-size: 1rem;
 }
@@ -431,7 +432,7 @@ header nav a[aria-current="page"] {
   grid-area: encabezado;
 }
 
-.catalogo-encabezado h2 {
+.catalogo-encabezado h1 {
   font-size: 1.75rem;
 }
 
@@ -444,7 +445,7 @@ header nav a[aria-current="page"] {
   grid-area: categorias;
 }
 
-.catalogo-categorias h3 {
+.catalogo-categorias h2 {
   font-size: 1rem;
   margin-bottom: var(--space-2);
 }
@@ -536,7 +537,7 @@ header nav a[aria-current="page"] {
   gap: var(--space-5);
 }
 
-.origen-historia h3 {
+.origen-historia h2 {
   font-size: 1.25rem;
   margin-bottom: var(--space-3);
 }
@@ -560,7 +561,7 @@ header nav a[aria-current="page"] {
   text-align: center;
 }
 
-.origen-destacados h3 {
+.origen-destacados h2 {
   font-size: 1.05rem;
 }
 
@@ -604,7 +605,7 @@ header nav a[aria-current="page"] {
   grid-area: encabezado;
 }
 
-.carrito-encabezado h2 {
+.carrito-encabezado h1 {
   font-size: 1.75rem;
 }
 
@@ -731,7 +732,7 @@ header nav a[aria-current="page"] {
   padding: var(--space-4);
 }
 
-.carrito-resumen h3 {
+.carrito-resumen h2 {
   font-size: 1.125rem;
 }
 
@@ -787,7 +788,7 @@ header nav a[aria-current="page"] {
   padding: var(--space-5) var(--space-4);
 }
 
-#checkout h2 {
+#checkout h1 {
   font-size: 1.75rem;
 }
 
@@ -949,7 +950,7 @@ header nav a[aria-current="page"] {
   padding: var(--space-4);
 }
 
-.checkout-resumen h3 {
+.checkout-resumen h2 {
   font-size: 1.125rem;
 }
 
@@ -991,7 +992,7 @@ footer > section {
   gap: var(--space-2);
 }
 
-footer h3 {
+footer h2 {
   font-size: 1rem;
 }
 

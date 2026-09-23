@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi carrito - Mieles Los Primos</title>
+
+    <!-- Fuentes: Lora para títulos, Inter para texto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Hoja de estilos -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Encabezado: igual en todas las páginas. aria-current marca la página actual -->
+    <header>
+        <a href="index.html" class="header-logo">
+            <img src="img/logo.jpg" alt="" width="48" height="48">
+            <span class="logo-texto">
+                <span class="logo-marca">Mieles</span>
+                <span class="logo-nombre">LOS PRIMOS</span>
+            </span>
+        </a>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="origen.html">Origen</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-carrito">
+            <a href="carrito.html" aria-label="Carrito: 0 productos" aria-current="page">
+                <span aria-hidden="true">🛒</span>
+                <span class="carrito-contador">0</span>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- CARRITO DE COMPRAS -->
+        <section id="carrito">
+            <div class="carrito-encabezado">
+                <h1>Mi carrito</h1>
+                <p class="subtitulo">Revisá tus productos antes de continuar con la compra.</p>
+            </div>
+
+            <!-- Tabla de Detalle del Carrito.
+                 data-label: en móvil cada celda muestra su título con CSS (td::before) -->
+            <div class="carrito-items">
+                <table class="carrito-tabla">
+                    <thead>
+                        <tr>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Precio unitario</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Subtotal</th>
+                            <th scope="col">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Producto" class="carrito-producto">
+                                <img src="img/botella-miel-400.webp" alt="" width="56" height="56">
+                                <span>Botella de miel 400 g</span>
+                            </td>
+                            <td data-label="Precio unitario">$6.600</td>
+                            <td data-label="Cantidad">
+                                <div class="cantidad">
+                                    <button type="button" aria-label="Restar una unidad">&minus;</button>
+                                    <input type="number" value="1" min="1" readonly aria-label="Cantidad de Botella de miel 400 g">
+                                    <button type="button" aria-label="Sumar una unidad">+</button>
+                                </div>
+                            </td>
+                            <td data-label="Subtotal">$6.600</td>
+                            <td data-label="Acción">
+                                <button type="button" class="boton-eliminar" aria-label="Eliminar Botella de miel 400 g del carrito">
+                                    <span aria-hidden="true">🗑️</span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-label="Producto" class="carrito-producto">
+                                <img src="img/panal-miel-100.webp" alt="" width="56" height="56">
+                                <span>Panal de miel 100 g</span>
+                            </td>
+                            <td data-label="Precio unitario">$6.000</td>
+                            <td data-label="Cantidad">
+                                <div class="cantidad">
+                                    <button type="button" aria-label="Restar una unidad">&minus;</button>
+                                    <input type="number" value="1" min="1" readonly aria-label="Cantidad de Panal de miel 100 g">
+                                    <button type="button" aria-label="Sumar una unidad">+</button>
+                                </div>
+                            </td>
+                            <td data-label="Subtotal">$6.000</td>
+                            <td data-label="Acción">
+                                <button type="button" class="boton-eliminar" aria-label="Eliminar Panal de miel 100 g del carrito">
+                                    <span aria-hidden="true">🗑️</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <a href="catalogo.html" class="link-volver">&larr; Seguir comprando</a>
+            </div>
+
+            <!-- Resumen del Pedido -->
+            <aside class="carrito-resumen tarjeta">
+                <h2>Resumen del pedido</h2>
+                <p class="resumen-fila"><span>Subtotal (2 productos)</span> <span>$12.600</span></p>
+                <p class="resumen-fila"><span>Envío</span> <span>A calcular</span></p>
+                <p class="resumen-fila resumen-total"><span>Total</span> <span>$12.600</span></p>
+                <a href="checkout.html" class="boton">Continuar al checkout &rarr;</a>
+            </aside>
+
+            <!-- Aviso de envíos (el ícono es decorativo) -->
+            <div class="carrito-aviso">
+                <svg class="aviso-icono" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 6h11v10H3z"/>
+                    <path d="M14 10h4l3 3v3h-7z"/>
+                    <circle cx="7" cy="17.5" r="1.5"/>
+                    <circle cx="17" cy="17.5" r="1.5"/>
+                </svg>
+                <p><strong>Envíos a todo el país.</strong> El costo de envío se calcula en el checkout según tu ubicación.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pie de Página (Footer). Es el mismo en todas las páginas:
+         si se cambia, hay que cambiarlo en todos los archivos .html. -->
+    <footer>
+        <section class="footer-marca">
+            <h2>Mieles Los Primos</h2>
+            <p>Miel pura de abeja recolectada en el monte nativo de Juan José Castelli, Chaco, Argentina.</p>
+        </section>
+
+        <!-- DATOS DE EJEMPLO: reemplazar el número de WhatsApp y el usuario de Instagram por los reales -->
+        <section id="contacto">
+            <h2>Contacto y redes</h2>
+            <p>Atención directa para pedidos y envíos en Chaco y todo el país.</p>
+            <ul class="footer-redes">
+                <li>
+                    <a href="https://wa.me/5493644000000" target="_blank" rel="noopener">
+                        <!-- Globo de chat con teléfono (WhatsApp) -->
+                        <svg class="red-icono" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.7z"/>
+                            <path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a4.5 4.5 0 0 1-2.3-2.3l.8-1-1-2z"/>
+                        </svg>
+                        <span>WhatsApp: +54 9 3644 00-0000</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/mieleslosprimos.ejemplo" target="_blank" rel="noopener">
+                        <!-- Cámara (Instagram) -->
+                        <svg class="red-icono" viewBox="0 0 24 24" aria-hidden="true">
+                            <rect x="3.5" y="3.5" width="17" height="17" rx="5"/>
+                            <circle cx="12" cy="12" r="4"/>
+                            <circle cx="17" cy="7" r="0.6"/>
+                        </svg>
+                        <span>Instagram: @mieleslosprimos.ejemplo</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <section class="footer-legal">
+            <h2>Legal</h2>
+            <ul>
+                <li><a href="privacidad.html">Política de Privacidad</a></li>
+                <li><a href="https://github.com/juanimol19/mieles-los-primos-web/blob/main/LICENSE">Licencia MIT del código</a></li>
+            </ul>
+            <p class="footer-leyenda">Mieles Los Primos protege tus datos personales conforme a la Ley N° 25.326. Consultá nuestra <a href="privacidad.html">Política de Privacidad</a> o escribinos a <a href="mailto:privacidad@mieleslosprimos.com.ar">privacidad@mieleslosprimos.com.ar</a> para ejercer tus derechos de acceso, rectificación, supresión u oposición.</p>
+        </section>
+
+        <p class="footer-copyright">&copy; 2026 Mieles Los Primos. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Botón flotante de WhatsApp: fijo abajo a la derecha, visible en todas las secciones.
+         DATOS DE EJEMPLO: reemplazar el número por el real -->
+    <a href="https://wa.me/5493644000000" class="whatsapp-flotante" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.7z"/>
+            <path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a4.5 4.5 0 0 1-2.3-2.3l.8-1-1-2z"/>
+        </svg>
+    </a>
+
+</body>
+</html>
