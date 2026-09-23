@@ -926,8 +926,119 @@ footer > p {
   color: var(--color-text-muted);
 }
 
+/* Link a la Política de Privacidad en el copyright */
+footer > p a {
+  color: var(--color-amber-texto);
+  text-decoration: underline;
+}
+
 /* ==========================================================================
-   10. MEDIA QUERIES
+   10. PÁGINAS LEGALES (privacidad.html)
+   ========================================================================== */
+
+/* Ancho máximo de ~70 caracteres por línea: es lo cómodo para leer texto largo */
+.texto-legal {
+  max-width: 70ch;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+}
+
+.texto-legal h1 {
+  margin-top: var(--space-3);
+  font-size: 2rem;
+}
+
+.legal-fecha {
+  margin-top: var(--space-2);
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+/* Cada sección de la política, separada con una línea */
+.texto-legal section {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.texto-legal h2 {
+  font-size: 1.35rem;
+  margin-bottom: var(--space-3);
+}
+
+.texto-legal h3 {
+  font-size: 1.1rem;
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+.texto-legal p + p {
+  margin-top: var(--space-3);
+}
+
+/* Las listas del texto legal sí llevan viñetas (el reset las quita) */
+.texto-legal ul,
+.texto-legal ol {
+  margin: var(--space-3) 0;
+  padding-left: var(--space-4);
+}
+
+.texto-legal ul {
+  list-style: disc;
+}
+
+.texto-legal ol {
+  list-style: decimal;
+}
+
+.texto-legal li + li {
+  margin-top: var(--space-2);
+}
+
+/* Al saltar a una sección (#derechos), que el header fijo no tape el título */
+.texto-legal section {
+  scroll-margin-top: 7rem;
+}
+
+/* Tablas del texto legal: si no entran en pantalla (móvil), el contenedor
+   se desplaza en horizontal en lugar de romper el ancho de la página */
+.tabla-scroll {
+  margin: var(--space-3) 0;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.tabla-legal {
+  width: 100%;
+  min-width: 36rem;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.tabla-legal th,
+.tabla-legal td {
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tabla-legal thead th {
+  font-weight: 600;
+  background-color: var(--color-cream);
+}
+
+.tabla-legal tbody tr:last-child > * {
+  border-bottom: none;
+}
+
+.texto-legal a:not(.link-volver) {
+  color: var(--color-amber-texto);
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   11. MEDIA QUERIES
    ========================================================================== */
 
 /* Tablet: >= 768px */

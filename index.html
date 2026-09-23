@@ -317,7 +317,10 @@
                             </div>
                             <div class="campo">
                                 <label for="telefono">Teléfono *</label>
-                                <input type="tel" id="telefono" name="telefono" placeholder="Ej: 3644 12 3456" autocomplete="tel" required>
+                                <!-- type="tel" no valida el formato por sí solo: pattern acepta de 8 a 20 caracteres
+                                     entre números, espacios, +, guiones y paréntesis -->
+                                <input type="tel" id="telefono" name="telefono" placeholder="Ej: 3644 12 3456" autocomplete="tel" required
+                                       pattern="[0-9 +\(\)\-]{8,20}" title="Solo números, espacios, +, guiones o paréntesis (entre 8 y 20 caracteres)">
                             </div>
                         </div>
                     </fieldset>
@@ -392,7 +395,9 @@
                             </div>
                             <div class="campo">
                                 <label for="cp">Código postal *</label>
-                                <input type="text" id="cp" name="cp" placeholder="Ej: 3705" inputmode="numeric" autocomplete="postal-code">
+                                <!-- Código postal argentino: 4 números (3705) o CPA de 8 caracteres (H3705ABC) -->
+                                <input type="text" id="cp" name="cp" placeholder="Ej: 3705" autocomplete="postal-code" maxlength="8"
+                                       pattern="[0-9]{4}|[A-Za-z][0-9]{4}[A-Za-z]{3}" title="4 números (ej.: 3705) o el CPA completo (ej.: H3705ABC)">
                             </div>
                         </div>
                     </fieldset>
@@ -469,7 +474,7 @@
             <p>Atención directas para pedidos y envíos en Chaco y todo el país.</p>
         </section>
 
-        <p>&copy; 2026 Mieles Los Primos. Todos los derechos reservados.</p>
+        <p>&copy; 2026 Mieles Los Primos. Todos los derechos reservados. &middot; <a href="privacidad.html">Política de Privacidad</a></p>
     </footer>
 
 </body>
