@@ -231,20 +231,63 @@
         </article>
     </main>
 
-    <!-- Pie de Página (Footer): igual que en index.html -->
+    <!-- Pie de Página (Footer). Es el mismo en index.html y privacidad.html:
+         si se cambia, hay que cambiarlo en las dos páginas. -->
     <footer>
-        <section id="origen">
+        <section id="origen" class="footer-marca">
             <h3>Mieles Los Primos</h3>
             <p>Miel pura de abeja recolectada en el monte nativo de Juan José Castelli, Chaco, Argentina.</p>
         </section>
 
+        <!-- DATOS DE EJEMPLO: reemplazar el número de WhatsApp y el usuario de Instagram por los reales -->
         <section id="contacto">
-            <h4>Contacto y Redes</h4>
-            <p>Atención directas para pedidos y envíos en Chaco y todo el país.</p>
+            <h3>Contacto y redes</h3>
+            <p>Atención directa para pedidos y envíos en Chaco y todo el país.</p>
+            <ul class="footer-redes">
+                <li>
+                    <a href="https://wa.me/5493644000000" target="_blank" rel="noopener">
+                        <!-- Globo de chat con teléfono (WhatsApp) -->
+                        <svg class="red-icono" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.7z"/>
+                            <path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a4.5 4.5 0 0 1-2.3-2.3l.8-1-1-2z"/>
+                        </svg>
+                        <span>WhatsApp: +54 9 3644 00-0000</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/mieleslosprimos.ejemplo" target="_blank" rel="noopener">
+                        <!-- Cámara (Instagram) -->
+                        <svg class="red-icono" viewBox="0 0 24 24" aria-hidden="true">
+                            <rect x="3.5" y="3.5" width="17" height="17" rx="5"/>
+                            <circle cx="12" cy="12" r="4"/>
+                            <circle cx="17" cy="7" r="0.6"/>
+                        </svg>
+                        <span>Instagram: @mieleslosprimos.ejemplo</span>
+                    </a>
+                </li>
+            </ul>
         </section>
 
-        <p>&copy; 2026 Mieles Los Primos. Todos los derechos reservados. &middot; <a href="privacidad.html" aria-current="page">Política de Privacidad</a> &middot; Código bajo <a href="https://github.com/juanimol19/mieles-los-primos-web/blob/main/LICENSE">Licencia MIT</a></p>
+        <section class="footer-legal">
+            <h3>Legal</h3>
+            <ul>
+                <li><a href="privacidad.html" aria-current="page">Política de Privacidad</a></li>
+                <li><a href="https://github.com/juanimol19/mieles-los-primos-web/blob/main/LICENSE">Licencia MIT del código</a></li>
+            </ul>
+            <p class="footer-leyenda">Mieles Los Primos protege tus datos personales conforme a la Ley N° 25.326. Consultá nuestra <a href="privacidad.html">Política de Privacidad</a> o escribinos a <a href="mailto:privacidad@mieleslosprimos.com.ar">privacidad@mieleslosprimos.com.ar</a> para ejercer tus derechos de acceso, rectificación, supresión u oposición.</p>
+        </section>
+
+        <p class="footer-copyright">&copy; 2026 Mieles Los Primos. Todos los derechos reservados.</p>
     </footer>
+
+    <!-- Botón flotante de WhatsApp: fijo abajo a la derecha, visible en todas las secciones.
+         DATOS DE EJEMPLO: reemplazar el número por el real -->
+    <a href="https://wa.me/5493644000000" class="whatsapp-flotante" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.7z"/>
+            <path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a4.5 4.5 0 0 1-2.3-2.3l.8-1-1-2z"/>
+        </svg>
+    </a>
 
 </body>
 </html>
