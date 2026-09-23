@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestro origen - Mieles Los Primos</title>
+
+    <!-- Fuentes: Lora para títulos, Inter para texto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Hoja de estilos -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Encabezado: igual en todas las páginas. aria-current marca la página actual -->
+    <header>
+        <a href="index.html" class="header-logo">
+            <img src="img/logo.jpg" alt="" width="48" height="48">
+            <span class="logo-texto">
+                <span class="logo-marca">Mieles</span>
+                <span class="logo-nombre">LOS PRIMOS</span>
+            </span>
+        </a>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="origen.html" aria-current="page">Origen</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-carrito">
+            <a href="carrito.html" aria-label="Carrito: 0 productos">
+                <span aria-hidden="true">🛒</span>
+                <span class="carrito-contador">0</span>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- NUESTRO ORIGEN (texto redactado por Juana Molina) -->
+        <section id="origen">
+            <div class="origen-encabezado">
+                <h1 class="titulo-decorado">Nuestro origen</h1>
+                <p class="subtitulo">Miel del monte, hecha en familia</p>
+            </div>
+
+            <div class="origen-historia">
+                <article>
+                    <h2>Del corazón del Impenetrable</h2>
+                    <p>Nuestra miel nace en el Paraje San Agustín, en pleno Impenetrable chaqueño, entre Juan José Castelli y Villa Río Bermejito. Es monte nativo de verdad: quebrachos, algarrobos y, sobre todo, garabato y mistol, que florecen cada temporada y le dan a nuestra miel un sabor que no se consigue en otro lugar.</p>
+                    <p>Ahí, donde el monte sigue siendo monte, nuestras abejas trabajan libres, lejos de cultivos industriales y de agroquímicos. No las alimentamos con jarabes ni les apuramos los tiempos: cosechamos lo que el monte da, cuando el monte lo da.</p>
+                </article>
+
+                <article>
+                    <h2>Una historia de familia</h2>
+                    <p>"Los Primos" no es solo un nombre. Somos una familia de Castelli que aprendió el oficio de la apicultura trabajando codo a codo: entre hermanos y primos, con las manos en el panal y el ahumador siempre listo. Lo que empezó con unas pocas colmenas como un sueño compartido se fue convirtiendo, cosecha tras cosecha, en el emprendimiento que hoy lleva nuestra miel a la mesa de Castelli, Resistencia y cada vez más lugares del país.</p>
+                    <p>Cada botella la cosechamos, fraccionamos y envasamos nosotros mismos. Por eso sabemos de dónde viene cada gota, y te lo podemos contar.</p>
+                </article>
+            </div>
+
+            <!-- Tarjetas destacadas (íconos SVG decorativos) -->
+            <ul class="origen-destacados">
+                <li class="tarjeta">
+                    <!-- Árbol -->
+                    <svg class="origen-icono" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 21v-6"/>
+                        <path d="M12 3a5 5 0 0 0-4.6 7A4 4 0 0 0 8 17h8a4 4 0 0 0 .6-7A5 5 0 0 0 12 3z"/>
+                    </svg>
+                    <h2>Monte nativo</h2>
+                    <p>Floración de garabato, mistol y algarrobo del Paraje San Agustín.</p>
+                </li>
+                <li class="tarjeta">
+                    <!-- Abeja: cuerpo con rayas y dos alas -->
+                    <svg class="origen-icono" viewBox="0 0 24 24" aria-hidden="true">
+                        <ellipse cx="12" cy="14" rx="4" ry="6"/>
+                        <path d="M8.5 12h7M8.3 15h7.4"/>
+                        <path d="M10 8.5C8 5 4 5 4 8s3.5 3.5 6 2.5M14 8.5C16 5 20 5 20 8s-3.5 3.5-6 2.5"/>
+                    </svg>
+                    <h2>Sin químicos ni jarabes</h2>
+                    <p>Abejas libres en un entorno sin cultivos industriales.</p>
+                </li>
+                <li class="tarjeta">
+                    <!-- Familia: tres personas -->
+                    <svg class="origen-icono" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="7" cy="7" r="2.5"/>
+                        <circle cx="17" cy="7" r="2.5"/>
+                        <circle cx="12" cy="12" r="2"/>
+                        <path d="M3 20v-3a4 4 0 0 1 7-2.6M21 20v-3a4 4 0 0 0-7-2.6M9 20v-1.5a3 3 0 0 1 6 0V20"/>
+                    </svg>
+                    <h2>Manos de familia</h2>
+                    <p>Cosechada, fraccionada y envasada por nosotros, en Castelli.</p>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Pie de Página (Footer). Es el mismo en todas las páginas:
+         si se cambia, hay que cambiarlo en todos los archivos .html. -->
+    <footer>
+        <section class="footer-marca">
+            <h2>Mieles Los Primos</h2>
+            <p>Miel pura de abeja recolectada en el monte nativo de Juan José Castelli, Chaco, Argentina.</p>
+        </section>
+
+        <!-- DATOS DE EJEMPLO: reemplazar el número de WhatsApp y el usuario de Instagram por los reales -->
+        <section id="contacto">
+            <h2>Contacto y redes</h2>
+            <p>Atención directa para pedidos y envíos en Chaco y todo el país.</p>
+            <ul class="footer-redes">
+                <li>
+                    <a href="https://wa.me/5493644000000" target="_blank" rel="noopener">
+                        <!-- Globo de chat con teléfono (WhatsApp) -->
+                        <svg class="red-icono" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.7z"/>
+                            <path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a4.5 4.5 0 0 1-2.3-2.3l.8-1-1-2z"/>
+                        </svg>
+                        <span>WhatsApp: +54 9 3644 00-0000</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/mieleslosprimos.ejemplo" target="_blank" rel="noopener">
+                        <!-- Cámara (Instagram) -->
+                        <svg class="red-icono" viewBox="0 0 24 24" aria-hidden="true">
+                            <rect x="3.5" y="3.5" width="17" height="17" rx="5"/>
+                            <circle cx="12" cy="12" r="4"/>
+                            <circle cx="17" cy="7" r="0.6"/>
+                        </svg>
+                        <span>Instagram: @mieleslosprimos.ejemplo</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <section class="footer-legal">
+            <h2>Legal</h2>
+            <ul>
+                <li><a href="privacidad.html">Política de Privacidad</a></li>
+                <li><a href="https://github.com/juanimol19/mieles-los-primos-web/blob/main/LICENSE">Licencia MIT del código</a></li>
+            </ul>
+            <p class="footer-leyenda">Mieles Los Primos protege tus datos personales conforme a la Ley N° 25.326. Consultá nuestra <a href="privacidad.html">Política de Privacidad</a> o escribinos a <a href="mailto:privacidad@mieleslosprimos.com.ar">privacidad@mieleslosprimos.com.ar</a> para ejercer tus derechos de acceso, rectificación, supresión u oposición.</p>
+        </section>
+
+        <p class="footer-copyright">&copy; 2026 Mieles Los Primos. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Botón flotante de WhatsApp: fijo abajo a la derecha, visible en todas las secciones.
+         DATOS DE EJEMPLO: reemplazar el número por el real -->
+    <a href="https://wa.me/5493644000000" class="whatsapp-flotante" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.7z"/>
+            <path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a4.5 4.5 0 0 1-2.3-2.3l.8-1-1-2z"/>
+        </svg>
+    </a>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mieles Los Primos - Miel del Impenetrable Chaqueño</title>
+    <title>Catálogo - Mieles Los Primos</title>
 
     <!-- Fuentes: Lora para títulos, Inter para texto -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,8 +27,8 @@
 
         <nav>
             <ul>
-                <li><a href="index.html" aria-current="page">Inicio</a></li>
-                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html" aria-current="page">Catálogo</a></li>
                 <li><a href="origen.html">Origen</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
@@ -43,96 +43,65 @@
     </header>
 
     <main>
-        <!-- INICIO: hero, productos destacados y beneficios -->
-        <section id="inicio">
-            <div class="hero">
-                <h1>Miel Natural del Impenetrable Chaqueño</h1>
-                <p>Miel pura de abeja, artesanal y multifloral, del monte nativo (algarrobo, chañar y más).</p>
-                <a href="catalogo.html" class="boton">Ver catálogo &rarr;</a>
+        <!-- CATÁLOGO DE PRODUCTOS -->
+        <section id="catalogo">
+            <div class="catalogo-encabezado">
+                <h1>Catálogo de productos</h1>
+                <p class="subtitulo">Seleccioná tu producto favorito y llevate lo mejor del monte chaqueño.</p>
             </div>
 
-            <!-- Nuestros Productos (Destacados de Portada) -->
-            <section id="productos-destacados">
-                <h2 class="titulo-decorado">Nuestros productos</h2>
-                <p class="subtitulo">Miel, panal y polen. Sabores auténticos del monte chaqueño.</p>
-
-                <!-- Las imágenes usan las mismas rutas que data/productos.json -->
-                <div class="tarjetas-destacadas">
-                    <article class="tarjeta">
-                        <img src="img/botella-miel-800.webp" alt="Botella de miel multifloral dorada con la etiqueta de Los Primos">
-                        <div class="tarjeta-texto">
-                            <h3>Miel Natural de Abeja</h3>
-                            <p>400 g / 800 g</p>
-                        </div>
-                    </article>
-
-                    <article class="tarjeta">
-                        <img src="img/panal-miel-100.webp" alt="Porción de panal con miel en su caja">
-                        <div class="tarjeta-texto">
-                            <h3>Panal de Miel</h3>
-                            <p>Porción natural</p>
-                        </div>
-                    </article>
-
-                    <article class="tarjeta">
-                        <img src="img/caja-madera-6-botellas.webp" alt="Caja de madera con seis botellas de miel">
-                        <div class="tarjeta-texto">
-                            <h3>Caja de Madera</h3>
-                            <p>Con 6 botellas de miel</p>
-                        </div>
-                    </article>
-                </div>
-            </section>
-
-            <!-- Sellos de Confianza y Calidad -->
-            <!-- Íconos SVG decorativos (aria-hidden): el texto ya transmite la información -->
-            <section id="beneficios" aria-label="Beneficios">
+            <!-- Filtros por Categorías (aria-pressed marca el filtro activo) -->
+            <aside class="catalogo-categorias">
+                <h2>Categorías</h2>
                 <ul>
-                    <li>
-                        <!-- Hoja -->
-                        <svg class="beneficio-icono" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M5 19c0-8 6-14 15-14 0 9-6 15-14 15"/>
-                            <path d="M5 19l8-8"/>
-                        </svg>
-                        <span class="beneficio-texto">
-                            <strong>100% Natural</strong>
-                            <span>Sin aditivos ni conservantes</span>
-                        </span>
-                    </li>
-                    <li>
-                        <!-- Marcador de ubicación -->
-                        <svg class="beneficio-icono" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"/>
-                            <circle cx="12" cy="9" r="2.5"/>
-                        </svg>
-                        <span class="beneficio-texto">
-                            <strong>Del Impenetrable Chaqueño</strong>
-                            <span>Juan José Castelli, Chaco</span>
-                        </span>
-                    </li>
-                    <li>
-                        <!-- Celda de panal (hexágono) -->
-                        <svg class="beneficio-icono" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M12 3l7 4v10l-7 4-7-4V7z"/>
-                            <path d="M12 8l3.5 2v4L12 16l-3.5-2v-4z"/>
-                        </svg>
-                        <span class="beneficio-texto">
-                            <strong>Producción Artesanal</strong>
-                            <span>Cosecha y envasado cuidado</span>
-                        </span>
-                    </li>
-                    <li>
-                        <!-- Escudo con tilde -->
-                        <svg class="beneficio-icono" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6z"/>
-                            <path d="M9 12l2 2 4-4"/>
-                        </svg>
-                        <span class="beneficio-texto">
-                            <strong>Compra Segura</strong>
-                            <span>Pagá con Mercado Pago</span>
-                        </span>
-                    </li>
+                    <li><button type="button" class="categoria-boton" aria-pressed="true">Todos</button></li>
+                    <li><button type="button" class="categoria-boton" aria-pressed="false">Miel</button></li>
+                    <li><button type="button" class="categoria-boton" aria-pressed="false">Panal</button></li>
+                    <li><button type="button" class="categoria-boton" aria-pressed="false">Polen</button></li>
                 </ul>
+            </aside>
+
+            <!-- Grilla de Productos (rutas de imagen iguales a data/productos.json) -->
+            <section id="grilla-productos" aria-label="Productos">
+                <!-- Producto 1 -->
+                <article class="tarjeta tarjeta-producto">
+                    <img src="img/botella-miel-800.webp" alt="Botella de 800 g de miel multifloral dorada">
+                    <div class="tarjeta-texto">
+                        <h2>Botella de miel 800 g</h2>
+                        <p class="precio">$8.850</p>
+                        <button type="button" class="boton">Agregar al carrito</button>
+                    </div>
+                </article>
+
+                <!-- Producto 2 -->
+                <article class="tarjeta tarjeta-producto">
+                    <img src="img/botella-miel-400.webp" alt="Botella de 400 g de miel multifloral dorada">
+                    <div class="tarjeta-texto">
+                        <h2>Botella de miel 400 g</h2>
+                        <p class="precio">$6.600</p>
+                        <button type="button" class="boton">Agregar al carrito</button>
+                    </div>
+                </article>
+
+                <!-- Producto 3 -->
+                <article class="tarjeta tarjeta-producto">
+                    <img src="img/frasco-polen-100.webp" alt="Frasco de vidrio con 100 g de polen apícola en gránulos">
+                    <div class="tarjeta-texto">
+                        <h2>Frasco de polen 100 g</h2>
+                        <p class="precio">$9.000</p>
+                        <button type="button" class="boton">Agregar al carrito</button>
+                    </div>
+                </article>
+
+                <!-- Producto 4 -->
+                <article class="tarjeta tarjeta-producto">
+                    <img src="img/panal-miel-100.webp" alt="Porción de 100 g de panal con miel">
+                    <div class="tarjeta-texto">
+                        <h2>Panal de miel 100 g</h2>
+                        <p class="precio">$6.000</p>
+                        <button type="button" class="boton">Agregar al carrito</button>
+                    </div>
+                </article>
             </section>
         </section>
     </main>

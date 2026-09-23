@@ -23,8 +23,12 @@ Trabajo práctico de 3.er año de la **Tecnicatura Superior en Desarrollo de Sof
 
 ```
 mieles-los-primos-web/
-├── index.html
-├── privacidad.html
+├── index.html          (inicio: hero, productos destacados y beneficios)
+├── catalogo.html       (catálogo con categorías)
+├── origen.html         (historia del emprendimiento)
+├── carrito.html        (carrito de compras)
+├── checkout.html       (formulario de compra)
+├── privacidad.html     (Política de Privacidad, Ley 25.326)
 ├── css/
 │   └── styles.css
 ├── data/
@@ -37,7 +41,7 @@ mieles-los-primos-web/
 
 ## Cómo probarlo localmente
 
-Abrir `index.html` en el navegador, o usar la extensión Live Server de VS Code. Para revisar el diseño responsive, usar el modo dispositivo de las DevTools (F12).
+Abrir `index.html` en el navegador (desde ahí se navega al resto de las páginas), o usar la extensión Live Server de VS Code. Para revisar el diseño responsive, usar el modo dispositivo de las DevTools (F12).
 
 ## Licencia
 

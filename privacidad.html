@@ -10,12 +10,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Hoja de estilos (la misma que index.html) -->
+    <!-- Hoja de estilos -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-    <!-- Encabezado: igual que en index.html, pero los links apuntan a index.html#... -->
+    <!-- Encabezado: igual en todas las páginas. aria-current marca la página actual -->
     <header>
         <a href="index.html" class="header-logo">
             <img src="img/logo.jpg" alt="" width="48" height="48">
@@ -27,15 +27,15 @@
 
         <nav>
             <ul>
-                <li><a href="index.html#inicio">Inicio</a></li>
-                <li><a href="index.html#catalogo">Catálogo</a></li>
-                <li><a href="index.html#origen">Origen</a></li>
-                <li><a href="index.html#contacto">Contacto</a></li>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="origen.html">Origen</a></li>
+                <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
 
         <div class="header-carrito">
-            <a href="index.html#carrito" aria-label="Carrito: 0 productos">
+            <a href="carrito.html" aria-label="Carrito: 0 productos">
                 <span aria-hidden="true">🛒</span>
                 <span class="carrito-contador">0</span>
             </a>
@@ -231,17 +231,17 @@
         </article>
     </main>
 
-    <!-- Pie de Página (Footer). Es el mismo en index.html y privacidad.html:
-         si se cambia, hay que cambiarlo en las dos páginas. -->
+    <!-- Pie de Página (Footer). Es el mismo en todas las páginas:
+         si se cambia, hay que cambiarlo en todos los archivos .html. -->
     <footer>
         <section class="footer-marca">
-            <h3>Mieles Los Primos</h3>
+            <h2>Mieles Los Primos</h2>
             <p>Miel pura de abeja recolectada en el monte nativo de Juan José Castelli, Chaco, Argentina.</p>
         </section>
 
         <!-- DATOS DE EJEMPLO: reemplazar el número de WhatsApp y el usuario de Instagram por los reales -->
         <section id="contacto">
-            <h3>Contacto y redes</h3>
+            <h2>Contacto y redes</h2>
             <p>Atención directa para pedidos y envíos en Chaco y todo el país.</p>
             <ul class="footer-redes">
                 <li>
@@ -269,7 +269,7 @@
         </section>
 
         <section class="footer-legal">
-            <h3>Legal</h3>
+            <h2>Legal</h2>
             <ul>
                 <li><a href="privacidad.html" aria-current="page">Política de Privacidad</a></li>
                 <li><a href="https://github.com/juanimol19/mieles-los-primos-web/blob/main/LICENSE">Licencia MIT del código</a></li>
