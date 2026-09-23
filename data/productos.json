@@ -4,7 +4,7 @@
     "nombre": "Botella de miel 800 g",
     "descripcion": "Miel pura multifloral del Impenetrable, cosechada del monte nativo chaqueño: algarrobo, chañar, garabato, entre otras flores.",
     "precio_simulado": 8850,
-    "precio_mayorista": null,
+    "precio_mayorista": 5900,
     "precio_a_confirmar": false,
     "imagen_ia_url": "img/botella-miel-800.webp",
     "categoria": "miel",
@@ -15,7 +15,7 @@
     "nombre": "Botella de miel 400 g",
     "descripcion": "Miel pura multifloral del Impenetrable en presentación chica, ideal para probar el sabor del monte chaqueño.",
     "precio_simulado": 6600,
-    "precio_mayorista": null,
+    "precio_mayorista": 4400,
     "precio_a_confirmar": false,
     "imagen_ia_url": "img/botella-miel-400.webp",
     "categoria": "miel",
@@ -26,7 +26,7 @@
     "nombre": "Frasco de polen 100 g",
     "descripcion": "Polen apícola recolectado por nuestras abejas en el monte nativo. Un complemento natural para el desayuno.",
     "precio_simulado": 9000,
-    "precio_mayorista": null,
+    "precio_mayorista": 6000,
     "precio_a_confirmar": false,
     "imagen_ia_url": "img/frasco-polen-100.webp",
     "categoria": "polen",
@@ -45,13 +45,13 @@
   },
   {
     "id": 5,
-    "nombre": "Caja de madera con 3 botellas de miel",
-    "descripcion": "Caja de madera para regalar, con tres botellas de miel pura multifloral del Impenetrable.",
+    "nombre": "Caja de madera con 6 botellas de miel",
+    "descripcion": "Caja de madera para regalar, con seis botellas de miel pura multifloral del Impenetrable, de 800 g o de 400 g.",
     "precio_simulado": 0,
     "precio_mayorista": null,
     "precio_a_confirmar": true,
-    "imagen_ia_url": "img/caja-madera-3-botellas.webp",
+    "imagen_ia_url": "img/caja-madera-6-botellas.webp",
     "categoria": "miel",
-    "presentacion": "3 botellas"
+    "presentacion": "6 botellas (800 g o 400 g)"
   }
 ]
