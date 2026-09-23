@@ -148,9 +148,15 @@ header {
   order: 1;
 }
 
+/* Logo recortado con forma de celda de panal (hexágono con punta arriba).
+   clip-path: polygon() recibe los 6 vértices en porcentajes del ancho y el alto.
+   El ancho es ~0.87 del alto (proporción de un hexágono regular) y object-fit
+   evita que la imagen se deforme al no ser cuadrado. */
 .header-logo img {
-  width: 3rem;
+  width: 2.6rem;
   height: 3rem;
+  object-fit: cover;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
 
 .logo-texto {
