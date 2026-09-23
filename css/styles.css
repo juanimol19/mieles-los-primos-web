@@ -107,7 +107,112 @@ h1, h2, h3, h4 {
 /* ==========================================================================
    4. HEADER
    ========================================================================== */
+header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
 
+/* Logo: ícono + texto en dos líneas (Mieles / LOS PRIMOS) */
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  order: 1;
+}
+
+.header-logo img {
+  width: 3rem;
+  height: 3rem;
+}
+
+.logo-texto {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.logo-marca {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.logo-nombre {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.125rem;
+  letter-spacing: 0.02em;
+  color: var(--color-brown);
+}
+
+/* Nav: en móvil pasa a su propia fila, ancha, con los links envolviendo */
+header nav {
+  order: 3;
+  flex-basis: 100%;
+}
+
+header nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+header nav a {
+  font-weight: 500;
+  color: var(--color-text-muted);
+  padding-bottom: var(--space-1);
+  border-bottom: 2px solid transparent;
+}
+
+header nav a:hover {
+  color: var(--color-amber-hover);
+}
+
+/* Link activo: se marca con aria-current, no con una clase */
+header nav a[aria-current="page"] {
+  color: var(--color-amber);
+  border-bottom-color: var(--color-amber);
+}
+
+/* Carrito con contador (badge) */
+.header-carrito {
+  order: 2;
+}
+
+.header-carrito a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.25rem;
+}
+
+.carrito-contador {
+  position: absolute;
+  top: -0.4rem;
+  right: -0.6rem;
+  min-width: 1.1rem;
+  height: 1.1rem;
+  padding: 0 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--color-white);
+  background-color: var(--color-amber);
+  border-radius: var(--radius-full);
+}
 
 /* ==========================================================================
    5. HERO / DESTACADOS
@@ -132,7 +237,35 @@ h1, h2, h3, h4 {
 /* ==========================================================================
    9. FOOTER
    ========================================================================== */
+footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-4);
+  margin-top: var(--space-6);
+  background-color: var(--color-cream);
+  border-top: 1px solid var(--color-border);
+}
 
+footer > section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+footer h3,
+footer h4 {
+  font-size: 1rem;
+}
+
+/* Copyright: fila propia, separada con un borde superior */
+footer > p {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
 
 /* ==========================================================================
    10. MEDIA QUERIES
@@ -140,7 +273,26 @@ h1, h2, h3, h4 {
 
 /* Tablet: >= 768px */
 @media (min-width: 768px) {
+  /* Header: logo, nav y carrito vuelven a una sola fila */
+  header nav {
+    order: 2;
+    flex-basis: auto;
+  }
 
+  /* Footer: secciones lado a lado, copyright ocupa toda la fila */
+  footer {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  footer > section {
+    flex: 1 1 240px;
+  }
+
+  footer > p {
+    flex-basis: 100%;
+  }
 }
 
 /* Escritorio: >= 1024px */

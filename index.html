@@ -17,27 +17,28 @@
 
     <!-- Encabezado Principal y Navegación (Común a todas las pantallas) -->
     <header>
-        <div>
-            <!-- Logo Mieles Los Primos -->
-            <a href="#inicio">
-                <img src="assets/logo.png" alt="Mieles Los Primos Logo">
-                <span>Mieles LOS PRIMOS</span>
-            </a>
-        </div>
-        
+        <!-- Logo Mieles Los Primos -->
+        <a href="#inicio" class="header-logo">
+            <img src="img/logo.jpg" alt="" width="48" height="48">
+            <span class="logo-texto">
+                <span class="logo-marca">Mieles</span>
+                <span class="logo-nombre">LOS PRIMOS</span>
+            </span>
+        </a>
+
         <nav>
             <ul>
-                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#inicio" aria-current="page">Inicio</a></li>
                 <li><a href="#catalogo">Catálogo</a></li>
                 <li><a href="#origen">Origen</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
 
-        <div>
-            <a href="#carrito" aria-label="Carrito de compras">
-                <span>🛒</span>
-                <span>(0)</span>
+        <div class="header-carrito">
+            <a href="#carrito" aria-label="Carrito: 0 productos">
+                <span aria-hidden="true">🛒</span>
+                <span class="carrito-contador">0</span>
             </a>
         </div>
     </header>
