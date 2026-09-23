@@ -53,6 +53,9 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
+  /* Al saltar a una sección (#catalogo), deja lugar para el header fijo.
+     En móvil el header ocupa dos filas (logo + nav); desde 768px, una. */
+  scroll-padding-top: 8.5rem;
 }
 
 ul,
@@ -103,6 +106,12 @@ body {
 h1, h2, h3, h4 {
   font-family: var(--font-heading);
   line-height: 1.2;
+}
+
+/* Separador entre secciones: línea fina con el color de bordes de la paleta */
+hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
 }
 
 /* Botón principal reutilizable (hero, carrito, checkout).
@@ -194,12 +203,13 @@ header nav a {
 }
 
 header nav a:hover {
-  color: var(--color-amber-hover);
+  color: var(--color-amber-texto);
 }
 
-/* Link activo: se marca con aria-current, no con una clase */
+/* Link activo: se marca con aria-current, no con una clase.
+   Texto en ámbar oscuro (contraste 4.7:1); el subrayado puede ser ámbar claro */
 header nav a[aria-current="page"] {
-  color: var(--color-amber);
+  color: var(--color-amber-texto);
   border-bottom-color: var(--color-amber);
 }
 
@@ -228,7 +238,7 @@ header nav a[aria-current="page"] {
   font-family: var(--font-body);
   font-size: 0.65rem;
   font-weight: 600;
-  color: var(--color-white);
+  color: var(--color-brown); /* marrón sobre ámbar: contraste 6:1 (blanco daba 2.3:1) */
   background-color: var(--color-amber);
   border-radius: var(--radius-full);
 }
@@ -283,15 +293,15 @@ header nav a[aria-current="page"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-3);
-  font-size: 1.75rem;
+  gap: var(--space-2);
+  font-size: 1.5rem;
   text-align: center;
 }
 
 .titulo-decorado::before,
 .titulo-decorado::after {
   content: "";
-  width: 3rem;
+  width: 1.5rem;
   height: 1px;
   background-color: var(--color-amber);
 }
@@ -1136,11 +1146,6 @@ footer > p {
   margin-top: var(--space-2);
 }
 
-/* Al saltar a una sección (#derechos), que el header fijo no tape el título */
-.texto-legal section {
-  scroll-margin-top: 7rem;
-}
-
 /* Tablas del texto legal: si no entran en pantalla (móvil), el contenedor
    se desplaza en horizontal en lugar de romper el ancho de la página */
 .tabla-scroll {
@@ -1185,6 +1190,21 @@ footer > p {
 
 /* Tablet: >= 768px */
 @media (min-width: 768px) {
+  /* El header ocupa una sola fila: hace falta menos espacio arriba */
+  html {
+    scroll-padding-top: 6rem;
+  }
+
+  .titulo-decorado {
+    gap: var(--space-3);
+    font-size: 1.75rem;
+  }
+
+  .titulo-decorado::before,
+  .titulo-decorado::after {
+    width: 3rem;
+  }
+
   /* Header: logo, nav y carrito vuelven a una sola fila */
   header nav {
     order: 2;
