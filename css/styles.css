@@ -702,6 +702,195 @@ header nav a[aria-current="page"] {
 /* ==========================================================================
    8. CHECKOUT
    ========================================================================== */
+#checkout {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+}
+
+#checkout h2 {
+  font-size: 1.75rem;
+}
+
+#checkout .subtitulo {
+  text-align: left;
+}
+
+/* Formulario con Grid: bloques y resumen apilados en móvil,
+   2fr 1fr en escritorio (ver media queries) */
+.checkout-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  align-items: start;
+}
+
+.checkout-bloques {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Cada bloque del formulario es un fieldset con estilo de tarjeta */
+.checkout-bloques fieldset {
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+/* Numeración automática de los pasos con contadores CSS: un bloque oculto
+   (display: none) no incrementa el contador, así que si se oculta la
+   dirección los pasos se renumeran solos (1, 2, 3) */
+.checkout-bloques {
+  counter-reset: paso;
+}
+
+.checkout-bloques fieldset {
+  counter-increment: paso;
+}
+
+.checkout-bloques legend::before {
+  content: counter(paso) ". ";
+}
+
+.checkout-bloques legend {
+  padding: 0 var(--space-2);
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+.bloque-nota {
+  margin-bottom: var(--space-3);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+/* Sub-grid de campos: 1 columna en móvil; 2 o 3 en tablet/escritorio */
+.campos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+/* Cada campo: label arriba e input abajo */
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.campo label {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.campo input,
+.campo select {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.campo input:focus,
+.campo select:focus {
+  border-color: var(--color-amber);
+}
+
+/* Opciones de envío y pago: tarjetas con radio (Flexbox) */
+.opciones {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.opcion {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+/* La opción elegida se resalta con borde ámbar y fondo crema.
+   :has() permite darle estilo al contenedor según el radio que tiene adentro */
+.opcion:has(input:checked) {
+  border-color: var(--color-amber);
+  background-color: var(--color-cream);
+}
+
+.opcion input,
+.casilla input {
+  margin-top: 0.3rem;
+  accent-color: var(--color-amber-texto);
+}
+
+.opcion label {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.opcion label span {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+/* Dirección condicional: si se elige "Retiro en sucursal", el bloque de
+   dirección se oculta (y no se piden esos datos). Solo CSS, sin JavaScript. */
+.checkout-form:has(#retiro-sucursal:checked) .bloque-direccion {
+  display: none;
+}
+
+/* Casillas de consentimiento */
+.consentimientos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.casilla {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: 0.9rem;
+}
+
+.casilla a {
+  color: var(--color-amber-texto);
+  text-decoration: underline;
+}
+
+/* Resumen lateral: reutiliza .tarjeta, .resumen-fila y .resumen-total del carrito */
+.checkout-resumen {
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+.checkout-resumen h3 {
+  font-size: 1.125rem;
+}
+
+.resumen-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.checkout-resumen .boton {
+  justify-content: center;
+}
+
+.resumen-seguro {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
 
 
 /* ==========================================================================
@@ -852,6 +1041,21 @@ footer > p {
     vertical-align: middle;
     margin-right: var(--space-2);
   }
+
+  /* Checkout: sub-grids de campos en 2 columnas */
+  .campos-2,
+  .campos-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Envío y pago: opciones lado a lado */
+  .opciones {
+    flex-direction: row;
+  }
+
+  .opcion {
+    flex: 1;
+  }
 }
 
 /* Escritorio: >= 1024px */
@@ -873,5 +1077,15 @@ footer > p {
       "items      resumen"
       "aviso      resumen";
     align-items: start;
+  }
+
+  /* Checkout: bloques del formulario (2fr) y resumen lateral (1fr) */
+  .checkout-form {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  /* Datos del comprador: 3 columnas (nombre, email, teléfono) */
+  .campos-3 {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
