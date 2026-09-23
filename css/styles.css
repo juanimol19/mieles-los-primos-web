@@ -994,6 +994,44 @@ footer > p a {
   margin-top: var(--space-2);
 }
 
+/* Al saltar a una sección (#derechos), que el header fijo no tape el título */
+.texto-legal section {
+  scroll-margin-top: 7rem;
+}
+
+/* Tablas del texto legal: si no entran en pantalla (móvil), el contenedor
+   se desplaza en horizontal en lugar de romper el ancho de la página */
+.tabla-scroll {
+  margin: var(--space-3) 0;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.tabla-legal {
+  width: 100%;
+  min-width: 36rem;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.tabla-legal th,
+.tabla-legal td {
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tabla-legal thead th {
+  font-weight: 600;
+  background-color: var(--color-cream);
+}
+
+.tabla-legal tbody tr:last-child > * {
+  border-bottom: none;
+}
+
 .texto-legal a:not(.link-volver) {
   color: var(--color-amber-texto);
   text-decoration: underline;
