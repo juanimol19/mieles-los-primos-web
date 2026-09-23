@@ -504,6 +504,200 @@ header nav a[aria-current="page"] {
    7. CARRITO
    ========================================================================== */
 
+/* Layout del carrito con Grid y áreas con nombre.
+   Móvil: una columna (productos, resumen y aviso apilados).
+   Escritorio: 2fr 1fr, con el resumen a la derecha (ver media queries). */
+#carrito {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "encabezado"
+    "items"
+    "resumen"
+    "aviso";
+  gap: var(--space-4);
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+}
+
+.carrito-encabezado {
+  grid-area: encabezado;
+}
+
+.carrito-encabezado h2 {
+  font-size: 1.75rem;
+}
+
+.carrito-encabezado .subtitulo {
+  text-align: left;
+}
+
+.carrito-items {
+  grid-area: items;
+}
+
+/* --- Tabla: en móvil cada fila se ve como una tarjeta apilada --- */
+.carrito-tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* El encabezado de la tabla se oculta en móvil: cada celda
+   muestra su propio título con data-label */
+.carrito-tabla thead {
+  display: none;
+}
+
+.carrito-tabla tr {
+  display: block;
+  margin-bottom: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-suave);
+}
+
+/* Cada celda: título a la izquierda y valor a la derecha (Flexbox) */
+.carrito-tabla td {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+}
+
+.carrito-tabla td::before {
+  content: attr(data-label);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+/* La celda del producto no necesita título: la imagen y el nombre ya lo dicen */
+.carrito-tabla .carrito-producto::before {
+  content: none;
+}
+
+/* Con .carrito-tabla delante le gana a ".carrito-tabla td" (space-between) */
+.carrito-tabla .carrito-producto {
+  justify-content: flex-start;
+  font-weight: 600;
+}
+
+.carrito-producto img {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: cover;
+  border-radius: var(--radius);
+  background-color: var(--color-cream);
+}
+
+/* Selector de cantidad: − [1] + en fila */
+.cantidad {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+.cantidad button {
+  width: 2rem;
+  height: 2rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+}
+
+.cantidad button:hover {
+  background-color: var(--color-cream);
+}
+
+.cantidad input {
+  width: 2.5rem;
+  text-align: center;
+  border: none;
+  background: none;
+  -moz-appearance: textfield; /* oculta las flechitas del input number en Firefox */
+}
+
+/* Oculta las flechitas del input number en Chrome/Edge */
+.cantidad input::-webkit-inner-spin-button,
+.cantidad input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.boton-eliminar {
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius);
+}
+
+.boton-eliminar:hover {
+  background-color: var(--color-cream);
+}
+
+.link-volver {
+  display: inline-block;
+  margin-top: var(--space-2);
+  font-weight: 500;
+  color: var(--color-amber-texto);
+}
+
+.link-volver:hover {
+  text-decoration: underline;
+}
+
+/* --- Resumen del pedido (reutiliza .tarjeta) --- */
+.carrito-resumen {
+  grid-area: resumen;
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+.carrito-resumen h3 {
+  font-size: 1.125rem;
+}
+
+/* Cada fila del resumen: concepto a la izquierda, importe a la derecha */
+.resumen-fila {
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-text-muted);
+}
+
+.resumen-total {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.carrito-resumen .boton {
+  justify-content: center;
+}
+
+/* --- Aviso de envíos --- */
+.carrito-aviso {
+  grid-area: aviso;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  font-size: 0.9rem;
+  background-color: var(--color-cream);
+  border-radius: var(--radius);
+}
+
+.aviso-icono {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  fill: none;
+  stroke: var(--color-amber-hover);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 
 /* ==========================================================================
    8. CHECKOUT
@@ -618,6 +812,46 @@ footer > p {
   .categoria-boton:not([aria-pressed="true"]):hover {
     background-color: var(--color-white);
   }
+
+  /* Carrito: la tabla vuelve a verse como tabla (filas y columnas) */
+  .carrito-tabla thead {
+    display: table-header-group;
+  }
+
+  .carrito-tabla tr {
+    display: table-row;
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+  }
+
+  .carrito-tabla th {
+    padding: var(--space-3) var(--space-2);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: left;
+    color: var(--color-text-muted);
+    background-color: var(--color-cream);
+  }
+
+  .carrito-tabla td {
+    display: table-cell;
+    vertical-align: middle;
+    padding: var(--space-3) var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* Ya hay encabezado de tabla: los títulos por celda sobran */
+  .carrito-tabla td::before {
+    content: none;
+  }
+
+  .carrito-producto img {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: var(--space-2);
+  }
 }
 
 /* Escritorio: >= 1024px */
@@ -629,5 +863,15 @@ footer > p {
   /* Beneficios: 4 columnas, una por beneficio */
   #beneficios ul {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Carrito: productos a la izquierda (2fr) y resumen a la derecha (1fr) */
+  #carrito {
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas:
+      "encabezado encabezado"
+      "items      resumen"
+      "aviso      resumen";
+    align-items: start;
   }
 }
