@@ -269,6 +269,80 @@ header nav a[aria-current="page"] {
   margin-top: var(--space-2);
 }
 
+/* Nuestros productos: contenedor centrado con ancho máximo */
+#productos-destacados {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+}
+
+/* Título con líneas decorativas a los costados, hechas con Flexbox y
+   pseudo-elementos (no hace falta agregar HTML de más) */
+.titulo-decorado {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  font-size: 1.75rem;
+  text-align: center;
+}
+
+.titulo-decorado::before,
+.titulo-decorado::after {
+  content: "";
+  width: 3rem;
+  height: 1px;
+  background-color: var(--color-amber);
+}
+
+.subtitulo {
+  margin-top: var(--space-2);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+/* Grilla de tarjetas: auto-fit crea tantas columnas como entren
+   (mínimo 15rem cada una), sin necesidad de media queries */
+.tarjetas-destacadas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+
+/* Tarjeta reutilizable: borde, esquinas redondeadas y sombra suave */
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* recorta la imagen con las esquinas redondeadas */
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-suave);
+}
+
+/* Todas las imágenes con la misma proporción; el fondo crema se ve
+   mientras la imagen carga (o si falta) */
+.tarjeta img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background-color: var(--color-cream);
+}
+
+.tarjeta-texto {
+  padding: var(--space-3);
+}
+
+.tarjeta-texto h3 {
+  font-size: 1rem;
+}
+
+.tarjeta-texto p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
 /* Beneficios: franja crema con Grid (1 columna en móvil) */
 #beneficios {
   padding: var(--space-4);
