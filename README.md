@@ -41,4 +41,8 @@ Abrir `index.html` en el navegador, o usar la extensión Live Server de VS Code.
 
 ## Licencia
 
-Ver el archivo [`LICENSE`](./LICENSE).
+El código fuente de este proyecto (HTML, CSS y JSON) se distribuye bajo la **Licencia MIT**. Ver el archivo [`LICENSE`](./LICENSE).
+
+En resumen, la licencia MIT permite usar, copiar, modificar y distribuir el código, incluso con fines comerciales, siempre que se mantenga el aviso de copyright y el texto de la licencia. El software se entrega "tal cual", sin garantías.
+
+**Alcance:** la licencia cubre únicamente el código. El nombre y la marca "Mieles Los Primos", el logo, las imágenes de productos y los textos descriptivos del emprendimiento pertenecen a sus titulares y no están incluidos en la licencia MIT.
