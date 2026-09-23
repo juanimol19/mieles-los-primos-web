@@ -11,6 +11,7 @@
   /* Colores — paleta miel/monte chaqueño */
   --color-amber: #E0A023;
   --color-amber-hover: #C4861A;
+  --color-amber-texto: #A0680F; /* ámbar oscuro para texto: contraste 4.7:1 sobre blanco */
   --color-cream: #FBF8F1;
   --color-brown: #3B2A1A;
   --color-border: #EDE6DA;
@@ -394,6 +395,110 @@ header nav a[aria-current="page"] {
    6. CATÁLOGO
    ========================================================================== */
 
+/* Layout del catálogo con Grid y áreas con nombre.
+   Móvil: todo en una columna (encabezado, categorías y productos).
+   Tablet/escritorio: barra lateral + grilla (ver media queries). */
+#catalogo {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "encabezado"
+    "categorias"
+    "productos";
+  gap: var(--space-4);
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+}
+
+.catalogo-encabezado {
+  grid-area: encabezado;
+}
+
+.catalogo-encabezado h2 {
+  font-size: 1.75rem;
+}
+
+/* El subtítulo del catálogo va alineado a la izquierda, no centrado */
+.catalogo-encabezado .subtitulo {
+  text-align: left;
+}
+
+.catalogo-categorias {
+  grid-area: categorias;
+}
+
+.catalogo-categorias h3 {
+  font-size: 1rem;
+  margin-bottom: var(--space-2);
+}
+
+/* Móvil: categorías como botones horizontales (chips) con Flexbox */
+.catalogo-categorias ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.categoria-boton {
+  padding: var(--space-1) var(--space-3);
+  font-weight: 500;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  transition: background-color 0.2s;
+}
+
+.categoria-boton:hover {
+  background-color: var(--color-cream);
+}
+
+/* Filtro activo: se marca con aria-pressed, no con una clase */
+.categoria-boton[aria-pressed="true"] {
+  background-color: var(--color-amber);
+  border-color: var(--color-amber);
+}
+
+/* Grilla de productos: auto-fit con tarjetas de 16rem como mínimo */
+#grilla-productos {
+  grid-area: productos;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--space-4);
+}
+
+/* Tarjeta de producto: imagen a la izquierda y texto a la derecha.
+   Reutiliza .tarjeta y .tarjeta-texto de "Nuestros productos". */
+.tarjeta-producto {
+  flex-direction: row;
+  align-items: center;
+}
+
+.tarjeta-producto img {
+  width: 7rem;
+  aspect-ratio: 3 / 4;
+  flex-shrink: 0;
+}
+
+.tarjeta-producto .tarjeta-texto {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+/* .tarjeta-texto .precio le gana en especificidad a .tarjeta-texto p */
+.tarjeta-texto .precio {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-amber-texto);
+}
+
+/* Botón más chico dentro de las tarjetas */
+.tarjeta-producto .boton {
+  padding: var(--space-1) var(--space-3);
+  font-size: 0.85rem;
+}
+
 
 /* ==========================================================================
    7. CARRITO
@@ -478,6 +583,40 @@ footer > p {
   /* Beneficios: 2 columnas */
   #beneficios ul {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Catálogo: barra lateral fija de 13rem + grilla que ocupa el resto */
+  #catalogo {
+    grid-template-columns: 13rem 1fr;
+    grid-template-areas:
+      "encabezado encabezado"
+      "categorias productos";
+    align-items: start;
+  }
+
+  /* Categorías: panel crema con los botones en columna */
+  .catalogo-categorias {
+    padding: var(--space-3);
+    background-color: var(--color-cream);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+  }
+
+  .catalogo-categorias ul {
+    flex-direction: column;
+  }
+
+  .categoria-boton {
+    width: 100%;
+    text-align: left;
+    border-radius: var(--radius);
+    border-color: transparent;
+  }
+
+  /* Sobre el panel crema, el hover se nota mejor en blanco
+     (salvo en el filtro activo, que sigue en ámbar) */
+  .categoria-boton:not([aria-pressed="true"]):hover {
+    background-color: var(--color-white);
   }
 }
 
