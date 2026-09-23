@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "nombre": "Botella de miel 800 g",
+    "descripcion": "Miel pura multifloral del Impenetrable, cosechada del monte nativo chaqueño: algarrobo, chañar, garabato, entre otras flores.",
+    "precio_simulado": 8850,
+    "precio_mayorista": null,
+    "precio_a_confirmar": false,
+    "imagen_ia_url": "img/botella-miel-800.webp",
+    "categoria": "miel",
+    "presentacion": "800 g"
+  },
+  {
+    "id": 2,
+    "nombre": "Botella de miel 400 g",
+    "descripcion": "Miel pura multifloral del Impenetrable en presentación chica, ideal para probar el sabor del monte chaqueño.",
+    "precio_simulado": 6600,
+    "precio_mayorista": null,
+    "precio_a_confirmar": false,
+    "imagen_ia_url": "img/botella-miel-400.webp",
+    "categoria": "miel",
+    "presentacion": "400 g"
+  },
+  {
+    "id": 3,
+    "nombre": "Frasco de polen 100 g",
+    "descripcion": "Polen apícola recolectado por nuestras abejas en el monte nativo. Un complemento natural para el desayuno.",
+    "precio_simulado": 9000,
+    "precio_mayorista": null,
+    "precio_a_confirmar": false,
+    "imagen_ia_url": "img/frasco-polen-100.webp",
+    "categoria": "polen",
+    "presentacion": "100 g"
+  },
+  {
+    "id": 4,
+    "nombre": "Panal de miel 100 g",
+    "descripcion": "Porción de panal con miel, tal como sale de la colmena. Se come entero: la cera y la miel juntas.",
+    "precio_simulado": 6000,
+    "precio_mayorista": null,
+    "precio_a_confirmar": false,
+    "imagen_ia_url": "img/panal-miel-100.webp",
+    "categoria": "panal",
+    "presentacion": "100 g"
+  },
+  {
+    "id": 5,
+    "nombre": "Caja de madera con 3 botellas de miel",
+    "descripcion": "Caja de madera para regalar, con tres botellas de miel pura multifloral del Impenetrable.",
+    "precio_simulado": 0,
+    "precio_mayorista": null,
+    "precio_a_confirmar": true,
+    "imagen_ia_url": "img/caja-madera-3-botellas.webp",
+    "categoria": "miel",
+    "presentacion": "3 botellas"
+  }
+]
