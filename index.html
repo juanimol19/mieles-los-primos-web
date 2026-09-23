@@ -207,65 +207,89 @@
 
         <!-- 03. SECCIÓN: CARRITO DE COMPRAS -->
         <section id="carrito">
-            <h2>Mi carrito</h2>
-            <p>Revisá tus productos antes de continuar con la compra.</p>
+            <div class="carrito-encabezado">
+                <h2>Mi carrito</h2>
+                <p class="subtitulo">Revisá tus productos antes de continuar con la compra.</p>
+            </div>
 
-            <!-- Tabla de Detalle del Carrito -->
-            <table>
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Precio unitario</th>
-                        <th>Cantidad</th>
-                        <th>Subtotal</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <img src="assets/botella-miel-400.png" alt="Botella de miel 400g" width="50">
-                            Botella de miel 400g
-                        </td>
-                        <td>$6.600</td>
-                        <td>
-                            <button type="button">-</button>
-                            <input type="number" value="1" min="1" readonly>
-                            <button type="button">+</button>
-                        </td>
-                        <td>$6.600</td>
-                        <td><button type="button" aria-label="Eliminar producto">🗑️</button></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <img src="assets/panal-miel-100.png" alt="Panal de miel 100g" width="50">
-                            Panal de miel 100g
-                        </td>
-                        <td>$6.000</td>
-                        <td>
-                            <button type="button">-</button>
-                            <input type="number" value="1" min="1" readonly>
-                            <button type="button">+</button>
-                        </td>
-                        <td>$6.000</td>
-                        <td><button type="button" aria-label="Eliminar producto">🗑️</button></td>
-                    </tr>
-                </tbody>
-            </table>
+            <!-- Tabla de Detalle del Carrito.
+                 data-label: en móvil cada celda muestra su título con CSS (td::before) -->
+            <div class="carrito-items">
+                <table class="carrito-tabla">
+                    <thead>
+                        <tr>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Precio unitario</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Subtotal</th>
+                            <th scope="col">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Producto" class="carrito-producto">
+                                <img src="img/botella-miel-400.webp" alt="" width="56" height="56">
+                                <span>Botella de miel 400 g</span>
+                            </td>
+                            <td data-label="Precio unitario">$6.600</td>
+                            <td data-label="Cantidad">
+                                <div class="cantidad">
+                                    <button type="button" aria-label="Restar una unidad">&minus;</button>
+                                    <input type="number" value="1" min="1" readonly aria-label="Cantidad de Botella de miel 400 g">
+                                    <button type="button" aria-label="Sumar una unidad">+</button>
+                                </div>
+                            </td>
+                            <td data-label="Subtotal">$6.600</td>
+                            <td data-label="Acción">
+                                <button type="button" class="boton-eliminar" aria-label="Eliminar Botella de miel 400 g del carrito">
+                                    <span aria-hidden="true">🗑️</span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-label="Producto" class="carrito-producto">
+                                <img src="img/panal-miel-100.webp" alt="" width="56" height="56">
+                                <span>Panal de miel 100 g</span>
+                            </td>
+                            <td data-label="Precio unitario">$6.000</td>
+                            <td data-label="Cantidad">
+                                <div class="cantidad">
+                                    <button type="button" aria-label="Restar una unidad">&minus;</button>
+                                    <input type="number" value="1" min="1" readonly aria-label="Cantidad de Panal de miel 100 g">
+                                    <button type="button" aria-label="Sumar una unidad">+</button>
+                                </div>
+                            </td>
+                            <td data-label="Subtotal">$6.000</td>
+                            <td data-label="Acción">
+                                <button type="button" class="boton-eliminar" aria-label="Eliminar Panal de miel 100 g del carrito">
+                                    <span aria-hidden="true">🗑️</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <a href="#catalogo">&larr; Seguir comprando</a>
+                <a href="#catalogo" class="link-volver">&larr; Seguir comprando</a>
+            </div>
 
             <!-- Resumen del Pedido -->
-            <aside>
+            <aside class="carrito-resumen tarjeta">
                 <h3>Resumen del pedido</h3>
-                <p>Subtotal (2 productos): <span>$12.600</span></p>
-                <p>Envío: <span>A calcular</span></p>
-                <p><strong>Total: $12.600</strong></p>
-                <a href="#checkout">Continuar al checkout &rarr;</a>
+                <p class="resumen-fila"><span>Subtotal (2 productos)</span> <span>$12.600</span></p>
+                <p class="resumen-fila"><span>Envío</span> <span>A calcular</span></p>
+                <p class="resumen-fila resumen-total"><span>Total</span> <span>$12.600</span></p>
+                <a href="#checkout" class="boton">Continuar al checkout &rarr;</a>
             </aside>
 
-            <div>
-                <p><strong>Envíos a todo el país:</strong> El costo de envío se calcula en el checkout según tu ubicación.</p>
+            <!-- Aviso de envíos (el ícono es decorativo) -->
+            <div class="carrito-aviso">
+                <svg class="aviso-icono" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 6h11v10H3z"/>
+                    <path d="M14 10h4l3 3v3h-7z"/>
+                    <circle cx="7" cy="17.5" r="1.5"/>
+                    <circle cx="17" cy="17.5" r="1.5"/>
+                </svg>
+                <p><strong>Envíos a todo el país.</strong> El costo de envío se calcula en el checkout según tu ubicación.</p>
             </div>
         </section>
 
