@@ -48,10 +48,10 @@
 
         <!-- 01. SECCIÓN: INICIO / HERO & DESTACADOS -->
         <section id="inicio">
-            <div>
+            <div class="hero">
                 <h1>Miel Natural del Impenetrable Chaqueño</h1>
                 <p>Miel pura de abeja, artesanal y multifloral, del monte nativo (algarrobo, chañar y más).</p>
-                <a href="#catalogo">Ver catálogo &rarr;</a>
+                <a href="#catalogo" class="boton">Ver catálogo &rarr;</a>
             </div>
 
             <!-- Nuestros Productos (Destacados de Portada) -->
@@ -81,23 +81,52 @@
             </section>
 
             <!-- Sellos de Confianza y Calidad -->
-            <section id="beneficios">
+            <!-- Íconos SVG decorativos (aria-hidden): el texto ya transmite la información -->
+            <section id="beneficios" aria-label="Beneficios">
                 <ul>
                     <li>
-                        <strong>100% Natural</strong>
-                        <span>Sin aditivos ni conservantes</span>
+                        <!-- Hoja -->
+                        <svg class="beneficio-icono" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M5 19c0-8 6-14 15-14 0 9-6 15-14 15"/>
+                            <path d="M5 19l8-8"/>
+                        </svg>
+                        <span class="beneficio-texto">
+                            <strong>100% Natural</strong>
+                            <span>Sin aditivos ni conservantes</span>
+                        </span>
                     </li>
                     <li>
-                        <strong>Del Impenetrable Chaqueño</strong>
-                        <span>Juan José Castelli, Chaco</span>
+                        <!-- Marcador de ubicación -->
+                        <svg class="beneficio-icono" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"/>
+                            <circle cx="12" cy="9" r="2.5"/>
+                        </svg>
+                        <span class="beneficio-texto">
+                            <strong>Del Impenetrable Chaqueño</strong>
+                            <span>Juan José Castelli, Chaco</span>
+                        </span>
                     </li>
                     <li>
-                        <strong>Producción Artesanal</strong>
-                        <span>Cosecha y envasado cuidado</span>
+                        <!-- Celda de panal (hexágono) -->
+                        <svg class="beneficio-icono" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 3l7 4v10l-7 4-7-4V7z"/>
+                            <path d="M12 8l3.5 2v4L12 16l-3.5-2v-4z"/>
+                        </svg>
+                        <span class="beneficio-texto">
+                            <strong>Producción Artesanal</strong>
+                            <span>Cosecha y envasado cuidado</span>
+                        </span>
                     </li>
                     <li>
-                        <strong>Compra Segura</strong>
-                        <span>Pagá con Mercado Pago</span>
+                        <!-- Escudo con tilde -->
+                        <svg class="beneficio-icono" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6z"/>
+                            <path d="M9 12l2 2 4-4"/>
+                        </svg>
+                        <span class="beneficio-texto">
+                            <strong>Compra Segura</strong>
+                            <span>Pagá con Mercado Pago</span>
+                        </span>
                     </li>
                 </ul>
             </section>
