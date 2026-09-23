@@ -104,6 +104,24 @@ h1, h2, h3, h4 {
   line-height: 1.2;
 }
 
+/* Botón principal reutilizable (hero, carrito, checkout).
+   Texto marrón sobre ámbar: el blanco sobre ámbar no llega al contraste mínimo. */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  font-weight: 600;
+  color: var(--color-brown);
+  background-color: var(--color-amber);
+  border-radius: var(--radius-full);
+  transition: background-color 0.2s;
+}
+
+.boton:hover {
+  background-color: var(--color-amber-hover);
+}
+
 /* ==========================================================================
    4. HEADER
    ========================================================================== */
@@ -218,6 +236,85 @@ header nav a[aria-current="page"] {
    5. HERO / DESTACADOS
    ========================================================================== */
 
+/* Hero: columna con Flexbox, texto claro sobre imagen con degradado oscuro.
+   Capas del fondo (de arriba hacia abajo): degradado, foto y color de respaldo
+   por si la foto no carga. */
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--space-3);
+  min-height: 22rem;
+  padding: var(--space-6) var(--space-4);
+  color: var(--color-white);
+  background-color: var(--color-brown);
+  background-image:
+    linear-gradient(to right, rgba(59, 42, 26, 0.85), rgba(59, 42, 26, 0.35)),
+    url("../img/hero-colmenas.webp");
+  background-size: cover;
+  background-position: center;
+}
+
+.hero h1 {
+  font-size: 2rem;
+  max-width: 16ch;
+}
+
+.hero p {
+  max-width: 36ch;
+}
+
+.hero .boton {
+  margin-top: var(--space-2);
+}
+
+/* Beneficios: franja crema con Grid (1 columna en móvil) */
+#beneficios {
+  padding: var(--space-4);
+  background-color: var(--color-cream);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+#beneficios ul {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+/* Cada beneficio: ícono + texto en fila con Flexbox */
+#beneficios li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.beneficio-icono {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  fill: none;
+  stroke: var(--color-amber-hover);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.beneficio-texto {
+  display: flex;
+  flex-direction: column;
+}
+
+.beneficio-texto strong {
+  font-weight: 600;
+}
+
+.beneficio-texto span {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
 
 /* ==========================================================================
    6. CATÁLOGO
@@ -293,9 +390,31 @@ footer > p {
   footer > p {
     flex-basis: 100%;
   }
+
+  /* Hero: más alto y con título más grande */
+  .hero {
+    min-height: 26rem;
+    padding: var(--space-6);
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  /* Beneficios: 2 columnas */
+  #beneficios ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* Escritorio: >= 1024px */
 @media (min-width: 1024px) {
+  .hero h1 {
+    font-size: 3rem;
+  }
 
+  /* Beneficios: 4 columnas, una por beneficio */
+  #beneficios ul {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
