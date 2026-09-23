@@ -501,7 +501,70 @@ header nav a[aria-current="page"] {
 
 
 /* ==========================================================================
-   7. CARRITO
+   7. ORIGEN
+   ========================================================================== */
+#origen {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+}
+
+.origen-encabezado {
+  margin-bottom: var(--space-5);
+}
+
+/* Historia: dos bloques de texto con Grid (1 columna en móvil, 2 en escritorio) */
+.origen-historia {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+.origen-historia h3 {
+  font-size: 1.25rem;
+  margin-bottom: var(--space-3);
+}
+
+.origen-historia p + p {
+  margin-top: var(--space-3);
+}
+
+/* Destacados: tarjetas con Grid auto-fit (reutilizan .tarjeta) */
+.origen-destacados {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.origen-destacados .tarjeta {
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  text-align: center;
+}
+
+.origen-destacados h3 {
+  font-size: 1.05rem;
+}
+
+.origen-destacados p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.origen-icono {
+  width: 2.5rem;
+  height: 2.5rem;
+  fill: none;
+  stroke: var(--color-amber-hover);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ==========================================================================
+   8. CARRITO
    ========================================================================== */
 
 /* Layout del carrito con Grid y áreas con nombre.
@@ -700,7 +763,7 @@ header nav a[aria-current="page"] {
 
 
 /* ==========================================================================
-   8. CHECKOUT
+   9. CHECKOUT
    ========================================================================== */
 #checkout {
   max-width: 64rem;
@@ -894,7 +957,7 @@ header nav a[aria-current="page"] {
 
 
 /* ==========================================================================
-   9. FOOTER
+   10. FOOTER
    ========================================================================== */
 footer {
   display: flex;
@@ -1012,7 +1075,7 @@ footer > p {
 }
 
 /* ==========================================================================
-   10. PÁGINAS LEGALES (privacidad.html)
+   11. PÁGINAS LEGALES (privacidad.html)
    ========================================================================== */
 
 /* Ancho máximo de ~70 caracteres por línea: es lo cómodo para leer texto largo */
@@ -1117,7 +1180,7 @@ footer > p {
 }
 
 /* ==========================================================================
-   11. MEDIA QUERIES
+   12. MEDIA QUERIES
    ========================================================================== */
 
 /* Tablet: >= 768px */
@@ -1252,6 +1315,11 @@ footer > p {
 @media (min-width: 1024px) {
   .hero h1 {
     font-size: 3rem;
+  }
+
+  /* Origen: los dos bloques de la historia lado a lado */
+  .origen-historia {
+    grid-template-columns: 1fr 1fr;
   }
 
   /* Beneficios: 4 columnas, una por beneficio */
