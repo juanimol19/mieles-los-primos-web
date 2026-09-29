@@ -328,11 +328,18 @@ header nav a[aria-current="page"] {
   color: var(--color-text-muted);
 }
 
+/* Botón "Ver catálogo completo" centrado debajo de la grilla */
+.ver-catalogo {
+  margin-top: var(--space-5);
+  text-align: center;
+}
+
 /* Grilla de tarjetas: auto-fit crea tantas columnas como entren
-   (mínimo 15rem cada una), sin necesidad de media queries */
+   (mínimo 10.5rem cada una), sin necesidad de media queries.
+   En escritorio entran las 5 tarjetas del inicio en una sola fila. */
 .tarjetas-destacadas {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
   gap: var(--space-4);
   margin-top: var(--space-5);
 }
@@ -626,6 +633,7 @@ header nav a[aria-current="page"] {
 }
 
 .producto-mensaje {
+  grid-column: 1 / -1; /* ocupa todo el ancho aunque la grilla tenga 2 columnas */
   padding: var(--space-6) 0;
   text-align: center;
   color: var(--color-text-muted);
