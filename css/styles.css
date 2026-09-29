@@ -347,6 +347,15 @@ header nav a[aria-current="page"] {
   background-color: var(--color-cream);
 }
 
+/* Inicio: alto fijo y "contain" para que la foto se vea entera (sin recortes)
+   y no crezca con el ancho de la tarjeta. El espacio sobrante queda crema. */
+.tarjetas-destacadas .tarjeta img {
+  height: 12rem;
+  aspect-ratio: auto;
+  object-fit: contain;
+  padding: var(--space-2);
+}
+
 .tarjeta-texto {
   padding: var(--space-3);
 }
