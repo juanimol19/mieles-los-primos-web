@@ -23,14 +23,17 @@ Trabajo práctico de 3.er año de la **Tecnicatura Superior en Desarrollo de Sof
 
 ```
 mieles-los-primos-web/
-├── index.html          (inicio: hero, productos destacados y beneficios)
+├── index.html          (inicio: hero, catálogo de productos y beneficios)
 ├── catalogo.html       (catálogo con categorías)
+├── producto.html       (detalle de un producto: producto.html?id=1)
 ├── origen.html         (historia del emprendimiento)
 ├── carrito.html        (carrito de compras)
 ├── checkout.html       (formulario de compra)
 ├── privacidad.html     (Política de Privacidad, Ley 25.326)
 ├── css/
 │   └── styles.css
+├── js/
+│   └── producto.js     (arma el detalle leyendo data/productos.json)
 ├── data/
 │   └── productos.json
 ├── img/
@@ -41,12 +44,12 @@ mieles-los-primos-web/
 
 ## Cómo probarlo localmente
 
-Abrir `index.html` en el navegador (desde ahí se navega al resto de las páginas), o usar la extensión Live Server de VS Code. Para revisar el diseño responsive, usar el modo dispositivo de las DevTools (F12).
+Usar la extensión Live Server de VS Code (o cualquier servidor local) y abrir `index.html`. La página de detalle (`producto.html`) lee el JSON con `fetch`, que no funciona abriendo el archivo con doble clic. Para revisar el diseño responsive, usar el modo dispositivo de las DevTools (F12).
 
 ## Licencia
 
-El código fuente de este proyecto (HTML, CSS y JSON) se distribuye bajo la **Licencia MIT**. Ver el archivo [`LICENSE`](./LICENSE).
+El proyecto usa un esquema de licenciamiento por componentes (ver la justificación en el informe de Legislación Informática):
 
-En resumen, la licencia MIT permite usar, copiar, modificar y distribuir el código, incluso con fines comerciales, siempre que se mantenga el aviso de copyright y el texto de la licencia. El software se entrega "tal cual", sin garantías.
-
-**Alcance:** la licencia cubre únicamente el código. El nombre y la marca "Mieles Los Primos", el logo, las imágenes de productos y los textos descriptivos del emprendimiento pertenecen a sus titulares y no están incluidos en la licencia MIT.
+- **Código fuente** (HTML, CSS, JavaScript y estructura de `productos.json`): se distribuye bajo la licencia **GNU General Public License v3.0** (ver archivo [`LICENSE`](./LICENSE)).
+- **Textos, fotografías e imágenes del sitio**: se distribuyen bajo la licencia **Creative Commons Atribución-NoComercial-SinDerivadas 4.0 Internacional (CC BY-NC-ND 4.0)**.
+- **El nombre "Mieles Los Primos", el logotipo y la identidad visual** no están incluidos en estas licencias: todos los derechos reservados.
