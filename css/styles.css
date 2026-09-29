@@ -37,6 +37,10 @@
   --radius: 0.5rem;
   --radius-full: 999px;
   --shadow-suave: 0 2px 8px rgba(59, 42, 26, 0.08);
+  --shadow-elevada: 0 10px 24px rgba(59, 42, 26, 0.16);
+
+  /* Transiciones: misma duración y curva en todo el sitio */
+  --transicion: 0.25s ease;
 }
 
 /* ==========================================================================
@@ -55,7 +59,7 @@ html {
   scroll-behavior: smooth;
   /* Al saltar a una sección (#catalogo), deja lugar para el header fijo.
      En móvil el header ocupa dos filas (logo + nav); desde 768px, una. */
-  scroll-padding-top: 8.5rem;
+  scroll-padding-top: 9.5rem;
 }
 
 ul,
@@ -125,11 +129,18 @@ hr {
   color: var(--color-brown);
   background-color: var(--color-amber);
   border-radius: var(--radius-full);
-  transition: background-color 0.2s;
+  transition: background-color var(--transicion), transform var(--transicion), box-shadow var(--transicion);
 }
 
+/* Al pasar el mouse, el botón se eleva un poco y proyecta sombra */
 .boton:hover {
   background-color: var(--color-amber-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-elevada);
+}
+
+.boton:active {
+  transform: translateY(0);
 }
 
 /* Botón secundario: mismo tamaño, pero con borde y fondo blanco */
@@ -152,8 +163,11 @@ header {
   justify-content: space-between;
   gap: var(--space-3);
   padding: var(--space-3) var(--space-4);
-  background-color: var(--color-white);
+  /* Blanco semitransparente + desenfoque: al hacer scroll se intuye el contenido de atrás */
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-suave);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -163,7 +177,7 @@ header {
 .header-logo {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-3);
   order: 1;
 }
 
@@ -172,29 +186,36 @@ header {
    El ancho es ~0.87 del alto (proporción de un hexágono regular) y object-fit
    evita que la imagen se deforme al no ser cuadrado. */
 .header-logo img {
-  width: 2.6rem;
-  height: 3rem;
+  width: 3.5rem;
+  height: 4rem;
   object-fit: cover;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  transition: transform var(--transicion);
+}
+
+/* Al pasar el mouse por el logo, la celda gira apenas */
+.header-logo:hover img {
+  transform: rotate(-8deg) scale(1.05);
 }
 
 .logo-texto {
   display: flex;
   flex-direction: column;
-  line-height: 1.15;
+  line-height: 1.1;
 }
 
 .logo-marca {
   font-family: var(--font-heading);
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--color-amber-texto);
 }
 
 .logo-nombre {
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 1.125rem;
-  letter-spacing: 0.02em;
+  font-size: 1.4rem;
+  letter-spacing: 0.04em;
   color: var(--color-brown);
 }
 
@@ -212,21 +233,43 @@ header nav ul {
 }
 
 header nav a {
+  position: relative;
   font-weight: 500;
   color: var(--color-text-muted);
   padding-bottom: var(--space-1);
-  border-bottom: 2px solid transparent;
+  transition: color var(--transicion);
+}
+
+/* Subrayado animado: una línea que crece desde la izquierda (scaleX de 0 a 1) */
+header nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-amber);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transicion);
 }
 
 header nav a:hover {
   color: var(--color-amber-texto);
 }
 
+header nav a:hover::after {
+  transform: scaleX(1);
+}
+
 /* Link activo: se marca con aria-current, no con una clase.
    Texto en ámbar oscuro (contraste 4.7:1); el subrayado puede ser ámbar claro */
 header nav a[aria-current="page"] {
   color: var(--color-amber-texto);
-  border-bottom-color: var(--color-amber);
+}
+
+header nav a[aria-current="page"]::after {
+  transform: scaleX(1);
 }
 
 /* Carrito con contador (badge) */
@@ -1416,7 +1459,7 @@ footer > p {
 @media (min-width: 768px) {
   /* El header ocupa una sola fila: hace falta menos espacio arriba */
   html {
-    scroll-padding-top: 6rem;
+    scroll-padding-top: 7rem;
   }
 
   .titulo-decorado {
