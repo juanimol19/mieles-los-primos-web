@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo - Mieles Los Primos</title>
+    <title>Producto - Mieles Los Primos</title>
 
     <!-- Fuentes: Lora para títulos, Inter para texto -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +15,8 @@
 </head>
 <body>
 
-    <!-- Encabezado: igual en todas las páginas. aria-current marca la página actual -->
+    <!-- Encabezado: igual en todas las páginas. Esta página no tiene aria-current en el menú
+         porque no es una sección del menú (se llega desde el catálogo o el inicio) -->
     <header>
         <a href="index.html" class="header-logo">
             <img src="img/logo.jpg" alt="" width="48" height="48">
@@ -28,7 +29,7 @@
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="catalogo.html" aria-current="page">Catálogo</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
                 <li><a href="origen.html">Origen</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
@@ -43,76 +44,28 @@
     </header>
 
     <main>
-        <!-- CATÁLOGO DE PRODUCTOS -->
-        <section id="catalogo">
-            <div class="catalogo-encabezado">
-                <h1>Catálogo de productos</h1>
-                <p class="subtitulo">Seleccioná tu producto favorito y llevate lo mejor del monte chaqueño.</p>
-            </div>
+        <!-- DETALLE DE PRODUCTO: el contenido lo completa js/producto.js
+             leyendo data/productos.json según el id de la URL (producto.html?id=1) -->
+        <nav class="migas" aria-label="Estás en">
+            <ol>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li aria-current="page" id="migas-actual">Producto</li>
+            </ol>
+        </nav>
 
-            <!-- Filtros por Categorías (aria-pressed marca el filtro activo) -->
-            <aside class="catalogo-categorias">
-                <h2>Categorías</h2>
-                <ul>
-                    <li><button type="button" class="categoria-boton" aria-pressed="true">Todos</button></li>
-                    <li><button type="button" class="categoria-boton" aria-pressed="false">Miel</button></li>
-                    <li><button type="button" class="categoria-boton" aria-pressed="false">Panal</button></li>
-                    <li><button type="button" class="categoria-boton" aria-pressed="false">Polen</button></li>
-                </ul>
-            </aside>
+        <!-- aria-live: los lectores de pantalla anuncian el cambio cuando el producto termina de cargar -->
+        <section id="producto-detalle" aria-live="polite">
+            <p class="producto-mensaje">Cargando producto…</p>
+            <noscript>
+                <p class="producto-mensaje">Para ver el detalle del producto hay que activar JavaScript. También podés ver todos los productos en el <a href="catalogo.html">catálogo</a>.</p>
+            </noscript>
+        </section>
 
-            <!-- Grilla de Productos (rutas de imagen iguales a data/productos.json).
-                 Cada tarjeta lleva a producto.html?id=<id del JSON> -->
-            <section id="grilla-productos" aria-label="Productos">
-                <!-- Producto 1 -->
-                <article class="tarjeta tarjeta-producto tarjeta-link">
-                    <img src="img/botella-miel-800.webp" alt="Botella de 800 g de miel multifloral dorada">
-                    <div class="tarjeta-texto">
-                        <h2><a href="producto.html?id=1">Botella de miel 800 g</a></h2>
-                        <p class="precio">$8.850</p>
-                        <button type="button" class="boton">Agregar al carrito</button>
-                    </div>
-                </article>
-
-                <!-- Producto 2 -->
-                <article class="tarjeta tarjeta-producto tarjeta-link">
-                    <img src="img/botella-miel-400.webp" alt="Botella de 400 g de miel multifloral dorada">
-                    <div class="tarjeta-texto">
-                        <h2><a href="producto.html?id=2">Botella de miel 400 g</a></h2>
-                        <p class="precio">$6.600</p>
-                        <button type="button" class="boton">Agregar al carrito</button>
-                    </div>
-                </article>
-
-                <!-- Producto 3 -->
-                <article class="tarjeta tarjeta-producto tarjeta-link">
-                    <img src="img/frasco-polen-100.webp" alt="Frasco de vidrio con 100 g de polen apícola en gránulos">
-                    <div class="tarjeta-texto">
-                        <h2><a href="producto.html?id=3">Frasco de polen 100 g</a></h2>
-                        <p class="precio">$9.000</p>
-                        <button type="button" class="boton">Agregar al carrito</button>
-                    </div>
-                </article>
-
-                <!-- Producto 4 -->
-                <article class="tarjeta tarjeta-producto tarjeta-link">
-                    <img src="img/panal-miel-100.webp" alt="Porción de 100 g de panal con miel">
-                    <div class="tarjeta-texto">
-                        <h2><a href="producto.html?id=4">Panal de miel 100 g</a></h2>
-                        <p class="precio">$6.000</p>
-                        <button type="button" class="boton">Agregar al carrito</button>
-                    </div>
-                </article>
-                <!-- Producto 5: sin precio definido, se consulta desde el detalle -->
-                <article class="tarjeta tarjeta-producto tarjeta-link">
-                    <img src="img/caja-madera-6-botellas.webp" alt="Caja de madera con seis botellas de miel">
-                    <div class="tarjeta-texto">
-                        <h2><a href="producto.html?id=5">Caja de madera con 6 botellas</a></h2>
-                        <p class="precio">Precio a confirmar</p>
-                        <span class="tarjeta-ver" aria-hidden="true">Ver detalle &rarr;</span>
-                    </div>
-                </article>
-            </section>
+        <!-- Otros productos: se completa desde el JSON (se muestra solo si hay datos) -->
+        <section id="otros-productos" hidden>
+            <h2 class="titulo-decorado">Otros productos</h2>
+            <div class="tarjetas-destacadas" id="otros-productos-lista"></div>
         </section>
     </main>
 
@@ -173,6 +126,9 @@
             <path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a4.5 4.5 0 0 1-2.3-2.3l.8-1-1-2z"/>
         </svg>
     </a>
+
+    <!-- JavaScript puro (sin frameworks): arma el detalle a partir de data/productos.json -->
+    <script src="js/producto.js"></script>
 
 </body>
 </html>

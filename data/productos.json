@@ -7,6 +7,7 @@
     "precio_mayorista": 5900,
     "precio_a_confirmar": false,
     "imagen_ia_url": "img/botella-miel-800.webp",
+    "imagen_alt": "Botella de 800 g de miel multifloral dorada",
     "categoria": "miel",
     "presentacion": "800 g"
   },
@@ -18,6 +19,7 @@
     "precio_mayorista": 4400,
     "precio_a_confirmar": false,
     "imagen_ia_url": "img/botella-miel-400.webp",
+    "imagen_alt": "Botella de 400 g de miel multifloral dorada",
     "categoria": "miel",
     "presentacion": "400 g"
   },
@@ -29,6 +31,7 @@
     "precio_mayorista": 6000,
     "precio_a_confirmar": false,
     "imagen_ia_url": "img/frasco-polen-100.webp",
+    "imagen_alt": "Frasco de vidrio con 100 g de polen apícola en gránulos",
     "categoria": "polen",
     "presentacion": "100 g"
   },
@@ -40,6 +43,7 @@
     "precio_mayorista": null,
     "precio_a_confirmar": false,
     "imagen_ia_url": "img/panal-miel-100.webp",
+    "imagen_alt": "Porción de 100 g de panal con miel",
     "categoria": "panal",
     "presentacion": "100 g"
   },
@@ -51,6 +55,7 @@
     "precio_mayorista": null,
     "precio_a_confirmar": true,
     "imagen_ia_url": "img/caja-madera-6-botellas.webp",
+    "imagen_alt": "Caja de madera con seis botellas de miel",
     "categoria": "miel",
     "presentacion": "6 botellas (800 g o 400 g)"
   }

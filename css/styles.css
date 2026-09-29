@@ -132,6 +132,16 @@ hr {
   background-color: var(--color-amber-hover);
 }
 
+/* Botón secundario: mismo tamaño, pero con borde y fondo blanco */
+.boton-secundario {
+  background-color: var(--color-white);
+  border: 2px solid var(--color-amber);
+}
+
+.boton-secundario:hover {
+  background-color: var(--color-cream);
+}
+
 /* ==========================================================================
    4. HEADER
    ========================================================================== */
@@ -318,11 +328,18 @@ header nav a[aria-current="page"] {
   color: var(--color-text-muted);
 }
 
+/* Botón "Ver catálogo completo" centrado debajo de la grilla */
+.ver-catalogo {
+  margin-top: var(--space-5);
+  text-align: center;
+}
+
 /* Grilla de tarjetas: auto-fit crea tantas columnas como entren
-   (mínimo 15rem cada una), sin necesidad de media queries */
+   (mínimo 10.5rem cada una), sin necesidad de media queries.
+   En escritorio entran las 5 tarjetas del inicio en una sola fila. */
 .tarjetas-destacadas {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
   gap: var(--space-4);
   margin-top: var(--space-5);
 }
@@ -523,6 +540,197 @@ header nav a[aria-current="page"] {
 .tarjeta-producto .boton {
   padding: var(--space-1) var(--space-3);
   font-size: 0.85rem;
+}
+
+/* --- Tarjetas clickeables (inicio, catálogo y "Otros productos") ---
+   El link está en el título, y su ::after se estira sobre toda la tarjeta:
+   así se puede hacer clic en cualquier parte sin anidar elementos. */
+.tarjeta-link {
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tarjeta-link h2 a::after,
+.tarjeta-link h3 a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+/* Al pasar el mouse (o al llegar con el teclado) la tarjeta se eleva */
+.tarjeta-link:hover,
+.tarjeta-link:focus-within {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(59, 42, 26, 0.14);
+}
+
+/* El foco visible se dibuja en toda la tarjeta, no solo en el título */
+.tarjeta-link a:focus-visible {
+  outline: none;
+}
+
+.tarjeta-link:focus-within {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 2px;
+}
+
+/* El botón queda por encima del link estirado para que siga siendo clickeable */
+.tarjeta-link .boton {
+  position: relative;
+  z-index: 1;
+}
+
+/* "Ver detalle" en el pie de la tarjeta: solo visual (el clic lo toma el link) */
+.tarjeta-ver {
+  display: block;
+  margin-top: var(--space-2);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-amber-texto);
+}
+
+
+/* ==========================================================================
+   6.b DETALLE DE PRODUCTO (producto.html)
+   ========================================================================== */
+/* Migas de pan: Inicio / Catálogo / Producto (Flexbox) */
+.migas {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-4) 0;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.migas ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* Separador "/" entre migas, hecho con CSS */
+.migas li + li::before {
+  content: "/";
+  margin-right: var(--space-2);
+}
+
+.migas a {
+  text-decoration: underline;
+}
+
+.migas a:hover {
+  color: var(--color-amber-texto);
+}
+
+/* Móvil: imagen arriba e información abajo (una columna de Grid) */
+#producto-detalle {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--space-4);
+}
+
+.producto-mensaje {
+  grid-column: 1 / -1; /* ocupa todo el ancho aunque la grilla tenga 2 columnas */
+  padding: var(--space-6) 0;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.producto-mensaje a {
+  font-weight: 600;
+  color: var(--color-amber-texto);
+  text-decoration: underline;
+}
+
+/* Imagen grande sobre fondo crema, sin recortar la foto */
+.producto-imagen {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-4);
+  background-color: var(--color-cream);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.producto-imagen img {
+  max-height: 28rem;
+  object-fit: contain;
+}
+
+/* Información: todo en columna con Flexbox */
+.producto-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+/* Etiqueta de categoría con forma de "píldora" */
+.producto-categoria {
+  padding: var(--space-1) var(--space-3);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: var(--color-cream);
+  border: 1px solid var(--color-amber);
+  border-radius: var(--radius-full);
+}
+
+.producto-info h1 {
+  font-size: 1.75rem;
+}
+
+.producto-presentacion,
+.producto-mayorista {
+  color: var(--color-text-muted);
+}
+
+.producto-precio {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-amber-texto);
+}
+
+.producto-descripcion {
+  max-width: 55ch;
+}
+
+/* Cantidad + botón en fila; el aviso ocupa la fila de abajo */
+.producto-compra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+  width: 100%;
+}
+
+.producto-aviso {
+  flex-basis: 100%;
+  font-weight: 500;
+}
+
+/* Vacío no ocupa lugar; con texto aparece con un borde ámbar a la izquierda */
+.producto-aviso:empty {
+  display: none;
+}
+
+.producto-aviso:not(:empty) {
+  padding-left: var(--space-3);
+  border-left: 3px solid var(--color-amber);
+}
+
+/* Otros productos: mismo ancho y grilla que "Nuestros productos" */
+#otros-productos {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
 }
 
 
@@ -1221,6 +1429,16 @@ footer > p {
     width: 3rem;
   }
 
+  /* Detalle de producto: imagen y texto lado a lado */
+  #producto-detalle {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .producto-info h1 {
+    font-size: 2.25rem;
+  }
+
   /* Header: logo, nav y carrito vuelven a una sola fila */
   header nav {
     order: 2;
@@ -1381,5 +1599,17 @@ footer > p {
   /* Datos del comprador: 3 columnas (nombre, email, teléfono) */
   .campos-3 {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Si la persona pidió reducir el movimiento en su sistema, las tarjetas no se desplazan */
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta-link {
+    transition: none;
+  }
+
+  .tarjeta-link:hover,
+  .tarjeta-link:focus-within {
+    transform: none;
   }
 }
