@@ -42,6 +42,10 @@ mieles-los-primos-web/
 └── README.md
 ```
 
+## Ver el sitio
+
+**Online:** https://juanimol19.github.io/mieles-los-primos-web/ (GitHub Pages, publicado desde la rama `dev`).
+
 ## Cómo probarlo localmente
 
 Usar la extensión Live Server de VS Code (o cualquier servidor local) y abrir `index.html`. La página de detalle (`producto.html`) lee el JSON con `fetch`, que no funciona abriendo el archivo con doble clic. Para revisar el diseño responsive, usar el modo dispositivo de las DevTools (F12).
