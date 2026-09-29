@@ -37,6 +37,10 @@
   --radius: 0.5rem;
   --radius-full: 999px;
   --shadow-suave: 0 2px 8px rgba(59, 42, 26, 0.08);
+  --shadow-elevada: 0 10px 24px rgba(59, 42, 26, 0.16);
+
+  /* Transiciones: misma duración y curva en todo el sitio */
+  --transicion: 0.25s ease;
 }
 
 /* ==========================================================================
@@ -55,7 +59,7 @@ html {
   scroll-behavior: smooth;
   /* Al saltar a una sección (#catalogo), deja lugar para el header fijo.
      En móvil el header ocupa dos filas (logo + nav); desde 768px, una. */
-  scroll-padding-top: 8.5rem;
+  scroll-padding-top: 9.5rem;
 }
 
 ul,
@@ -125,11 +129,18 @@ hr {
   color: var(--color-brown);
   background-color: var(--color-amber);
   border-radius: var(--radius-full);
-  transition: background-color 0.2s;
+  transition: background-color var(--transicion), transform var(--transicion), box-shadow var(--transicion);
 }
 
+/* Al pasar el mouse, el botón se eleva un poco y proyecta sombra */
 .boton:hover {
   background-color: var(--color-amber-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-elevada);
+}
+
+.boton:active {
+  transform: translateY(0);
 }
 
 /* Botón secundario: mismo tamaño, pero con borde y fondo blanco */
@@ -152,8 +163,11 @@ header {
   justify-content: space-between;
   gap: var(--space-3);
   padding: var(--space-3) var(--space-4);
-  background-color: var(--color-white);
+  /* Blanco semitransparente + desenfoque: al hacer scroll se intuye el contenido de atrás */
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-suave);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -163,7 +177,7 @@ header {
 .header-logo {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-3);
   order: 1;
 }
 
@@ -172,29 +186,36 @@ header {
    El ancho es ~0.87 del alto (proporción de un hexágono regular) y object-fit
    evita que la imagen se deforme al no ser cuadrado. */
 .header-logo img {
-  width: 2.6rem;
-  height: 3rem;
+  width: 3.5rem;
+  height: 4rem;
   object-fit: cover;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  transition: transform var(--transicion);
+}
+
+/* Al pasar el mouse por el logo, la celda gira apenas */
+.header-logo:hover img {
+  transform: rotate(-8deg) scale(1.05);
 }
 
 .logo-texto {
   display: flex;
   flex-direction: column;
-  line-height: 1.15;
+  line-height: 1.1;
 }
 
 .logo-marca {
   font-family: var(--font-heading);
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--color-amber-texto);
 }
 
 .logo-nombre {
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 1.125rem;
-  letter-spacing: 0.02em;
+  font-size: 1.4rem;
+  letter-spacing: 0.04em;
   color: var(--color-brown);
 }
 
@@ -212,21 +233,43 @@ header nav ul {
 }
 
 header nav a {
+  position: relative;
   font-weight: 500;
   color: var(--color-text-muted);
   padding-bottom: var(--space-1);
-  border-bottom: 2px solid transparent;
+  transition: color var(--transicion);
+}
+
+/* Subrayado animado: una línea que crece desde la izquierda (scaleX de 0 a 1) */
+header nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-amber);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transicion);
 }
 
 header nav a:hover {
   color: var(--color-amber-texto);
 }
 
+header nav a:hover::after {
+  transform: scaleX(1);
+}
+
 /* Link activo: se marca con aria-current, no con una clase.
    Texto en ámbar oscuro (contraste 4.7:1); el subrayado puede ser ámbar claro */
 header nav a[aria-current="page"] {
   color: var(--color-amber-texto);
-  border-bottom-color: var(--color-amber);
+}
+
+header nav a[aria-current="page"]::after {
+  transform: scaleX(1);
 }
 
 /* Carrito con contador (badge) */
@@ -272,7 +315,7 @@ header nav a[aria-current="page"] {
   justify-content: center;
   align-items: flex-start;
   gap: var(--space-3);
-  min-height: 22rem;
+  min-height: 28rem;
   padding: var(--space-6) var(--space-4);
   color: var(--color-white);
   background-color: var(--color-brown);
@@ -284,17 +327,66 @@ header nav a[aria-current="page"] {
 }
 
 .hero h1 {
-  font-size: 2rem;
+  font-size: 2.25rem;
   max-width: 16ch;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
 }
 
 .hero p {
   max-width: 36ch;
 }
 
-.hero .boton {
+/* Etiqueta chica arriba del título, con forma de píldora */
+.hero .hero-etiqueta {
+  padding: var(--space-1) var(--space-3);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-full);
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Botones del hero en fila; si no entran, pasan abajo */
+.hero-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
   margin-top: var(--space-2);
 }
+
+/* Botón claro: borde blanco y fondo transparente, para usar sobre fotos oscuras */
+.boton-claro {
+  color: var(--color-white);
+  background-color: transparent;
+  border: 2px solid var(--color-white);
+}
+
+.boton-claro:hover {
+  color: var(--color-brown);
+  background-color: var(--color-white);
+}
+
+/* Entrada del hero: cada elemento aparece subiendo, uno después del otro */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    translate: 0 1.5rem;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+.hero > * {
+  animation: aparecer 0.7s ease both;
+}
+
+.hero > :nth-child(2) { animation-delay: 0.15s; }
+.hero > :nth-child(3) { animation-delay: 0.3s; }
+.hero > :nth-child(4) { animation-delay: 0.45s; }
 
 /* Nuestros productos: contenedor centrado con ancho máximo */
 #productos-destacados {
@@ -362,6 +454,13 @@ header nav a[aria-current="page"] {
   aspect-ratio: 4 / 3;
   object-fit: cover;
   background-color: var(--color-cream);
+  transition: transform 0.4s ease;
+}
+
+/* En las tarjetas clickeables la foto se acerca un poco al pasar el mouse
+   (overflow: hidden de .tarjeta evita que se salga del borde) */
+.tarjeta-link:hover img {
+  transform: scale(1.06);
 }
 
 /* Inicio: alto fijo y "contain" para que la foto se vea entera (sin recortes)
@@ -408,10 +507,15 @@ header nav a[aria-current="page"] {
   gap: var(--space-3);
 }
 
+/* Ícono dentro de un círculo blanco con sombra suave */
 .beneficio-icono {
   flex-shrink: 0;
-  width: 2rem;
-  height: 2rem;
+  width: 3rem;
+  height: 3rem;
+  padding: 0.65rem;
+  background-color: var(--color-white);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-suave);
   fill: none;
   stroke: var(--color-amber-hover);
   stroke-width: 1.8;
@@ -1294,6 +1398,29 @@ footer > p {
   transition: transform 0.2s;
 }
 
+/* "Latido": un aro del mismo color que se agranda y se desvanece cada 2,5 s.
+   z-index: -1 lo deja detrás del ícono (el botón fijo crea su propio contexto de apilado). */
+.whatsapp-flotante::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: inherit;
+  animation: latido 2.5s ease-out infinite;
+}
+
+@keyframes latido {
+  from {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  to {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
 .whatsapp-flotante:hover {
   transform: scale(1.08);
 }
@@ -1416,7 +1543,7 @@ footer > p {
 @media (min-width: 768px) {
   /* El header ocupa una sola fila: hace falta menos espacio arriba */
   html {
-    scroll-padding-top: 6rem;
+    scroll-padding-top: 7rem;
   }
 
   .titulo-decorado {
@@ -1567,8 +1694,13 @@ footer > p {
 
 /* Escritorio: >= 1024px */
 @media (min-width: 1024px) {
+  .hero {
+    min-height: 34rem;
+    padding-left: var(--space-6);
+  }
+
   .hero h1 {
-    font-size: 3rem;
+    font-size: 3.25rem;
   }
 
   /* Origen: los dos bloques de la historia lado a lado */
@@ -1602,14 +1734,41 @@ footer > p {
   }
 }
 
-/* Si la persona pidió reducir el movimiento en su sistema, las tarjetas no se desplazan */
+/* Aparición al hacer scroll, solo con CSS: animation-timeline: view() conecta la
+   animación con la posición del elemento en la pantalla (no con el tiempo).
+   Mejora progresiva: @supports la aplica solo en navegadores que la entienden;
+   en los demás, el contenido se ve normal, sin animación. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .tarjeta,
+    #beneficios li,
+    .titulo-decorado {
+      animation: aparecer linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+  }
+}
+
+/* Si la persona pidió reducir el movimiento en su sistema, se desactivan
+   animaciones y transiciones en todo el sitio */
 @media (prefers-reduced-motion: reduce) {
-  .tarjeta-link {
-    transition: none;
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 
   .tarjeta-link:hover,
-  .tarjeta-link:focus-within {
+  .tarjeta-link:focus-within,
+  .tarjeta-link:hover img,
+  .boton:hover {
     transform: none;
   }
 }
