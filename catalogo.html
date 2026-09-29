@@ -61,45 +61,55 @@
                 </ul>
             </aside>
 
-            <!-- Grilla de Productos (rutas de imagen iguales a data/productos.json) -->
+            <!-- Grilla de Productos (rutas de imagen iguales a data/productos.json).
+                 Cada tarjeta lleva a producto.html?id=<id del JSON> -->
             <section id="grilla-productos" aria-label="Productos">
                 <!-- Producto 1 -->
-                <article class="tarjeta tarjeta-producto">
+                <article class="tarjeta tarjeta-producto tarjeta-link">
                     <img src="img/botella-miel-800.webp" alt="Botella de 800 g de miel multifloral dorada">
                     <div class="tarjeta-texto">
-                        <h2>Botella de miel 800 g</h2>
+                        <h2><a href="producto.html?id=1">Botella de miel 800 g</a></h2>
                         <p class="precio">$8.850</p>
                         <button type="button" class="boton">Agregar al carrito</button>
                     </div>
                 </article>
 
                 <!-- Producto 2 -->
-                <article class="tarjeta tarjeta-producto">
+                <article class="tarjeta tarjeta-producto tarjeta-link">
                     <img src="img/botella-miel-400.webp" alt="Botella de 400 g de miel multifloral dorada">
                     <div class="tarjeta-texto">
-                        <h2>Botella de miel 400 g</h2>
+                        <h2><a href="producto.html?id=2">Botella de miel 400 g</a></h2>
                         <p class="precio">$6.600</p>
                         <button type="button" class="boton">Agregar al carrito</button>
                     </div>
                 </article>
 
                 <!-- Producto 3 -->
-                <article class="tarjeta tarjeta-producto">
+                <article class="tarjeta tarjeta-producto tarjeta-link">
                     <img src="img/frasco-polen-100.webp" alt="Frasco de vidrio con 100 g de polen apícola en gránulos">
                     <div class="tarjeta-texto">
-                        <h2>Frasco de polen 100 g</h2>
+                        <h2><a href="producto.html?id=3">Frasco de polen 100 g</a></h2>
                         <p class="precio">$9.000</p>
                         <button type="button" class="boton">Agregar al carrito</button>
                     </div>
                 </article>
 
                 <!-- Producto 4 -->
-                <article class="tarjeta tarjeta-producto">
+                <article class="tarjeta tarjeta-producto tarjeta-link">
                     <img src="img/panal-miel-100.webp" alt="Porción de 100 g de panal con miel">
                     <div class="tarjeta-texto">
-                        <h2>Panal de miel 100 g</h2>
+                        <h2><a href="producto.html?id=4">Panal de miel 100 g</a></h2>
                         <p class="precio">$6.000</p>
                         <button type="button" class="boton">Agregar al carrito</button>
+                    </div>
+                </article>
+                <!-- Producto 5: sin precio definido, se consulta desde el detalle -->
+                <article class="tarjeta tarjeta-producto tarjeta-link">
+                    <img src="img/caja-madera-6-botellas.webp" alt="Caja de madera con seis botellas de miel">
+                    <div class="tarjeta-texto">
+                        <h2><a href="producto.html?id=5">Caja de madera con 6 botellas</a></h2>
+                        <p class="precio">Precio a confirmar</p>
+                        <span class="tarjeta-ver" aria-hidden="true">Ver detalle &rarr;</span>
                     </div>
                 </article>
             </section>
