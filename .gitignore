@@ -11,3 +11,9 @@ desktop.ini
 # Archivos temporales
 *.log
 *.tmp
+
+# Word: archivos temporales mientras un documento está abierto
+~$*
+
+# Copias de respaldo de los informes (antes del formato APA)
+docs/Sprint 2/_originales (antes de APA)/
