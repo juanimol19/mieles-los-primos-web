@@ -81,6 +81,7 @@ mieles-los-primos-web/
 ├── css/
 │   └── styles.css
 ├── js/
+│   ├── carrito.js         (carrito en localStorage: contador, carrito.html y resumen del checkout)
 │   └── producto.js        (detalle de producto con JS puro)
 ├── data/
 │   └── productos.json
