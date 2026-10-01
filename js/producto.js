@@ -8,6 +8,9 @@
    3. Arma el detalle y la sección "Otros productos" creando los elementos
       con JavaScript (createElement + textContent).
 
+   Necesita js/carrito.js cargado antes: de ahí usa crear(), formatearPrecio()
+   y agregarAlCarrito().
+
    Importante: fetch() necesita un servidor local (Live Server o similar).
    Si se abre el archivo con doble clic (file://), el navegador bloquea la
    lectura del JSON y se muestra un mensaje de error.
@@ -25,19 +28,7 @@ const detalle = document.querySelector('#producto-detalle');
    Funciones auxiliares
    -------------------------------------------------------------------------- */
 
-// Crea un elemento con una clase y un texto opcionales.
-// Usar textContent (y no innerHTML) evita que un texto se interprete como HTML.
-function crear(etiqueta, clase, texto) {
-  const elemento = document.createElement(etiqueta);
-  if (clase) elemento.className = clase;
-  if (texto) elemento.textContent = texto;
-  return elemento;
-}
-
-// 8850 → "$8.850" (formato argentino, con punto de miles)
-function formatearPrecio(numero) {
-  return '$' + numero.toLocaleString('es-AR');
-}
+// crear() y formatearPrecio() están en js/carrito.js (las usan las dos páginas)
 
 // Texto del precio: algunos productos todavía no tienen precio definido
 function textoPrecio(producto) {
@@ -142,11 +133,12 @@ function crearFormularioCompra(producto) {
   const aviso = crear('p', 'producto-aviso');
   aviso.setAttribute('role', 'status');
 
-  // SIMULACIÓN: el carrito real (guardar productos y sumar totales) se implementa en el Sprint 3
+  // Guarda el producto en el carrito (js/carrito.js), que también actualiza el contador del header
   agregar.addEventListener('click', () => {
     const unidades = Math.min(20, Math.max(1, Number(cantidad.value) || 1));
     cantidad.value = unidades;
-    aviso.textContent = `Agregaste ${unidades} × ${producto.nombre} al carrito (simulación).`;
+    agregarAlCarrito(producto.id, unidades);
+    aviso.textContent = `Agregaste ${unidades} × ${producto.nombre} al carrito.`;
   });
 
   compra.append(selector, agregar, aviso);

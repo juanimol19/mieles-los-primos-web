@@ -197,13 +197,11 @@
                 <!-- Resumen Lateral de la Compra -->
                 <aside class="checkout-resumen tarjeta">
                     <h2>Resumen de la compra</h2>
-                    <ul class="resumen-items">
-                        <li class="resumen-fila"><span>Botella de miel 400 g &times;1</span> <span>$6.600</span></li>
-                        <li class="resumen-fila"><span>Panal de miel 100 g &times;1</span> <span>$6.000</span></li>
-                    </ul>
-                    <p class="resumen-fila"><span>Subtotal</span> <span>$12.600</span></p>
+                    <!-- Los productos los arma js/carrito.js con lo guardado en el carrito -->
+                    <ul class="resumen-items" id="checkout-items"></ul>
+                    <p class="resumen-fila"><span>Subtotal</span> <span id="checkout-subtotal">$0</span></p>
                     <p class="resumen-fila"><span>Envío</span> <span>A calcular</span></p>
-                    <p class="resumen-fila resumen-total"><span>Total</span> <span>$12.600</span></p>
+                    <p class="resumen-fila resumen-total"><span>Total</span> <span id="checkout-total">$0</span></p>
 
                     <button type="submit" class="boton">Pagar con Mercado Pago</button>
                     <p class="resumen-seguro"><span aria-hidden="true">🔒</span> Tu compra está protegida</p>
@@ -270,6 +268,9 @@
             <path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a4.5 4.5 0 0 1-2.3-2.3l.8-1-1-2z"/>
         </svg>
     </a>
+
+    <!-- Carrito: contador del header y botones "Agregar al carrito" (JavaScript puro) -->
+    <script src="js/carrito.js"></script>
 
 </body>
 </html>
