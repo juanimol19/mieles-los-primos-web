@@ -67,49 +67,12 @@
                             <th scope="col">Acción</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td data-label="Producto" class="carrito-producto">
-                                <img src="img/botella-miel-400.webp" alt="" width="56" height="56">
-                                <span>Botella de miel 400 g</span>
-                            </td>
-                            <td data-label="Precio unitario">$6.600</td>
-                            <td data-label="Cantidad">
-                                <div class="cantidad">
-                                    <button type="button" aria-label="Restar una unidad">&minus;</button>
-                                    <input type="number" value="1" min="1" readonly aria-label="Cantidad de Botella de miel 400 g">
-                                    <button type="button" aria-label="Sumar una unidad">+</button>
-                                </div>
-                            </td>
-                            <td data-label="Subtotal">$6.600</td>
-                            <td data-label="Acción">
-                                <button type="button" class="boton-eliminar" aria-label="Eliminar Botella de miel 400 g del carrito">
-                                    <span aria-hidden="true">🗑️</span>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td data-label="Producto" class="carrito-producto">
-                                <img src="img/panal-miel-100.webp" alt="" width="56" height="56">
-                                <span>Panal de miel 100 g</span>
-                            </td>
-                            <td data-label="Precio unitario">$6.000</td>
-                            <td data-label="Cantidad">
-                                <div class="cantidad">
-                                    <button type="button" aria-label="Restar una unidad">&minus;</button>
-                                    <input type="number" value="1" min="1" readonly aria-label="Cantidad de Panal de miel 100 g">
-                                    <button type="button" aria-label="Sumar una unidad">+</button>
-                                </div>
-                            </td>
-                            <td data-label="Subtotal">$6.000</td>
-                            <td data-label="Acción">
-                                <button type="button" class="boton-eliminar" aria-label="Eliminar Panal de miel 100 g del carrito">
-                                    <span aria-hidden="true">🗑️</span>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <!-- Las filas las arma js/carrito.js con los productos guardados -->
+                    <tbody id="carrito-lista"></tbody>
                 </table>
+
+                <!-- Aviso de carrito vacío (js/carrito.js lo muestra u oculta) -->
+                <p id="carrito-vacio" class="carrito-vacio" hidden>Tu carrito está vacío. Mirá nuestros productos en el <a href="catalogo.html">catálogo</a>.</p>
 
                 <a href="catalogo.html" class="link-volver">&larr; Seguir comprando</a>
             </div>
@@ -117,9 +80,9 @@
             <!-- Resumen del Pedido -->
             <aside class="carrito-resumen tarjeta">
                 <h2>Resumen del pedido</h2>
-                <p class="resumen-fila"><span>Subtotal (2 productos)</span> <span>$12.600</span></p>
+                <p class="resumen-fila"><span id="resumen-unidades">Subtotal</span> <span id="resumen-subtotal">$0</span></p>
                 <p class="resumen-fila"><span>Envío</span> <span>A calcular</span></p>
-                <p class="resumen-fila resumen-total"><span>Total</span> <span>$12.600</span></p>
+                <p class="resumen-fila resumen-total"><span>Total</span> <span id="resumen-total">$0</span></p>
                 <a href="checkout.html" class="boton">Continuar al checkout &rarr;</a>
             </aside>
 
@@ -193,6 +156,9 @@
             <path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a4.5 4.5 0 0 1-2.3-2.3l.8-1-1-2z"/>
         </svg>
     </a>
+
+    <!-- Carrito: contador del header y botones "Agregar al carrito" (JavaScript puro) -->
+    <script src="js/carrito.js"></script>
 
 </body>
 </html>
