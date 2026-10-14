@@ -1,39 +1,30 @@
 /* ==========================================================================
-   Mieles Los Primos — Detalle de producto (producto.html)
+   Mieles Los Primos — Detalle de producto (producto.html, ES module)
    JavaScript puro, sin frameworks.
 
    Cómo funciona:
    1. Lee el id de la URL (ej.: producto.html?id=2 → id = 2).
-   2. Pide data/productos.json con fetch() y busca el producto con ese id.
+   2. Pide los productos (obtenerProductos, con async/await) y busca el de ese id.
    3. Arma el detalle y la sección "Otros productos" creando los elementos
       con JavaScript (createElement + textContent).
-
-   Necesita js/carrito.js cargado antes: de ahí usa crear(), formatearPrecio()
-   y agregarAlCarrito().
 
    Importante: fetch() necesita un servidor local (Live Server o similar).
    Si se abre el archivo con doble clic (file://), el navegador bloquea la
    lectura del JSON y se muestra un mensaje de error.
    ========================================================================== */
 
+import { crear, formatearPrecio } from './utilidades.js';
+import { obtenerProductos, textoPrecio, nombreCategoria } from './productos.js';
+import { agregarAlCarrito } from './carrito.js';
+
 // DATOS DE EJEMPLO: reemplazar por el número real de WhatsApp (igual que en el footer)
 const WHATSAPP_NUMERO = '5493644000000';
-
-// Nombres para mostrar de cada categoría del JSON
-const CATEGORIAS = { miel: 'Miel', panal: 'Panal', polen: 'Polen' };
 
 const detalle = document.querySelector('#producto-detalle');
 
 /* --------------------------------------------------------------------------
    Funciones auxiliares
    -------------------------------------------------------------------------- */
-
-// crear() y formatearPrecio() están en js/carrito.js (las usan las dos páginas)
-
-// Texto del precio: algunos productos todavía no tienen precio definido
-function textoPrecio(producto) {
-  return producto.precio_a_confirmar ? 'Precio a confirmar' : formatearPrecio(producto.precio_simulado);
-}
 
 // Link de WhatsApp con un mensaje ya escrito sobre el producto
 function linkWhatsApp(producto) {
@@ -70,7 +61,7 @@ function mostrarDetalle(producto) {
   // Columna derecha: información
   const info = crear('div', 'producto-info');
   info.append(
-    crear('span', 'producto-categoria', CATEGORIAS[producto.categoria]),
+    crear('span', 'producto-categoria', nombreCategoria(producto.categoria)),
     crear('h1', null, producto.nombre),
     crear('p', 'producto-presentacion', 'Presentación: ' + producto.presentacion),
     crear('p', 'producto-precio', textoPrecio(producto))
@@ -176,18 +167,15 @@ function mostrarOtros(productos, idActual) {
 }
 
 /* --------------------------------------------------------------------------
-   Inicio: leer el id y cargar el JSON
+   Inicio: leer el id y cargar los productos
    -------------------------------------------------------------------------- */
 
-// URLSearchParams lee los parámetros de la URL: "?id=2" → "2" (texto) → 2 (número)
-const id = Number(new URLSearchParams(window.location.search).get('id'));
+async function iniciar() {
+  // URLSearchParams lee los parámetros de la URL: "?id=2" → "2" (texto) → 2 (número)
+  const id = Number(new URLSearchParams(window.location.search).get('id'));
 
-fetch('data/productos.json')
-  .then((respuesta) => {
-    if (!respuesta.ok) throw new Error('No se pudo leer el catálogo');
-    return respuesta.json();
-  })
-  .then((productos) => {
+  try {
+    const productos = await obtenerProductos();
     const producto = productos.find((p) => p.id === id);
 
     if (!producto) {
@@ -197,7 +185,10 @@ fetch('data/productos.json')
 
     mostrarDetalle(producto);
     mostrarOtros(productos, producto.id);
-  })
-  .catch(() => {
+  } catch (error) {
+    console.error(error);
     mostrarMensaje('No se pudo cargar el producto. Si abriste el archivo directamente, usá un servidor local (por ejemplo, Live Server).');
-  });
+  }
+}
+
+iniciar();

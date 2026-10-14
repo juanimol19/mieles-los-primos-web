@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Mieles Los Primos — Carrito de compras
+   Mieles Los Primos — Carrito de compras (ES module)
    JavaScript puro, sin frameworks. Se carga en todas las páginas.
 
    Cómo funciona:
@@ -7,34 +7,20 @@
       pierde al cambiar de página ni al cerrar la pestaña.
       Formato: [{ "id": 1, "cantidad": 2 }, { "id": 4, "cantidad": 1 }]
       Solo se guardan el id y la cantidad: el nombre, el precio y la imagen
-      se leen siempre de data/productos.json.
+      se leen siempre de data/productos.json (js/productos.js).
    2. En todas las páginas actualiza el contador del header.
-   3. Los botones con el atributo data-agregar="<id>" suman ese producto.
+   3. Los botones con el atributo data-agregar="<id>" suman ese producto
+      (también los que crea js/catalogo.js después de cargar la página).
    4. En carrito.html arma la tabla y el resumen; en checkout.html, el resumen.
 
    Importante: fetch() necesita un servidor local (Live Server o similar).
    ========================================================================== */
 
+import { crear, formatearPrecio } from './utilidades.js';
+import { obtenerProductos } from './productos.js';
+
 const CLAVE_CARRITO = 'carrito-los-primos'; // nombre con el que se guarda en localStorage
 const MAXIMO_POR_PRODUCTO = 20;             // mismo tope que el selector de cantidad
-
-/* --------------------------------------------------------------------------
-   Funciones compartidas (también las usa js/producto.js)
-   -------------------------------------------------------------------------- */
-
-// Crea un elemento con una clase y un texto opcionales.
-// Usar textContent (y no innerHTML) evita que un texto se interprete como HTML.
-function crear(etiqueta, clase, texto) {
-  const elemento = document.createElement(etiqueta);
-  if (clase) elemento.className = clase;
-  if (texto) elemento.textContent = texto;
-  return elemento;
-}
-
-// 8850 → "$8.850" (formato argentino, con punto de miles)
-function formatearPrecio(numero) {
-  return '$' + numero.toLocaleString('es-AR');
-}
 
 /* --------------------------------------------------------------------------
    Guardar y leer el carrito
@@ -61,7 +47,8 @@ function guardarCarrito(carrito) {
 }
 
 // Suma unidades de un producto. Si ya estaba en el carrito, aumenta su cantidad.
-function agregarAlCarrito(id, unidades) {
+// "export" permite usarla desde js/producto.js
+export function agregarAlCarrito(id, unidades) {
   const carrito = leerCarrito();
   const item = carrito.find((p) => p.id === id);
 
@@ -111,18 +98,23 @@ function actualizarContador() {
    Botones "Agregar al carrito" del catálogo (data-agregar="<id>")
    -------------------------------------------------------------------------- */
 
-document.querySelectorAll('[data-agregar]').forEach((boton) => {
+// Delegación de eventos: en vez de darle un evento a cada botón, se escucha
+// el clic en todo el documento y se revisa si vino de un botón data-agregar.
+// Así funcionan también los botones de las tarjetas creadas con JavaScript.
+document.addEventListener('click', (evento) => {
+  const boton = evento.target.closest('[data-agregar]');
+  if (!boton || boton.dataset.estado === 'agregado') return;
+
+  agregarAlCarrito(Number(boton.dataset.agregar), 1);
+
+  // Confirmación: el botón cambia de texto durante un segundo y medio
   const textoOriginal = boton.textContent;
-
-  boton.addEventListener('click', () => {
-    agregarAlCarrito(Number(boton.dataset.agregar), 1);
-
-    // Confirmación: el botón cambia de texto durante un segundo y medio
-    boton.textContent = '¡Agregado! ✓';
-    setTimeout(() => {
-      boton.textContent = textoOriginal;
-    }, 1500);
-  });
+  boton.dataset.estado = 'agregado';
+  boton.textContent = '¡Agregado! ✓';
+  setTimeout(() => {
+    boton.textContent = textoOriginal;
+    delete boton.dataset.estado;
+  }, 1500);
 });
 
 /* --------------------------------------------------------------------------
@@ -131,17 +123,11 @@ document.querySelectorAll('[data-agregar]').forEach((boton) => {
 
 // Junta cada item del carrito con su producto del JSON: { producto, cantidad }.
 // Si un id ya no existe en el catálogo, se descarta.
-function cargarItems() {
-  return fetch('data/productos.json')
-    .then((respuesta) => {
-      if (!respuesta.ok) throw new Error('No se pudo leer el catálogo');
-      return respuesta.json();
-    })
-    .then((productos) =>
-      leerCarrito()
-        .map((item) => ({ producto: productos.find((p) => p.id === item.id), cantidad: item.cantidad }))
-        .filter((item) => item.producto)
-    );
+async function cargarItems() {
+  const productos = await obtenerProductos();
+  return leerCarrito()
+    .map((item) => ({ producto: productos.find((p) => p.id === item.id), cantidad: item.cantidad }))
+    .filter((item) => item.producto);
 }
 
 function calcularTotal(items) {
@@ -289,8 +275,21 @@ function mostrarResumenCheckout() {
    Inicio: se ejecuta al cargar cualquier página
    -------------------------------------------------------------------------- */
 
-actualizarContador();
+// Muestra el carrito guardado en lo que exista en la página
+function actualizarPagina() {
+  actualizarContador();
 
-// Cada página tiene sus propios elementos: solo se arma lo que existe
-if (document.querySelector('#carrito-lista')) mostrarCarrito();
-if (document.querySelector('#checkout-items')) mostrarResumenCheckout();
+  // Cada página tiene sus propios elementos: solo se arma lo que existe
+  if (document.querySelector('#carrito-lista')) mostrarCarrito();
+  if (document.querySelector('#checkout-items')) mostrarResumenCheckout();
+}
+
+actualizarPagina();
+
+// Al volver con el botón "Atrás", el navegador puede mostrar la página tal como
+// la dejamos, guardada en memoria (bfcache), sin volver a ejecutar este archivo.
+// El contador quedaría con el número viejo: "pageshow" avisa ese regreso
+// (evento.persisted es true) y se vuelve a leer el carrito.
+window.addEventListener('pageshow', (evento) => {
+  if (evento.persisted) actualizarPagina();
+});

@@ -54,68 +54,20 @@
                 <p class="subtitulo">Seleccioná tu producto favorito y llevate lo mejor del monte chaqueño.</p>
             </div>
 
-            <!-- Filtros por Categorías (aria-pressed marca el filtro activo) -->
+            <!-- Filtros por categoría: los botones los crea js/catalogo.js con las categorías
+                 del JSON (aria-pressed marca el filtro activo) -->
             <aside class="catalogo-categorias">
                 <h2>Categorías</h2>
-                <ul>
-                    <li><button type="button" class="categoria-boton" aria-pressed="true">Todos</button></li>
-                    <li><button type="button" class="categoria-boton" aria-pressed="false">Miel</button></li>
-                    <li><button type="button" class="categoria-boton" aria-pressed="false">Panal</button></li>
-                    <li><button type="button" class="categoria-boton" aria-pressed="false">Polen</button></li>
-                </ul>
+                <ul id="lista-categorias"></ul>
             </aside>
 
-            <!-- Grilla de Productos (rutas de imagen iguales a data/productos.json).
-                 Cada tarjeta lleva a producto.html?id=<id del JSON> -->
+            <!-- Grilla de productos: las tarjetas las crea js/catalogo.js a partir de
+                 data/productos.json. Cada tarjeta lleva a producto.html?id=<id del JSON> -->
             <section id="grilla-productos" aria-label="Productos">
-                <!-- Producto 1 -->
-                <article class="tarjeta tarjeta-producto tarjeta-link">
-                    <img src="img/botella-miel-800.webp" alt="Botella de 800 g de miel multifloral dorada">
-                    <div class="tarjeta-texto">
-                        <h2><a href="producto.html?id=1">Botella de miel 800 g</a></h2>
-                        <p class="precio">$8.850</p>
-                        <button type="button" class="boton" data-agregar="1">Agregar al carrito</button>
-                    </div>
-                </article>
-
-                <!-- Producto 2 -->
-                <article class="tarjeta tarjeta-producto tarjeta-link">
-                    <img src="img/botella-miel-400.webp" alt="Botella de 400 g de miel multifloral dorada">
-                    <div class="tarjeta-texto">
-                        <h2><a href="producto.html?id=2">Botella de miel 400 g</a></h2>
-                        <p class="precio">$6.600</p>
-                        <button type="button" class="boton" data-agregar="2">Agregar al carrito</button>
-                    </div>
-                </article>
-
-                <!-- Producto 3 -->
-                <article class="tarjeta tarjeta-producto tarjeta-link">
-                    <img src="img/frasco-polen-100.webp" alt="Frasco de vidrio con 100 g de polen apícola en gránulos">
-                    <div class="tarjeta-texto">
-                        <h2><a href="producto.html?id=3">Frasco de polen 100 g</a></h2>
-                        <p class="precio">$9.000</p>
-                        <button type="button" class="boton" data-agregar="3">Agregar al carrito</button>
-                    </div>
-                </article>
-
-                <!-- Producto 4 -->
-                <article class="tarjeta tarjeta-producto tarjeta-link">
-                    <img src="img/panal-miel-100.webp" alt="Porción de 100 g de panal con miel">
-                    <div class="tarjeta-texto">
-                        <h2><a href="producto.html?id=4">Panal de miel 100 g</a></h2>
-                        <p class="precio">$6.000</p>
-                        <button type="button" class="boton" data-agregar="4">Agregar al carrito</button>
-                    </div>
-                </article>
-                <!-- Producto 5: sin precio definido, se consulta desde el detalle -->
-                <article class="tarjeta tarjeta-producto tarjeta-link">
-                    <img src="img/caja-madera-6-botellas.webp" alt="Caja de madera con seis botellas de miel">
-                    <div class="tarjeta-texto">
-                        <h2><a href="producto.html?id=5">Caja de madera con 6 botellas</a></h2>
-                        <p class="precio">Precio a confirmar</p>
-                        <span class="tarjeta-ver" aria-hidden="true">Ver detalle &rarr;</span>
-                    </div>
-                </article>
+                <p class="catalogo-mensaje">Cargando productos…</p>
+                <noscript>
+                    <p class="catalogo-mensaje">Para ver los productos hay que activar JavaScript.</p>
+                </noscript>
             </section>
         </section>
     </main>
@@ -178,8 +130,11 @@
         </svg>
     </a>
 
-    <!-- Carrito: contador del header y botones "Agregar al carrito" (JavaScript puro) -->
-    <script src="js/carrito.js"></script>
+    <!-- Carrito: contador del header y botones "Agregar al carrito" (JavaScript puro, ES module) -->
+    <script type="module" src="js/carrito.js"></script>
+
+    <!-- Tarjetas y filtro por categoría generados desde data/productos.json -->
+    <script type="module" src="js/catalogo.js"></script>
 
 </body>
 </html>
