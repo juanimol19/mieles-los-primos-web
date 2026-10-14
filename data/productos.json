@@ -9,7 +9,8 @@
     "imagen_ia_url": "img/botella-miel-800.webp",
     "imagen_alt": "Botella de 800 g de miel multifloral dorada",
     "categoria": "miel",
-    "presentacion": "800 g"
+    "presentacion": "800 g",
+    "resumen": "Miel multifloral"
   },
   {
     "id": 2,
@@ -21,7 +22,8 @@
     "imagen_ia_url": "img/botella-miel-400.webp",
     "imagen_alt": "Botella de 400 g de miel multifloral dorada",
     "categoria": "miel",
-    "presentacion": "400 g"
+    "presentacion": "400 g",
+    "resumen": "Miel multifloral"
   },
   {
     "id": 3,
@@ -33,7 +35,8 @@
     "imagen_ia_url": "img/frasco-polen-100.webp",
     "imagen_alt": "Frasco de vidrio con 100 g de polen apícola en gránulos",
     "categoria": "polen",
-    "presentacion": "100 g"
+    "presentacion": "100 g",
+    "resumen": "Polen apícola"
   },
   {
     "id": 4,
@@ -45,7 +48,8 @@
     "imagen_ia_url": "img/panal-miel-100.webp",
     "imagen_alt": "Porción de 100 g de panal con miel",
     "categoria": "panal",
-    "presentacion": "100 g"
+    "presentacion": "100 g",
+    "resumen": "Porción natural"
   },
   {
     "id": 5,
@@ -57,6 +61,7 @@
     "imagen_ia_url": "img/caja-madera-6-botellas.webp",
     "imagen_alt": "Caja de madera con seis botellas de miel",
     "categoria": "miel",
-    "presentacion": "6 botellas (800 g o 400 g)"
+    "presentacion": "6 botellas (800 g o 400 g)",
+    "resumen": "Ideal para regalar"
   }
 ]
