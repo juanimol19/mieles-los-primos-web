@@ -748,8 +748,11 @@ header nav a[aria-current="page"]::after {
   padding: var(--space-4);
 }
 
-.producto-mensaje {
-  grid-column: 1 / -1; /* ocupa todo el ancho aunque la grilla tenga 2 columnas */
+/* Mensajes de "Cargando…" y de error. .catalogo-mensaje es el mismo estilo
+   para las grillas que arma js/catalogo.js (catálogo e inicio). */
+.producto-mensaje,
+.catalogo-mensaje {
+  grid-column: 1 / -1; /* ocupa todo el ancho aunque la grilla tenga varias columnas */
   padding: var(--space-6) 0;
   text-align: center;
   color: var(--color-text-muted);
