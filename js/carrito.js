@@ -275,8 +275,21 @@ function mostrarResumenCheckout() {
    Inicio: se ejecuta al cargar cualquier página
    -------------------------------------------------------------------------- */
 
-actualizarContador();
+// Muestra el carrito guardado en lo que exista en la página
+function actualizarPagina() {
+  actualizarContador();
 
-// Cada página tiene sus propios elementos: solo se arma lo que existe
-if (document.querySelector('#carrito-lista')) mostrarCarrito();
-if (document.querySelector('#checkout-items')) mostrarResumenCheckout();
+  // Cada página tiene sus propios elementos: solo se arma lo que existe
+  if (document.querySelector('#carrito-lista')) mostrarCarrito();
+  if (document.querySelector('#checkout-items')) mostrarResumenCheckout();
+}
+
+actualizarPagina();
+
+// Al volver con el botón "Atrás", el navegador puede mostrar la página tal como
+// la dejamos, guardada en memoria (bfcache), sin volver a ejecutar este archivo.
+// El contador quedaría con el número viejo: "pageshow" avisa ese regreso
+// (evento.persisted es true) y se vuelve a leer el carrito.
+window.addEventListener('pageshow', (evento) => {
+  if (evento.persisted) actualizarPagina();
+});
