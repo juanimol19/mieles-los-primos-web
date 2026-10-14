@@ -80,7 +80,10 @@ mieles-los-primos-web/
 ├── privacidad.html        (Política de Privacidad, Ley 25.326)
 ├── css/
 │   └── styles.css
-├── js/
+├── js/                    (ES modules: <script type="module">, import/export)
+│   ├── utilidades.js      (funciones compartidas: crear elementos y formatear precios)
+│   ├── productos.js       (único que lee data/productos.json, con fetch + async/await)
+│   ├── catalogo.js        (tarjetas y filtro por categoría de catalogo.html e index.html)
 │   ├── carrito.js         (carrito en localStorage: contador, carrito.html y resumen del checkout)
 │   └── producto.js        (detalle de producto con JS puro)
 ├── data/
