@@ -207,68 +207,74 @@ function crearFilaCarrito(item) {
 }
 
 // Vuelve a dibujar la tabla y el resumen cada vez que cambia el carrito
-function mostrarCarrito() {
-  cargarItems()
-    .then((items) => {
-      const vacio = items.length === 0;
+async function mostrarCarrito() {
+  const aviso = document.querySelector('#carrito-vacio');
 
-      // Con el carrito vacío se ocultan la tabla y el resumen, y se muestra el aviso
-      document.querySelector('#carrito-vacio').hidden = !vacio;
-      document.querySelector('.carrito-tabla').hidden = vacio;
-      document.querySelector('.carrito-resumen').hidden = vacio;
+  try {
+    const items = await cargarItems();
+    const vacio = items.length === 0;
 
-      document.querySelector('#carrito-lista').replaceChildren(...items.map(crearFilaCarrito));
+    // Con el carrito vacío se ocultan la tabla y el resumen, y se muestra el aviso
+    aviso.hidden = !vacio;
+    document.querySelector('.carrito-tabla').hidden = vacio;
+    document.querySelector('.carrito-resumen').hidden = vacio;
 
-      const unidades = items.reduce((total, item) => total + item.cantidad, 0);
-      const total = formatearPrecio(calcularTotal(items));
-      document.querySelector('#resumen-unidades').textContent = `Subtotal (${unidades} ${unidades === 1 ? 'producto' : 'productos'})`;
-      document.querySelector('#resumen-subtotal').textContent = total;
-      document.querySelector('#resumen-total').textContent = total;
-    })
-    .catch(() => {
-      const aviso = document.querySelector('#carrito-vacio');
-      aviso.textContent = 'No se pudo cargar el carrito. Si abriste el archivo directamente, usá un servidor local (por ejemplo, Live Server).';
-      aviso.hidden = false;
-    });
+    document.querySelector('#carrito-lista').replaceChildren(...items.map(crearFilaCarrito));
+
+    const unidades = items.reduce((total, item) => total + item.cantidad, 0);
+    const total = formatearPrecio(calcularTotal(items));
+    document.querySelector('#resumen-unidades').textContent = `Subtotal (${unidades} ${unidades === 1 ? 'producto' : 'productos'})`;
+    document.querySelector('#resumen-subtotal').textContent = total;
+    document.querySelector('#resumen-total').textContent = total;
+  } catch (error) {
+    console.error(error);
+    aviso.textContent = 'No se pudo cargar el carrito. Si abriste el archivo directamente, usá un servidor local (por ejemplo, Live Server).';
+    aviso.hidden = false;
+  }
 }
 
 /* --------------------------------------------------------------------------
    Resumen del checkout (checkout.html)
    -------------------------------------------------------------------------- */
 
-function mostrarResumenCheckout() {
+// Una línea del resumen: "Botella de miel 800 g ×2 ...... $17.700"
+function crearFilaResumen(item) {
+  const fila = crear('li', 'resumen-fila');
+  fila.append(
+    crear('span', null, `${item.producto.nombre} ×${item.cantidad}`),
+    crear('span', null, formatearPrecio(item.producto.precio_simulado * item.cantidad))
+  );
+  return fila;
+}
+
+async function mostrarResumenCheckout() {
   const lista = document.querySelector('#checkout-items');
+  const botonPagar = document.querySelector('.checkout-resumen button[type="submit"]');
 
-  cargarItems()
-    .then((items) => {
-      if (items.length === 0) {
-        const vacio = crear('li', null, 'Tu carrito está vacío. ');
-        const link = crear('a', null, 'Ver catálogo');
-        link.href = 'catalogo.html';
-        vacio.append(link);
-        lista.replaceChildren(vacio);
-        // Sin productos no se puede pagar
-        document.querySelector('.checkout-resumen button[type="submit"]').disabled = true;
-      } else {
-        lista.replaceChildren(
-          ...items.map((item) => {
-            const fila = crear('li', 'resumen-fila');
-            fila.append(
-              crear('span', null, `${item.producto.nombre} ×${item.cantidad}`),
-              crear('span', null, formatearPrecio(item.producto.precio_simulado * item.cantidad))
-            );
-            return fila;
-          })
-        );
-      }
+  try {
+    const items = await cargarItems();
 
-      const total = formatearPrecio(calcularTotal(items));
-      document.querySelector('#checkout-subtotal').textContent = total;
-      document.querySelector('#checkout-total').textContent = total;
-    })
-    .catch(() => {
-      lista.replaceChildren(crear('li', 'resumen-fila', 'No se pudo cargar el carrito.'));
-    });
+    if (items.length === 0) {
+      const vacio = crear('li', null, 'Tu carrito está vacío. ');
+      const link = crear('a', null, 'Ver catálogo');
+      link.href = 'catalogo.html';
+      vacio.append(link);
+      lista.replaceChildren(vacio);
+    } else {
+      lista.replaceChildren(...items.map(crearFilaResumen));
+    }
+
+    // Sin productos no se puede pagar (y si se agregan desde otra pestaña, se vuelve a habilitar)
+    botonPagar.disabled = items.length === 0;
+
+    const total = formatearPrecio(calcularTotal(items));
+    document.querySelector('#checkout-subtotal').textContent = total;
+    document.querySelector('#checkout-total').textContent = total;
+  } catch (error) {
+    console.error(error);
+    lista.replaceChildren(crear('li', 'resumen-fila', 'No se pudo cargar el carrito.'));
+    botonPagar.disabled = true;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -292,4 +298,10 @@ actualizarPagina();
 // (evento.persisted es true) y se vuelve a leer el carrito.
 window.addEventListener('pageshow', (evento) => {
   if (evento.persisted) actualizarPagina();
+});
+
+// Con el sitio abierto en dos pestañas: cuando una cambia el carrito, el navegador
+// avisa a las demás con el evento "storage", y se actualizan en tiempo real.
+window.addEventListener('storage', (evento) => {
+  if (evento.key === CLAVE_CARRITO) actualizarPagina();
 });

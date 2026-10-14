@@ -13,7 +13,15 @@ export function crear(etiqueta, clase, texto) {
   return elemento;
 }
 
-// 8850 → "$8.850" (formato argentino, con punto de miles)
+// Formato de moneda argentina (ARS) con la API Intl del navegador:
+// punto de miles y sin decimales, porque los precios son enteros.
+const formatoPesos = new Intl.NumberFormat('es-AR', {
+  style: 'currency',
+  currency: 'ARS',
+  maximumFractionDigits: 0,
+});
+
+// 8850 → "$ 8.850" (el espacio es "duro": el precio no se corta en dos líneas)
 export function formatearPrecio(numero) {
-  return '$' + numero.toLocaleString('es-AR');
+  return formatoPesos.format(numero);
 }
