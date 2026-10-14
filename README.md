@@ -30,6 +30,7 @@ mieles-los-primos-web/
 ├── carrito.html        (carrito de compras)
 ├── checkout.html       (formulario de compra)
 ├── privacidad.html     (Política de Privacidad, Ley 25.326)
+├── arrepentimiento.html (Botón de Arrepentimiento, Ley 24.240)
 ├── css/
 │   └── styles.css
 ├── js/                 (JavaScript puro con ES modules)
@@ -37,7 +38,8 @@ mieles-los-primos-web/
 │   ├── productos.js    (lee data/productos.json con fetch + async/await)
 │   ├── catalogo.js     (tarjetas del catálogo y del inicio, filtro por categoría)
 │   ├── carrito.js      (carrito en localStorage y contador del header)
-│   └── producto.js     (arma el detalle leyendo data/productos.json)
+│   ├── producto.js     (arma el detalle leyendo data/productos.json)
+│   └── arrepentimiento.js (formulario y código de arrepentimiento simulado)
 ├── data/
 │   └── productos.json
 ├── img/
