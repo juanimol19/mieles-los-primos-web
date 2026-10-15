@@ -1565,6 +1565,88 @@ footer > p {
 }
 
 /* ==========================================================================
+   11.b BOTÓN DE ARREPENTIMIENTO (arrepentimiento.html, inicio, footer y checkout)
+   Ley 24.240 y Res. SCI 424/2020: el acceso tiene que estar destacado en
+   visibilidad y tamaño. Reutiliza .boton, .campos y .campo.
+   ========================================================================== */
+
+/* Botón más chico que el principal, para el aviso del inicio y el footer */
+.boton-arrepentimiento {
+  padding: var(--space-1) var(--space-3);
+  font-size: 0.85rem;
+}
+
+/* Inicio: franja arriba del hero, así se ve en la primera pantalla.
+   Flexbox: texto y botón en fila; si no entran (móvil), el botón pasa abajo. */
+.aviso-arrepentimiento {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  font-size: 0.9rem;
+  text-align: center;
+  background-color: var(--color-cream);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Footer: un poco de aire debajo del botón, antes de los otros links */
+.footer-legal .boton-arrepentimiento {
+  margin-bottom: var(--space-2);
+}
+
+/* Checkout: leyenda de los 10 días y aviso de compra simulada.
+   Recuadro crema con borde ámbar a la izquierda para que se distinga del resto. */
+.leyenda-arrepentimiento,
+.aviso-simulado {
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.85rem;
+  background-color: var(--color-cream);
+  border-left: 3px solid var(--color-amber);
+  border-radius: var(--radius);
+}
+
+.leyenda-arrepentimiento a {
+  font-weight: 600;
+  color: var(--color-amber-texto);
+  text-decoration: underline;
+}
+
+/* Formulario: campos en Grid (.campos-2) y el botón al final, sin estirarse */
+.form-arrepentimiento {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.form-arrepentimiento .boton {
+  align-self: flex-start;
+}
+
+/* Confirmación con el código: recuadro con borde ámbar */
+.arrepentimiento-confirmacion {
+  margin-top: var(--space-3);
+  padding: var(--space-4);
+  background-color: var(--color-cream);
+  border: 2px solid var(--color-amber);
+  border-radius: var(--radius);
+}
+
+.texto-legal .arrepentimiento-confirmacion h3 {
+  margin-top: 0;
+}
+
+/* El código en letra monoespaciada y grande, para copiarlo sin confundir caracteres */
+.arrepentimiento-codigo {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* ==========================================================================
    12. MEDIA QUERIES
    ========================================================================== */
 

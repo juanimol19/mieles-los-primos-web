@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botón de Arrepentimiento - Mieles Los Primos</title>
+
+    <!-- Fuentes: Lora para títulos, Inter para texto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Hoja de estilos -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Ícono de la pestaña (favicon) y de acceso directo en celulares -->
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+</head>
+<body>
+
+    <!-- Encabezado: igual en todas las páginas. aria-current marca la página actual -->
+    <header>
+        <a href="index.html" class="header-logo">
+            <img src="img/logo.jpg" alt="" width="48" height="48">
+            <span class="logo-texto">
+                <span class="logo-marca">Mieles</span>
+                <span class="logo-nombre">LOS PRIMOS</span>
+            </span>
+        </a>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="origen.html">Origen</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-carrito">
+            <a href="carrito.html" aria-label="Carrito: 0 productos">
+                <span aria-hidden="true">🛒</span>
+                <span class="carrito-contador">0</span>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Botón de Arrepentimiento (Ley 24.240 art. 34, CCyC arts. 1110 a 1116 y Res. SCI 424/2020).
+             Texto tomado de los Términos y Condiciones redactados por Juana Molina (cláusula 9).
+             Acceso directo, sin registro: se llega desde el inicio y desde el footer de todas las páginas. -->
+        <article class="texto-legal" id="arrepentimiento">
+            <a href="index.html" class="link-volver">&larr; Volver a la tienda</a>
+
+            <h1>Botón de Arrepentimiento</h1>
+            <p class="legal-fecha">Derecho de revocación · Ley N° 24.240 de Defensa del Consumidor</p>
+
+            <section>
+                <h2>Tu derecho</h2>
+                <p>Podés revocar tu compra <strong>sin expresar causa ni pagar costo alguno</strong> dentro de los <strong>10 (diez) días corridos</strong> contados desde que recibís el producto o desde que se celebra el contrato, lo último que ocurra (art. 34, Ley 24.240; arts. 1110 a 1116, Código Civil y Comercial). <strong>No necesitás registrarte</strong> ni hacer ningún trámite adicional.</p>
+                <p>Completá el formulario con tu nombre, tu correo electrónico, el número de pedido y el producto que querés devolver. También podés hacerlo por correo electrónico o WhatsApp (datos en el pie de página).</p>
+            </section>
+
+            <section>
+                <h2>Solicitud de arrepentimiento</h2>
+
+                <!-- Compra simulada: el formulario no envía ni guarda los datos (Anexo B, ítem 10) -->
+                <p class="aviso-simulado">Versión académica: la solicitud es simulada. Los datos no se envían ni se guardan.</p>
+
+                <!-- js/arrepentimiento.js atiende el envío: genera el código y muestra la confirmación.
+                     Los campos son obligatorios (required): el navegador no deja enviar si falta alguno. -->
+                <form class="form-arrepentimiento" id="form-arrepentimiento" action="#" method="post">
+                    <div class="campos campos-2">
+                        <div class="campo">
+                            <label for="arr-nombre">Nombre y apellido *</label>
+                            <input type="text" id="arr-nombre" name="nombre" placeholder="Ej: Juan Pérez" autocomplete="name" required>
+                        </div>
+                        <div class="campo">
+                            <label for="arr-email">Correo electrónico *</label>
+                            <input type="email" id="arr-email" name="email" placeholder="ejemplo@correo.com" autocomplete="email" required>
+                        </div>
+                        <div class="campo">
+                            <label for="arr-pedido">N.º de pedido *</label>
+                            <input type="text" id="arr-pedido" name="pedido" placeholder="Ej: LP-000123" maxlength="30" required>
+                        </div>
+                        <div class="campo">
+                            <label for="arr-producto">Producto *</label>
+                            <!-- Las opciones de cada producto las agrega js/arrepentimiento.js desde data/productos.json -->
+                            <select id="arr-producto" name="producto" required>
+                                <option value="">Seleccioná el producto</option>
+                                <option value="todos">Todos los productos del pedido</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <p class="bloque-nota">Usamos estos datos solo para gestionar tu solicitud, conforme a la Ley N° 25.326. Más información en la <a href="privacidad.html">Política de Privacidad</a>.</p>
+
+                    <button type="submit" class="boton">Enviar solicitud de arrepentimiento</button>
+                </form>
+
+                <noscript>
+                    <p class="bloque-nota">Para usar el formulario hay que activar JavaScript. También podés pedir la revocación por correo electrónico o WhatsApp (datos en el pie de página).</p>
+                </noscript>
+
+                <!-- Confirmación: se muestra al enviar el formulario. role="status" hace que
+                     los lectores de pantalla la anuncien. -->
+                <div class="arrepentimiento-confirmacion" id="arrepentimiento-confirmacion" role="status" hidden>
+                    <h3 tabindex="-1">Recibimos tu solicitud</h3>
+                    <p>Tu código de arrepentimiento es:</p>
+                    <p class="arrepentimiento-codigo" id="arrepentimiento-codigo"></p>
+                    <p id="arrepentimiento-mensaje"></p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Qué pasa después</h2>
+                <ul>
+                    <li>Dentro de las <strong>24 horas</strong> te informamos el código de arrepentimiento por el mismo medio por el que hiciste la solicitud (Res. SCI 424/2020).</li>
+                    <li>Ponés el producto a nuestra disposición. <strong>Los gastos de devolución están a nuestro cargo</strong> (art. 34, Ley 24.240; art. 1115, CCyC).</li>
+                    <li>Te reintegramos el importe abonado, incluido el costo de envío inicial, de forma inmediata y por el mismo medio de pago que usaste.</li>
+                </ul>
+                <p>Más información en la cláusula 9 de los Términos y Condiciones.</p>
+            </section>
+        </article>
+    </main>
+
+    <!-- Pie de Página (Footer). Es el mismo en todas las páginas:
+         si se cambia, hay que cambiarlo en todos los archivos .html. -->
+    <footer>
+        <section class="footer-marca">
+            <h2>Mieles Los Primos</h2>
+            <p>Miel pura de abeja recolectada en el monte nativo de Juan José Castelli, Chaco, Argentina.</p>
+        </section>
+
+        <!-- DATOS DE EJEMPLO: reemplazar el número de WhatsApp por el real (el Instagram ya es el real) -->
+        <section id="contacto">
+            <h2>Contacto y redes</h2>
+            <p>Atención directa para pedidos y envíos en Chaco y todo el país.</p>
+            <ul class="footer-redes">
+                <li>
+                    <a href="https://wa.me/5493644000000" target="_blank" rel="noopener">
+                        <!-- Globo de chat con teléfono (WhatsApp) -->
+                        <svg class="red-icono" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.7z"/>
+                            <path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a4.5 4.5 0 0 1-2.3-2.3l.8-1-1-2z"/>
+                        </svg>
+                        <span>WhatsApp: +54 9 3644 00-0000</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/losprimos.miel/" target="_blank" rel="noopener">
+                        <!-- Cámara (Instagram) -->
+                        <svg class="red-icono" viewBox="0 0 24 24" aria-hidden="true">
+                            <rect x="3.5" y="3.5" width="17" height="17" rx="5"/>
+                            <circle cx="12" cy="12" r="4"/>
+                            <circle cx="17" cy="7" r="0.6"/>
+                        </svg>
+                        <span>Instagram: @losprimos.miel</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <section class="footer-legal">
+            <h2>Legal</h2>
+            <ul>
+                <!-- Botón de Arrepentimiento (Ley 24.240 y Res. SCI 424/2020): destacado y de acceso directo -->
+                <li><a href="arrepentimiento.html" class="boton boton-secundario boton-arrepentimiento" aria-current="page">Botón de Arrepentimiento</a></li>
+                <li><a href="privacidad.html">Política de Privacidad</a></li>
+                <li><a href="https://github.com/juanimol19/mieles-los-primos-web/blob/HEAD/LICENSE">Licencia GPL v3.0 del código</a></li>
+            </ul>
+            <p class="footer-leyenda">Mieles Los Primos protege tus datos personales conforme a la Ley N° 25.326. Consultá nuestra <a href="privacidad.html">Política de Privacidad</a> o escribinos a <a href="mailto:privacidad@mieleslosprimos.com.ar">privacidad@mieleslosprimos.com.ar</a> para ejercer tus derechos de acceso, rectificación, supresión u oposición.</p>
+        </section>
+
+        <p class="footer-copyright">&copy; 2026 Mieles Los Primos. Código bajo licencia GPL v3.0 · Contenidos bajo CC BY-NC-ND 4.0 · Marca y logotipo: todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Botón flotante de WhatsApp: fijo abajo a la derecha, visible en todas las secciones.
+         DATOS DE EJEMPLO: reemplazar el número por el real -->
+    <a href="https://wa.me/5493644000000" class="whatsapp-flotante" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.7z"/>
+            <path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a4.5 4.5 0 0 1-2.3-2.3l.8-1-1-2z"/>
+        </svg>
+    </a>
+
+    <!-- Carrito: contador del header y botones "Agregar al carrito" (JavaScript puro, ES module) -->
+    <script type="module" src="js/carrito.js"></script>
+
+    <!-- Formulario de arrepentimiento: lista de productos y código simulado (ES module) -->
+    <script type="module" src="js/arrepentimiento.js"></script>
+
+</body>
+</html>
