@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Términos y Condiciones - Mieles Los Primos</title>
+
+    <!-- Fuentes: Lora para títulos, Inter para texto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Hoja de estilos -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Ícono de la pestaña (favicon) y de acceso directo en celulares -->
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+</head>
+<body>
+
+    <!-- Encabezado: igual en todas las páginas. aria-current marca la página actual -->
+    <header>
+        <a href="index.html" class="header-logo">
+            <img src="img/logo.jpg" alt="" width="48" height="48">
+            <span class="logo-texto">
+                <span class="logo-marca">Mieles</span>
+                <span class="logo-nombre">LOS PRIMOS</span>
+            </span>
+        </a>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="origen.html">Origen</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-carrito">
+            <a href="carrito.html" aria-label="Carrito: 0 productos">
+                <span aria-hidden="true">🛒</span>
+                <span class="carrito-contador">0</span>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Términos y Condiciones de uso y compra (contrato de adhesión).
+             Texto redactado por Juana Molina (Parte I del documento, versión 1.0).
+             Anexo B de los Términos y Condiciones, ítem 1: publicado y accesible desde el footer. -->
+        <article class="texto-legal" id="terminos">
+            <a href="index.html" class="link-volver">&larr; Volver a la tienda</a>
+
+            <h1>Términos y Condiciones de uso y compra</h1>
+            <p class="legal-fecha">Versión 1.0 · Vigente desde el <time datetime="2026-10-14">14 de octubre de 2026</time></p>
+
+            <!-- Información destacada del derecho de arrepentimiento (art. 1111, CCyC):
+                 va antes de las cláusulas para que se lea primero -->
+            <aside class="legal-destacado" aria-labelledby="titulo-destacado">
+                <h2 id="titulo-destacado">Información destacada – Derecho de arrepentimiento</h2>
+                <p>Usted puede <strong>revocar su compra sin expresar causa ni pagar costo alguno dentro de los 10 (diez) días corridos</strong> contados desde que recibe el producto o desde que se celebra el contrato, lo último que ocurra. Para hacerlo, use el <a href="arrepentimiento.html"><strong>Botón de Arrepentimiento</strong></a> disponible en la página de inicio y en el pie de página del sitio. No necesita registrarse. Más información en la <a href="#clausula-9">cláusula 9</a>.</p>
+            </aside>
+
+            <!-- Índice: cada link lleva a su cláusula (id="clausula-N") -->
+            <nav class="legal-indice" aria-labelledby="titulo-indice">
+                <h2 id="titulo-indice">Contenido</h2>
+                <ol>
+                    <li><a href="#clausula-1">Identificación del proveedor y aceptación</a></li>
+                    <li><a href="#clausula-2">Definiciones</a></li>
+                    <li><a href="#clausula-3">Uso del sitio y reglas de conducta</a></li>
+                    <li><a href="#clausula-4">Propiedad intelectual y contenido generado con IA</a></li>
+                    <li><a href="#clausula-5">Productos, precios y disponibilidad</a></li>
+                    <li><a href="#clausula-6">Proceso de compra</a></li>
+                    <li><a href="#clausula-7">Medios de pago</a></li>
+                    <li><a href="#clausula-8">Envío y entrega</a></li>
+                    <li><a href="#clausula-9">Derecho de revocación (Botón de Arrepentimiento)</a></li>
+                    <li><a href="#clausula-10">Garantías y calidad de los productos</a></li>
+                    <li><a href="#clausula-11">Responsabilidad del proveedor</a></li>
+                    <li><a href="#clausula-12">Protección de datos personales</a></li>
+                    <li><a href="#clausula-13">Atención al cliente y reclamos</a></li>
+                    <li><a href="#clausula-14">Modificaciones</a></li>
+                    <li><a href="#clausula-15">Ley aplicable y jurisdicción</a></li>
+                    <li><a href="#clausula-16">Vigencia</a></li>
+                </ol>
+            </nav>
+
+            <section id="clausula-1">
+                <h2>1. Identificación del proveedor y aceptación</h2>
+                <p><span class="clausula-numero">1.1</span> El sitio web <strong>"Mieles Los Primos"</strong> (el "Sitio") es operado por <strong>Apicultura "Los Primos"</strong> (el "Proveedor"), emprendimiento apícola familiar de Juan José Castelli, Provincia del Chaco, República Argentina, cuyos datos son:</p>
+
+                <!-- DATOS A COMPLETAR: los valores entre corchetes los completa el emprendimiento -->
+                <div class="tabla-scroll" role="region" aria-label="Datos del proveedor" tabindex="0">
+                    <table class="tabla-legal tabla-datos">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Titular</th>
+                                <td>[nombre y apellido / razón social del titular]</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">CUIT</th>
+                                <td>[N.º de CUIT]</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Domicilio</th>
+                                <td>[calle y número], Juan José Castelli, Chaco</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Correo electrónico</th>
+                                <td>[correo de atención]</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">WhatsApp de atención</th>
+                                <td>[número]</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Registros sanitarios</th>
+                                <td>RNE / RNPA: [números de registro]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p><span class="clausula-numero">1.2</span> Estos Términos y Condiciones constituyen un <strong>contrato de adhesión</strong> que regula el uso del Sitio y la compra de los productos ofrecidos. Al navegar el Sitio y, en especial, al tildar la casilla <strong>"Acepto los Términos y Condiciones"</strong> en el proceso de compra, el Usuario declara haberlos leído y aceptado. Quien no esté de acuerdo debe abstenerse de realizar pedidos.</p>
+                <p><span class="clausula-numero">1.3</span> Estos Términos y Condiciones se interpretan conforme a la Ley 24.240 de Defensa del Consumidor, al Código Civil y Comercial de la Nación y a las normas complementarias. En caso de duda prevalece la interpretación más favorable al consumidor.</p>
+                <p><span class="clausula-numero">1.4</span> <strong>Carácter académico del Sitio.</strong> En su versión actual el Sitio se desarrolla como proyecto integrador de la Tecnicatura Superior en Desarrollo de Software del IES "René Favaloro" (2026). Por ello, el proceso de compra es una <strong>simulación</strong>: no se procesan pagos reales ni se generan obligaciones de entrega mientras el Sitio permanezca en esa etapa. Las cláusulas se redactan como si el Sitio operara comercialmente, con el fin de validar su adecuación legal.</p>
+            </section>
+
+            <section id="clausula-2">
+                <h2>2. Definiciones</h2>
+                <ul>
+                    <li><strong>Usuario / Consumidor:</strong> persona humana o jurídica que navega el Sitio o adquiere productos como destinatario final, en beneficio propio o de su grupo familiar o social.</li>
+                    <li><strong>Productos:</strong> miel pura multifloral del monte nativo del Impenetrable (frascos de 400 g y 800 g), porción de panal con miel, polen apícola y los packs publicados en el catálogo.</li>
+                    <li><strong>Pedido:</strong> solicitud de compra confirmada por el Usuario en el checkout.</li>
+                    <li><strong>Botón de Arrepentimiento:</strong> enlace del Sitio mediante el cual el consumidor solicita la revocación de su compra.</li>
+                </ul>
+            </section>
+
+            <section id="clausula-3">
+                <h2>3. Uso del sitio y reglas de conducta</h2>
+                <p><span class="clausula-numero">3.1</span> <strong>Capacidad.</strong> Para comprar se requiere ser mayor de 18 años y contar con capacidad legal. Los menores solo pueden hacerlo por medio de su representante legal.</p>
+                <p><span class="clausula-numero">3.2</span> <strong>Acceso.</strong> La navegación es libre y gratuita. La compra no exige crear una cuenta ni registrarse.</p>
+                <p><span class="clausula-numero">3.3</span> <strong>Reglas de conducta.</strong> El Usuario se compromete a:</p>
+                <ul>
+                    <li>proporcionar datos veraces, completos y actualizados en el formulario de compra;</li>
+                    <li>no utilizar el Sitio con fines ilícitos, fraudulentos o contrarios a la buena fe;</li>
+                    <li>no intentar vulnerar la seguridad del Sitio, alterar su código, ni acceder a información de otros usuarios;</li>
+                    <li>no suplantar la identidad de otra persona ni realizar pedidos falsos;</li>
+                    <li>no utilizar sistemas automatizados (bots, scrapers) sin autorización previa;</li>
+                    <li>no cargar contenido ofensivo, ilegal o que infrinja derechos de terceros en los campos de texto o consultas.</li>
+                </ul>
+                <p><span class="clausula-numero">3.4</span> Ante un uso fraudulento o contrario a estas reglas, el Proveedor podrá cancelar el pedido o bloquear el acceso, reintegrando lo efectivamente abonado, sin perjuicio de las acciones legales que correspondan.</p>
+            </section>
+
+            <section id="clausula-4">
+                <h2>4. Propiedad intelectual y contenido generado con IA</h2>
+                <p><span class="clausula-numero">4.1</span> La marca, el logotipo, el diseño, los textos y las fotografías del Sitio pertenecen al Proveedor o a sus autores y están protegidos por la Ley 22.362 de Marcas y la Ley 11.723 de Propiedad Intelectual. El código fuente se rige por la <a href="https://github.com/juanimol19/mieles-los-primos-web/blob/HEAD/LICENSE">licencia de software declarada en el repositorio del proyecto</a>. Se prohíbe su reproducción o uso comercial sin autorización expresa.</p>
+                <p><span class="clausula-numero">4.2</span> <strong>Transparencia sobre inteligencia artificial.</strong> Algunas imágenes y textos descriptivos del Sitio pueden haber sido generados o asistidos mediante herramientas de IA con fines ilustrativos, conforme a la declaración de transparencia del proyecto. Dichas imágenes pueden diferir en detalles de presentación del producto real (etiquetas, envase, tonalidad). El producto entregado es el descripto en la ficha del catálogo (tipo y peso/contenido).</p>
+            </section>
+
+            <section id="clausula-5">
+                <h2>5. Productos, precios y disponibilidad</h2>
+                <p><span class="clausula-numero">5.1</span> <strong>Precios.</strong> Los precios publicados en el catálogo están expresados en pesos argentinos (ARS) y son precios finales por unidad para el consumidor. El costo de envío se calcula en el checkout según el destino y se informa por separado, junto con el <strong>precio total</strong>, antes de que el Usuario confirme el pedido.</p>
+                <p><span class="clausula-numero">5.2</span> <strong>Oferta vinculante.</strong> Las ofertas y precios publicados obligan al Proveedor durante el período de su vigencia (art. 7, Ley 24.240). Si se detectara un error manifiesto de precio, el Proveedor lo informará antes de aceptar el pedido y ofrecerá al Usuario confirmarlo con el precio correcto o cancelarlo sin costo.</p>
+                <p><span class="clausula-numero">5.3</span> <strong>Disponibilidad.</strong> Los productos están sujetos a stock. Si luego de confirmado el pedido algún producto no estuviera disponible, el Proveedor lo informará de inmediato y el consumidor podrá exigir el cumplimiento, aceptar un producto equivalente o rescindir la compra con la devolución de lo abonado (art. 10 bis, Ley 24.240).</p>
+                <p><span class="clausula-numero">5.4</span> <strong>Naturaleza del producto.</strong> Se trata de productos naturales y artesanales: el color, aroma, sabor y textura pueden variar según la floración y la cosecha, y la miel puede cristalizar de manera espontánea. Estas características no constituyen defecto.</p>
+            </section>
+
+            <section id="clausula-6">
+                <h2>6. Proceso de compra</h2>
+                <p><span class="clausula-numero">6.1</span> El Usuario selecciona los productos en el catálogo, los agrega al carrito y completa el checkout con: datos del comprador, dirección de entrega, método de envío y método de pago.</p>
+                <p><span class="clausula-numero">6.2</span> Antes de confirmar, el Sitio muestra un <strong>resumen</strong> con productos, cantidades, subtotal, costo de envío y total. El Usuario puede modificar cantidades, eliminar productos y corregir sus datos hasta ese momento.</p>
+                <p><span class="clausula-numero">6.3</span> Para confirmar el pedido es obligatorio tildar la casilla de aceptación de estos Términos y Condiciones y de la Política de Privacidad.</p>
+                <p><span class="clausula-numero">6.4</span> Confirmado el pedido, el Sitio emite una <strong>constancia</strong> con número de pedido, detalle y total, que se envía además al correo electrónico informado. La compraventa se perfecciona con la confirmación del pedido y, cuando corresponda, la acreditación del pago.</p>
+                <p><span class="clausula-numero">6.5</span> En la versión académica (<a href="#clausula-1">cláusula 1.4</a>), la confirmación es simulada y no genera obligación de pago ni de entrega.</p>
+            </section>
+
+            <section id="clausula-7">
+                <h2>7. Medios de pago</h2>
+                <p><span class="clausula-numero">7.1</span> El Sitio admite pago mediante <strong>Mercado Pago</strong> (tarjetas de crédito o débito, dinero en cuenta u otros medios que la plataforma habilite) y <strong>transferencia bancaria</strong>, cuyos datos se envían por correo electrónico al confirmar el pedido.</p>
+                <p><span class="clausula-numero">7.2</span> Los datos de pago son procesados por Mercado Pago bajo sus propios términos y políticas. <strong>El Sitio no recibe ni almacena números de tarjeta ni códigos de seguridad.</strong></p>
+                <p><span class="clausula-numero">7.3</span> Los pedidos abonados por transferencia quedan pendientes hasta la acreditación del pago. Si no se acredita en el plazo informado en el correo de confirmación, el pedido se cancela sin costo para el Usuario.</p>
+                <p><span class="clausula-numero">7.4</span> Los reintegros se realizan por el mismo medio de pago utilizado. Los costos financieros o cuotas, si existieran, se informan en la plataforma de pago antes de abonar.</p>
+            </section>
+
+            <section id="clausula-8">
+                <h2>8. Envío y entrega</h2>
+                <p><span class="clausula-numero">8.1</span> <strong>Cobertura.</strong> Se realizan envíos a Castelli, Resistencia y localidades del Chaco, y a todo el país. El costo se calcula según la ubicación y se informa antes de confirmar el pedido.</p>
+                <p><span class="clausula-numero">8.2</span> <strong>Retiro.</strong> Cuando esté habilitado, el retiro en sucursal se ofrece sujeto a disponibilidad y se coordina según lo informado en el checkout.</p>
+                <p><span class="clausula-numero">8.3</span> <strong>Plazo.</strong> El plazo estimado de entrega se informa antes de confirmar el pedido y se cuenta desde la acreditación del pago. Ante su incumplimiento, el consumidor podrá ejercer los derechos del art. 10 bis de la Ley 24.240.</p>
+                <p><span class="clausula-numero">8.4</span> <strong>Recepción.</strong> Al recibir el paquete, el Usuario debe verificar su estado. Si observa daños, derrames o faltantes, se solicita informarlo dentro de las 48 horas con fotografías, sin perjuicio de los demás derechos del consumidor. El Proveedor responde por el producto hasta su entrega en el domicilio indicado y repone sin costo lo dañado en el transporte.</p>
+                <p><span class="clausula-numero">8.5</span> Si la entrega fracasa por datos incorrectos o incompletos aportados por el Usuario, el costo del reenvío estará a su cargo.</p>
+            </section>
+
+            <section id="clausula-9">
+                <h2>9. Derecho de revocación (Botón de Arrepentimiento)</h2>
+                <p><span class="clausula-numero">9.1</span> <strong>Derecho.</strong> En las compras a distancia, el consumidor tiene el derecho <strong>irrenunciable</strong> de revocar la aceptación, sin expresión de causa y sin responsabilidad alguna, dentro de los <strong>10 (diez) días corridos</strong> contados a partir de la fecha en que se entrega el bien o se celebra el contrato, lo último que ocurra (art. 34, Ley 24.240; arts. 1110 a 1116, Código Civil y Comercial).</p>
+                <p><span class="clausula-numero">9.2</span> <strong>Cómo ejercerlo.</strong> El consumidor puede ejercer el derecho a través del <a href="arrepentimiento.html"><strong>Botón de Arrepentimiento</strong></a>, enlace de acceso directo, destacado en visibilidad y tamaño, ubicado en la página de inicio y en el pie de página del Sitio. También puede hacerlo por correo electrónico o WhatsApp. <strong>No se exige registración previa ni trámite adicional</strong> (Res. SCI 424/2020). Deberá indicar su nombre, correo electrónico, número de pedido y producto(s) que desea revocar.</p>
+                <p><span class="clausula-numero">9.3</span> <strong>Constancia.</strong> A partir de la solicitud, el Proveedor informará al consumidor, dentro de las <strong>24 horas</strong> y por el mismo medio, el <strong>código de identificación de arrepentimiento o revocación</strong> (Res. SCI 424/2020).</p>
+                <p><span class="clausula-numero">9.4</span> <strong>Devolución del producto.</strong> El consumidor pone el producto a disposición del Proveedor y <strong>los gastos de devolución son a cargo del Proveedor</strong> (art. 34, Ley 24.240; art. 1115, CCyC). El consumidor no responde por la disminución de valor derivada del uso conforme a la naturaleza del producto.</p>
+                <p><span class="clausula-numero">9.5</span> <strong>Reintegro.</strong> Ejercido el derecho en tiempo y forma, las partes quedan liberadas de sus obligaciones y el Proveedor reintegra el importe abonado, incluido el costo de envío inicial, de forma inmediata y por el mismo medio de pago empleado.</p>
+                <p><span class="clausula-numero">9.6</span> <strong>Información.</strong> El Proveedor informa este derecho de forma destacada en el Sitio, en el checkout y en la constancia de compra (art. 1111, CCyC). Toda cláusula que lo limite o excluya se tiene por no escrita.</p>
+            </section>
+
+            <section id="clausula-10">
+                <h2>10. Garantías y calidad de los productos</h2>
+                <p><span class="clausula-numero">10.1</span> <strong>Garantía legal.</strong> La garantía legal del art. 11 de la Ley 24.240 rige para cosas muebles no consumibles. La miel, el panal y el polen son alimentos consumibles, por lo que no se les aplica ese régimen. Sin embargo, el Proveedor responde plenamente por la <strong>conformidad del producto con lo ofrecido</strong> (arts. 4 y 8), por su <strong>aptitud para el consumo</strong> y por los daños derivados de vicios o riesgo del producto (art. 40).</p>
+                <p><span class="clausula-numero">10.2</span> <strong>Garantía de conformidad "Los Primos" (voluntaria).</strong> El Proveedor garantiza que cada producto corresponde a lo descripto, llega con el envase íntegro y en condiciones de consumo. Si no fuera así, dentro de los <strong>7 (siete) días corridos</strong> de recibido el consumidor puede optar entre la <strong>reposición del producto</strong> o la <strong>devolución del dinero</strong>, sin costo de envío. Para solicitarla debe contactar al Proveedor con el número de pedido y fotografías del producto y del envase. El Proveedor responderá dentro de las 48 horas hábiles.</p>
+                <p><span class="clausula-numero">10.3</span> Esta garantía voluntaria no reemplaza ni limita los derechos que la ley otorga al consumidor.</p>
+                <p><span class="clausula-numero">10.4</span> <strong>No constituyen defecto:</strong> la cristalización natural de la miel, las variaciones de color, aroma y sabor propias de cada cosecha, y las diferencias naturales de tamaño y color del polen o del panal.</p>
+                <p><span class="clausula-numero">10.5</span> <strong>Advertencias y conservación.</strong></p>
+                <ul>
+                    <li>No administrar miel a menores de 1 año.</li>
+                    <li>Los productos apícolas, en especial el polen, pueden provocar reacciones alérgicas. Ante antecedentes de alergia, consulte a un profesional de la salud.</li>
+                    <li>Conservar en lugar fresco, seco y al abrigo de la luz, con el envase bien cerrado. La fecha de consumo preferente y el lote figuran en el rótulo.</li>
+                </ul>
+                <!-- DATOS A COMPLETAR: confirmar los registros con el emprendimiento (nota del texto original) -->
+                <p><span class="clausula-numero">10.6</span> El Proveedor declara que los productos se elaboran y rotulan conforme al Código Alimentario Argentino [y cuentan con los registros indicados en 1.1 – confirmar con el emprendimiento].</p>
+            </section>
+
+            <section id="clausula-11">
+                <h2>11. Responsabilidad del proveedor</h2>
+                <p><span class="clausula-numero">11.1</span> El Proveedor responde por los daños que sus productos causen al consumidor, conforme al art. 40 de la Ley 24.240 y al Código Civil y Comercial. Ninguna disposición de estos Términos limita esa responsabilidad.</p>
+                <p><span class="clausula-numero">11.2</span> El Proveedor no responde por: (a) interrupciones o fallas técnicas del Sitio ajenas a su control, aunque procurará restablecer el servicio a la brevedad; (b) el contenido, las políticas o el funcionamiento de servicios de terceros (Mercado Pago, empresas de transporte, redes sociales) en lo que les corresponde exclusivamente a ellos; (c) el almacenamiento inadecuado o el consumo contrario a las advertencias de la cláusula 10.5; (d) caso fortuito o fuerza mayor (art. 1730, CCyC). Todo ello sin perjuicio de los derechos del consumidor.</p>
+                <p><span class="clausula-numero">11.3</span> <strong>Salvaguarda.</strong> Se tiene por no convenida toda cláusula de estos Términos que desnaturalice las obligaciones del Proveedor, limite su responsabilidad por daños o importe renuncia o restricción de los derechos del consumidor (art. 37, Ley 24.240).</p>
+            </section>
+
+            <section id="clausula-12">
+                <h2>12. Protección de datos personales</h2>
+                <p><span class="clausula-numero">12.1</span> Los datos personales que el Usuario ingresa en el Sitio se tratan conforme a la <strong>Ley 25.326 de Protección de los Datos Personales</strong> y a la <a href="privacidad.html"><strong>Política de Privacidad (Habeas Data)</strong></a> publicada en el Sitio, que detalla su finalidad (gestionar el pedido, la entrega y las comunicaciones vinculadas), las medidas de seguridad y los destinatarios.</p>
+                <p><span class="clausula-numero">12.2</span> El titular de los datos puede ejercer sus derechos de <strong>acceso, rectificación, supresión (cancelación) y oposición</strong> (derechos ARCO) escribiendo al correo de contacto del Proveedor. El acceso es gratuito a intervalos no inferiores a seis meses, salvo que se acredite un interés legítimo (art. 14, Ley 25.326).</p>
+                <p><span class="clausula-numero">12.3</span> La <strong>Agencia de Acceso a la Información Pública</strong>, en su carácter de Órgano de Control de la Ley 25.326, tiene la atribución de atender las denuncias y reclamos que se interpongan por incumplimiento de las normas sobre protección de datos personales.</p>
+            </section>
+
+            <section id="clausula-13">
+                <h2>13. Atención al cliente y reclamos</h2>
+                <p><span class="clausula-numero">13.1</span> El Usuario puede consultar o reclamar por WhatsApp o correo electrónico (datos en la <a href="#clausula-1">cláusula 1.1</a>). El Proveedor responderá dentro de las 48 horas hábiles.</p>
+                <p><span class="clausula-numero">13.2</span> <strong>Defensa de las y los Consumidores. Para reclamos ingrese aquí:</strong> <a href="https://www.argentina.gob.ar/produccion/defensadelconsumidor" target="_blank" rel="noopener">Dirección Nacional de Defensa del Consumidor (www.argentina.gob.ar/produccion/defensadelconsumidor)</a>. El consumidor también puede recurrir a la autoridad provincial de Defensa del Consumidor del Chaco y al Servicio de Conciliación Previa en las Relaciones de Consumo (COPREC).</p>
+            </section>
+
+            <section id="clausula-14">
+                <h2>14. Modificaciones</h2>
+                <p><span class="clausula-numero">14.1</span> El Proveedor puede modificar estos Términos y Condiciones; los cambios rigen desde su publicación en el Sitio. Cada pedido se rige por la versión vigente al momento de la compra, y las modificaciones no pueden afectar contratos ya celebrados en perjuicio del consumidor.</p>
+            </section>
+
+            <section id="clausula-15">
+                <h2>15. Ley aplicable y jurisdicción</h2>
+                <p><span class="clausula-numero">15.1</span> Estos Términos se rigen por las leyes de la República Argentina. Para los conflictos derivados del contrato, será competente la jurisdicción del lugar donde el consumidor recibió o debió recibir la prestación (art. 1109, CCyC). Toda cláusula de prórroga de jurisdicción se tiene por no escrita.</p>
+            </section>
+
+            <section id="clausula-16">
+                <h2>16. Vigencia</h2>
+                <p><span class="clausula-numero">16.1</span> Versión 1.0, vigente desde el 14 de octubre de 2026.</p>
+            </section>
+        </article>
+    </main>
+
+    <!-- Pie de Página (Footer). Es el mismo en todas las páginas:
+         si se cambia, hay que cambiarlo en todos los archivos .html. -->
+    <footer>
+        <section class="footer-marca">
+            <h2>Mieles Los Primos</h2>
+            <p>Miel pura de abeja recolectada en el monte nativo de Juan José Castelli, Chaco, Argentina.</p>
+        </section>
+
+        <!-- DATOS DE EJEMPLO: reemplazar el número de WhatsApp por el real (el Instagram ya es el real) -->
+        <section id="contacto">
+            <h2>Contacto y redes</h2>
+            <p>Atención directa para pedidos y envíos en Chaco y todo el país.</p>
+            <ul class="footer-redes">
+                <li>
+                    <a href="https://wa.me/5493644000000" target="_blank" rel="noopener">
+                        <!-- Globo de chat con teléfono (WhatsApp) -->
+                        <svg class="red-icono" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.7z"/>
+                            <path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a4.5 4.5 0 0 1-2.3-2.3l.8-1-1-2z"/>
+                        </svg>
+                        <span>WhatsApp: +54 9 3644 00-0000</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/losprimos.miel/" target="_blank" rel="noopener">
+                        <!-- Cámara (Instagram) -->
+                        <svg class="red-icono" viewBox="0 0 24 24" aria-hidden="true">
+                            <rect x="3.5" y="3.5" width="17" height="17" rx="5"/>
+                            <circle cx="12" cy="12" r="4"/>
+                            <circle cx="17" cy="7" r="0.6"/>
+                        </svg>
+                        <span>Instagram: @losprimos.miel</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <section class="footer-legal">
+            <h2>Legal</h2>
+            <ul>
+                <!-- Botón de Arrepentimiento (Ley 24.240 y Res. SCI 424/2020): destacado y de acceso directo -->
+                <li><a href="arrepentimiento.html" class="boton boton-secundario boton-arrepentimiento">Botón de Arrepentimiento</a></li>
+                <li><a href="terminos.html" aria-current="page">Términos y Condiciones</a></li>
+                <li><a href="privacidad.html">Política de Privacidad</a></li>
+                <li><a href="https://github.com/juanimol19/mieles-los-primos-web/blob/HEAD/LICENSE">Licencia GPL v3.0 del código</a></li>
+            </ul>
+            <p class="footer-leyenda">Mieles Los Primos protege tus datos personales conforme a la Ley N° 25.326. Consultá nuestra <a href="privacidad.html">Política de Privacidad</a> o escribinos a <a href="mailto:privacidad@mieleslosprimos.com.ar">privacidad@mieleslosprimos.com.ar</a> para ejercer tus derechos de acceso, rectificación, supresión u oposición.</p>
+        </section>
+
+        <p class="footer-copyright">&copy; 2026 Mieles Los Primos. Código bajo licencia GPL v3.0 · Contenidos bajo CC BY-NC-ND 4.0 · Marca y logotipo: todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Botón flotante de WhatsApp: fijo abajo a la derecha, visible en todas las secciones.
+         DATOS DE EJEMPLO: reemplazar el número por el real -->
+    <a href="https://wa.me/5493644000000" class="whatsapp-flotante" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.7z"/>
+            <path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a4.5 4.5 0 0 1-2.3-2.3l.8-1-1-2z"/>
+        </svg>
+    </a>
+
+    <!-- Carrito: contador del header y botones "Agregar al carrito" (JavaScript puro, ES module) -->
+    <script type="module" src="js/carrito.js"></script>
+
+</body>
+</html>
