@@ -75,6 +75,11 @@ function eliminarDelCarrito(id) {
   guardarCarrito(leerCarrito().filter((p) => p.id !== id));
 }
 
+// Deja el carrito vacío (se usa en js/checkout.js después de confirmar la compra)
+export function vaciarCarrito() {
+  guardarCarrito([]);
+}
+
 // Total de unidades (2 botellas + 1 panal = 3)
 function contarUnidades() {
   return leerCarrito().reduce((total, item) => total + item.cantidad, 0);
@@ -123,14 +128,15 @@ document.addEventListener('click', (evento) => {
 
 // Junta cada item del carrito con su producto del JSON: { producto, cantidad }.
 // Si un id ya no existe en el catálogo, se descarta.
-async function cargarItems() {
+// "export": también la usa js/checkout.js para la confirmación del pedido.
+export async function cargarItems() {
   const productos = await obtenerProductos();
   return leerCarrito()
     .map((item) => ({ producto: productos.find((p) => p.id === item.id), cantidad: item.cantidad }))
     .filter((item) => item.producto);
 }
 
-function calcularTotal(items) {
+export function calcularTotal(items) {
   return items.reduce((total, item) => total + item.producto.precio_simulado * item.cantidad, 0);
 }
 
@@ -238,7 +244,7 @@ async function mostrarCarrito() {
    -------------------------------------------------------------------------- */
 
 // Una línea del resumen: "Botella de miel 800 g ×2 ...... $17.700"
-function crearFilaResumen(item) {
+export function crearFilaResumen(item) {
   const fila = crear('li', 'resumen-fila');
   fila.append(
     crear('span', null, `${item.producto.nombre} ×${item.cantidad}`),
