@@ -52,7 +52,11 @@
             <h1>Finalizar compra</h1>
             <p class="subtitulo">Completá tus datos para procesar el pedido. Los campos con * son obligatorios.</p>
 
-            <form action="#" method="post" class="checkout-form">
+            <!-- Carácter simulado de la compra (Anexo B de los Términos y Condiciones, ítem 10) -->
+            <p class="aviso-simulado"><strong>Versión académica – compra simulada.</strong> No se realiza ningún cobro ni se envía ningún pedido.</p>
+
+            <!-- js/checkout.js valida los datos al enviar y muestra la confirmación simulada -->
+            <form action="#" method="post" class="checkout-form" id="form-checkout">
 
                 <div class="checkout-bloques">
                     <!-- 1. Datos del comprador -->
@@ -102,7 +106,7 @@
                     <!-- 3. Dirección de entrega: se oculta con CSS (:has) si se
                          elige retiro en sucursal. No lleva "required" porque un campo
                          oculto y obligatorio bloquearía el envío del formulario;
-                         la validación condicional se hará en el backend (Sprint 3). -->
+                         la validación condicional la hace js/checkout.js. -->
                     <fieldset class="bloque-direccion">
                         <legend>Dirección de entrega</legend>
                         <p class="bloque-nota">Solo para envío a domicilio.</p>
@@ -175,14 +179,17 @@
                         </div>
                     </fieldset>
 
-                    <!-- Consentimiento (Ley 25.326). Ninguna casilla viene marcada por defecto:
+                    <!-- Consentimiento: aceptación expresa del contrato (Anexo B, ítem 2) y de la
+                         Política de Privacidad (Ley 25.326). Ninguna casilla viene marcada por defecto:
                          el consentimiento tiene que ser una acción expresa del usuario.
-                         El link abre en otra pestaña para no perder lo cargado en el formulario. -->
+                         js/checkout.js no deja confirmar la compra si la primera no está tildada.
+                         Los links abren en otra pestaña para no perder lo cargado en el formulario.
+                         terminos.html se crea en la issue #66. -->
                     <div class="consentimientos">
                         <div class="casilla">
-                            <input type="checkbox" id="acepto-privacidad" name="acepto_privacidad" required>
-                            <label for="acepto-privacidad">
-                                Leí y acepto la <a href="privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a>. Autorizo el uso de mis datos personales para procesar y enviar mi pedido, conforme a la Ley N° 25.326. *
+                            <input type="checkbox" id="acepto-terminos" name="acepto_terminos" required>
+                            <label for="acepto-terminos">
+                                Acepto los <a href="terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a> y la <a href="privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a>. Autorizo el uso de mis datos personales para procesar y enviar mi pedido, conforme a la Ley N° 25.326. *
                             </label>
                         </div>
                         <div class="casilla">
@@ -214,6 +221,45 @@
                 </aside>
 
             </form>
+        </section>
+
+        <!-- CONFIRMACIÓN SIMULADA: constancia de compra (Anexo B, ítems 5, 7 y 10).
+             Queda oculta (hidden) hasta que js/checkout.js valida el formulario;
+             ahí se oculta el checkout y se completa con los datos del pedido. -->
+        <section class="checkout-confirmacion" id="checkout-confirmacion" hidden>
+            <h1 tabindex="-1">¡Gracias por tu compra!</h1>
+            <p class="aviso-simulado"><strong>Versión académica – compra simulada.</strong> No se realizó ningún cobro ni se va a enviar el pedido.</p>
+
+            <div class="tarjeta confirmacion-tarjeta">
+                <p class="confirmacion-etiqueta">Número de pedido</p>
+                <p class="confirmacion-numero" id="confirmacion-numero"></p>
+                <p class="confirmacion-nota">Guardalo: lo vas a necesitar para cualquier consulta y para usar el Botón de Arrepentimiento.</p>
+
+                <h2>Detalle del pedido</h2>
+                <ul class="resumen-items" id="confirmacion-items"></ul>
+                <p class="resumen-fila"><span>Subtotal</span> <span id="confirmacion-subtotal"></span></p>
+                <p class="resumen-fila"><span>Envío</span> <span id="confirmacion-costo-envio"></span></p>
+                <p class="resumen-fila resumen-total"><span>Total</span> <span id="confirmacion-total"></span></p>
+
+                <h2>Datos de la compra</h2>
+                <dl class="confirmacion-datos">
+                    <dt>Fecha</dt>
+                    <dd id="confirmacion-fecha"></dd>
+                    <dt>Comprador</dt>
+                    <dd id="confirmacion-comprador"></dd>
+                    <dt>Entrega</dt>
+                    <dd id="confirmacion-entrega"></dd>
+                    <dt>Pago</dt>
+                    <dd id="confirmacion-pago"></dd>
+                </dl>
+
+                <!-- Aviso del derecho de arrepentimiento también en la confirmación (Anexo B, ítem 5) -->
+                <p class="leyenda-arrepentimiento">
+                    Tenés <strong>10 días corridos</strong> desde que recibís el producto para arrepentirte de la compra, sin expresar causa y sin costo. Podés hacerlo con el <a href="arrepentimiento.html">Botón de Arrepentimiento</a>, usando tu número de pedido.
+                </p>
+
+                <a href="catalogo.html" class="boton">Seguir comprando</a>
+            </div>
         </section>
     </main>
 
@@ -279,6 +325,7 @@
 
     <!-- Carrito: contador del header y botones "Agregar al carrito" (JavaScript puro, ES module) -->
     <script type="module" src="js/carrito.js"></script>
+    <script type="module" src="js/checkout.js"></script>
 
 </body>
 </html>

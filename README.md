@@ -39,6 +39,7 @@ mieles-los-primos-web/
 │   ├── catalogo.js     (tarjetas del catálogo y del inicio, filtro por categoría)
 │   ├── carrito.js      (carrito en localStorage y contador del header)
 │   ├── producto.js     (arma el detalle leyendo data/productos.json)
+│   ├── checkout.js     (validación del checkout y confirmación simulada)
 │   └── arrepentimiento.js (formulario y código de arrepentimiento simulado)
 ├── data/
 │   └── productos.json
