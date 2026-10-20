@@ -31,6 +31,7 @@ mieles-los-primos-web/
 ├── checkout.html       (formulario de compra)
 ├── privacidad.html     (Política de Privacidad, Ley 25.326)
 ├── arrepentimiento.html (Botón de Arrepentimiento, Ley 24.240)
+├── terminos.html       (Términos y Condiciones de uso y compra)
 ├── css/
 │   └── styles.css
 ├── js/                 (JavaScript puro con ES modules)
