@@ -26,12 +26,23 @@ const MAXIMO_POR_PRODUCTO = 20;             // mismo tope que el selector de can
    Guardar y leer el carrito
    -------------------------------------------------------------------------- */
 
+// Un item es válido si tiene un id numérico y una cantidad entera entre 1 y el tope.
+// localStorage se puede editar a mano desde DevTools: así se descartan datos
+// inválidos (por ejemplo, una cantidad de -3) en vez de mostrar totales negativos.
+function esItemValido(item) {
+  return item !== null &&
+    Number.isInteger(item.id) &&
+    Number.isInteger(item.cantidad) &&
+    item.cantidad >= 1 &&
+    item.cantidad <= MAXIMO_POR_PRODUCTO;
+}
+
 // Devuelve el carrito guardado, o una lista vacía si no hay nada.
 // try/catch: si el navegador bloquea localStorage o el dato está dañado, no se rompe la página.
 function leerCarrito() {
   try {
     const guardado = JSON.parse(localStorage.getItem(CLAVE_CARRITO));
-    return Array.isArray(guardado) ? guardado : [];
+    return Array.isArray(guardado) ? guardado.filter(esItemValido) : [];
   } catch (error) {
     return [];
   }
