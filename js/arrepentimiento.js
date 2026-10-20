@@ -5,7 +5,7 @@
    Cómo funciona:
    1. Agrega al selector "Producto" las opciones de data/productos.json.
    2. Al enviar el formulario (los campos ya los valida el navegador con
-      required y type="email"), genera un código de arrepentimiento simulado
+      required, type="email" y el pattern del N.º de pedido), genera un código de arrepentimiento simulado
       y muestra la confirmación con el aviso de las 24 horas
       (Res. SCI 424/2020 y Términos y Condiciones, cláusula 9.3).
 
