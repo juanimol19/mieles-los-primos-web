@@ -69,7 +69,9 @@
                 <p class="aviso-simulado">Versión académica: la solicitud es simulada. Los datos no se envían ni se guardan.</p>
 
                 <!-- js/arrepentimiento.js atiende el envío: genera el código y muestra la confirmación.
-                     Los campos son obligatorios (required): el navegador no deja enviar si falta alguno. -->
+                     Los campos son obligatorios (required): el navegador no deja enviar si falta alguno.
+                     El N.º de pedido tiene el mismo formato que genera el checkout (LP- y 6 números):
+                     pattern lo valida y title es el mensaje que muestra el navegador. -->
                 <form class="form-arrepentimiento" id="form-arrepentimiento" action="#" method="post">
                     <div class="campos campos-2">
                         <div class="campo">
@@ -82,7 +84,8 @@
                         </div>
                         <div class="campo">
                             <label for="arr-pedido">N.º de pedido *</label>
-                            <input type="text" id="arr-pedido" name="pedido" placeholder="Ej: LP-000123" maxlength="30" required>
+                            <input type="text" id="arr-pedido" name="pedido" placeholder="Ej: LP-000123" maxlength="9" required
+                                   pattern="[Ll][Pp]-[0-9]{6}" title="El formato es LP- seguido de 6 números (ej.: LP-000123)">
                         </div>
                         <div class="campo">
                             <label for="arr-producto">Producto *</label>

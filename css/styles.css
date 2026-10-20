@@ -1569,6 +1569,12 @@ footer > p {
   padding: var(--space-5) var(--space-4);
 }
 
+/* Las URL largas no tienen espacios donde cortar la línea: sin esto,
+   en el celular se salen de la pantalla y aparece scroll horizontal */
+.texto-legal a {
+  overflow-wrap: anywhere;
+}
+
 .texto-legal h1 {
   margin-top: var(--space-3);
   font-size: 2rem;
