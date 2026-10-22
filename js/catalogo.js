@@ -64,6 +64,7 @@ function crearTarjetaCatalogo(producto) {
     const boton = crear('button', 'boton', 'Agregar al carrito');
     boton.type = 'button';
     boton.dataset.agregar = producto.id;
+    boton.dataset.nombre = producto.nombre; // para el aviso flotante de js/carrito.js
     texto.append(boton);
   }
 
@@ -71,16 +72,46 @@ function crearTarjetaCatalogo(producto) {
   return tarjeta;
 }
 
-// Tarjeta de "Nuestros productos" (inicio): imagen, nombre, bajada corta y precio
+// Botón redondo "+" del inicio. Solo tiene un ícono, así que el aria-label
+// le dice al lector de pantalla qué hace.
+function crearBotonAgregar(producto) {
+  const boton = crear('button', 'boton-agregar');
+  boton.type = 'button';
+  boton.dataset.agregar = producto.id;
+  boton.dataset.nombre = producto.nombre;
+  boton.setAttribute('aria-label', `Agregar ${producto.nombre} al carrito`);
+
+  // Ícono "+" en SVG (createElementNS: los elementos SVG necesitan su propio "espacio de nombres")
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('aria-hidden', 'true');
+  const mas = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  mas.setAttribute('d', 'M12 5v14M5 12h14');
+  svg.append(mas);
+
+  boton.append(svg);
+  return boton;
+}
+
+// Tarjeta de "Nuestros productos" (inicio): foto con la categoría encima,
+// nombre, bajada corta y, al pie, el precio con el botón "+".
 function crearTarjetaInicio(producto) {
   const tarjeta = crear('article', 'tarjeta tarjeta-link');
-  const texto = crear('div', 'tarjeta-texto');
 
+  const foto = crear('div', 'tarjeta-foto');
+  foto.append(crearImagen(producto), crear('span', 'tarjeta-categoria', nombreCategoria(producto.categoria)));
+
+  const texto = crear('div', 'tarjeta-texto');
   texto.append(crearTitulo('h3', producto));
   if (producto.resumen) texto.append(crear('p', null, producto.resumen));
-  texto.append(crear('p', 'precio', textoPrecio(producto)), crearVerDetalle());
 
-  tarjeta.append(crearImagen(producto), texto);
+  // Pie: si el precio está a confirmar no se puede agregar; se consulta desde el detalle
+  const pie = crear('div', 'tarjeta-pie');
+  pie.append(crear('p', 'precio', textoPrecio(producto)));
+  pie.append(producto.precio_a_confirmar ? crearVerDetalle() : crearBotonAgregar(producto));
+  texto.append(pie);
+
+  tarjeta.append(foto, texto);
   return tarjeta;
 }
 

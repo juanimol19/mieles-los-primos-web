@@ -8,7 +8,8 @@
       Formato: [{ "id": 1, "cantidad": 2 }, { "id": 4, "cantidad": 1 }]
       Solo se guardan el id y la cantidad: el nombre, el precio y la imagen
       se leen siempre de data/productos.json (js/productos.js).
-   2. En todas las páginas actualiza el contador del header.
+   2. En todas las páginas actualiza el contador del header (con un "rebote"
+      cuando se suman productos) y muestra un aviso flotante al agregar.
    3. Los botones con el atributo data-agregar="<id>" suman ese producto
       (también los que crea js/catalogo.js después de cargar la página).
    4. En carrito.html arma la tabla y el resumen; en checkout.html, el resumen.
@@ -100,14 +101,46 @@ function contarUnidades() {
    Contador del header (en todas las páginas)
    -------------------------------------------------------------------------- */
 
+let unidadesAnteriores = null; // null = todavía no se mostró ningún número
+
 function actualizarContador() {
   const unidades = contarUnidades();
+  // Solo "rebota" si se sumaron productos (no al cargar la página ni al eliminar)
+  const sumo = unidadesAnteriores !== null && unidades > unidadesAnteriores;
+  unidadesAnteriores = unidades;
 
   document.querySelectorAll('.carrito-contador').forEach((contador) => {
     contador.textContent = unidades;
     // El aria-label del link es lo que lee un lector de pantalla
     contador.closest('a').setAttribute('aria-label', `Carrito: ${unidades} ${unidades === 1 ? 'producto' : 'productos'}`);
+
+    if (sumo) {
+      // Para repetir una animación CSS hay que sacar la clase, forzar que el navegador
+      // recalcule el estilo (leer offsetWidth) y volver a ponerla
+      contador.classList.remove('rebote');
+      void contador.offsetWidth;
+      contador.classList.add('rebote');
+    }
   });
+}
+
+/* --------------------------------------------------------------------------
+   Aviso flotante ("Agregaste ... al carrito")
+   -------------------------------------------------------------------------- */
+
+// Se crea una sola vez y queda en la página. role="status" hace que los lectores
+// de pantalla lean el texto cuando cambia, sin mover el foco.
+const avisoFlotante = crear('p', 'aviso-flotante');
+avisoFlotante.setAttribute('role', 'status');
+document.body.append(avisoFlotante);
+let temporizadorAviso;
+
+// Muestra el aviso abajo al centro durante 2,4 segundos (la animación está en el CSS)
+export function mostrarAviso(texto) {
+  clearTimeout(temporizadorAviso); // si se agrega otro producto, el tiempo vuelve a empezar
+  avisoFlotante.textContent = texto;
+  avisoFlotante.classList.add('visible');
+  temporizadorAviso = setTimeout(() => avisoFlotante.classList.remove('visible'), 2400);
 }
 
 /* --------------------------------------------------------------------------
@@ -122,6 +155,10 @@ document.addEventListener('click', (evento) => {
   if (!boton || boton.dataset.estado === 'agregado') return;
 
   agregarAlCarrito(Number(boton.dataset.agregar), 1);
+  mostrarAviso(`Agregaste ${boton.dataset.nombre || 'el producto'} al carrito`);
+
+  // El botón redondo "+" del inicio solo tiene un ícono: no se le cambia el texto
+  if (boton.classList.contains('boton-agregar')) return;
 
   // Confirmación: el botón cambia de texto durante un segundo y medio
   const textoOriginal = boton.textContent;
