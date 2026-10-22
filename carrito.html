@@ -8,7 +8,7 @@
     <!-- Fuentes: Lora para títulos, Inter para texto -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
 
     <!-- Hoja de estilos -->
     <link rel="stylesheet" href="css/styles.css">
@@ -40,7 +40,13 @@
 
         <div class="header-carrito">
             <a href="carrito.html" aria-label="Carrito: 0 productos" aria-current="page">
-                <span aria-hidden="true">🛒</span>
+                <!-- Changuito (SVG decorativo: el aria-label del link dice qué es) -->
+                <svg class="carrito-icono" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6.2"/>
+                    <circle cx="10" cy="20.5" r="1"/>
+                    <circle cx="17" cy="20.5" r="1"/>
+                </svg>
+                <span class="carrito-texto">Carrito</span>
                 <span class="carrito-contador">0</span>
             </a>
         </div>
