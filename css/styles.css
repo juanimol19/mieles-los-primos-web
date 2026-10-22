@@ -12,14 +12,18 @@
   --color-amber: #E0A023;
   --color-amber-hover: #C4861A;
   --color-amber-texto: #A0680F; /* ámbar oscuro para texto: contraste 4.7:1 sobre blanco */
-  --color-cream: #FBF8F1;
+  --color-cream: #FBF8F1;      /* fondo general del sitio */
+  --color-arena: #F3EBDD;      /* superficies destacadas sobre el crema (avisos, paneles, fotos) */
   --color-brown: #3B2A1A;
+  --color-brown-oscuro: #2E2014; /* fondo de la sección de origen y del footer */
+  --color-dorado-claro: #F6C35A; /* texto dorado sobre fondo oscuro: contraste 9.6:1 */
+  --color-texto-claro: #D9CBB4;  /* texto secundario sobre fondo oscuro: contraste 9.9:1 */
   --color-border: #EDE6DA;
   --color-white: #FFFFFF;
 
   /* Texto */
   --color-text: var(--color-brown);
-  --color-text-muted: #7A6A57;
+  --color-text-muted: #6E5C48; /* contraste 5.2:1 sobre arena y 6:1 sobre blanco */
   --color-error: #B3261E; /* rojo para errores del formulario: contraste 6.5:1 sobre blanco */
 
   /* Tipografías */
@@ -35,13 +39,17 @@
   --space-6: 3rem;
 
   /* Bordes y sombra */
-  --radius: 0.5rem;
+  --radius: 0.75rem;
+  --radius-grande: 1.75rem; /* tarjetas y bloques grandes */
   --radius-full: 999px;
-  --shadow-suave: 0 2px 8px rgba(59, 42, 26, 0.08);
-  --shadow-elevada: 0 10px 24px rgba(59, 42, 26, 0.16);
+  --shadow-suave: 0 1px 3px rgba(59, 42, 26, 0.1);
+  --shadow-elevada: 0 1.75rem 3.5rem rgba(59, 42, 26, 0.16);
+  --shadow-miel: 0 0.5rem 1.5rem rgba(224, 160, 35, 0.35); /* resplandor ámbar de los botones */
 
-  /* Transiciones: misma duración y curva en todo el sitio */
+  /* Transiciones: misma duración y curva en todo el sitio.
+     --curva arranca rápido y frena suave al final (se siente más "natural") */
   --transicion: 0.25s ease;
+  --curva: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 /* ==========================================================================
@@ -105,9 +113,10 @@ button:disabled {
   display: none !important;
 }
 
+/* Foco visible en ámbar oscuro: se distingue bien sobre el crema y el blanco */
 :focus-visible {
-  outline: 2px solid var(--color-amber);
-  outline-offset: 2px;
+  outline: 3px solid var(--color-amber-texto);
+  outline-offset: 3px;
 }
 
 /* ==========================================================================
@@ -116,8 +125,9 @@ button:disabled {
 body {
   font-family: var(--font-body);
   color: var(--color-text);
-  background-color: var(--color-white);
+  background-color: var(--color-cream);
   line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4 {
@@ -137,19 +147,21 @@ hr {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
+  min-height: 2.75rem; /* 44 px: tamaño mínimo cómodo para tocar con el dedo */
   padding: var(--space-2) var(--space-4);
   font-weight: 600;
   color: var(--color-brown);
   background-color: var(--color-amber);
   border-radius: var(--radius-full);
+  box-shadow: var(--shadow-miel);
   transition: background-color var(--transicion), transform var(--transicion), box-shadow var(--transicion);
 }
 
-/* Al pasar el mouse, el botón se eleva un poco y proyecta sombra */
+/* Al pasar el mouse, el botón se eleva un poco y el resplandor crece */
 .boton:hover {
   background-color: var(--color-amber-hover);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-elevada);
+  box-shadow: 0 0.875rem 2rem rgba(224, 160, 35, 0.5);
 }
 
 .boton:active {
@@ -160,10 +172,21 @@ hr {
 .boton-secundario {
   background-color: var(--color-white);
   border: 2px solid var(--color-amber);
+  box-shadow: none;
 }
 
 .boton-secundario:hover {
-  background-color: var(--color-cream);
+  background-color: var(--color-arena);
+  box-shadow: var(--shadow-suave);
+}
+
+/* Flecha "→" dentro de un botón: se corre a la derecha al pasar el mouse */
+.flecha {
+  transition: transform var(--transicion);
+}
+
+.boton:hover .flecha {
+  transform: translateX(4px);
 }
 
 /* ==========================================================================
@@ -175,12 +198,13 @@ header {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
-  padding: var(--space-3) var(--space-4);
-  /* Blanco semitransparente + desenfoque: al hacer scroll se intuye el contenido de atrás */
-  background-color: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--color-border);
-  box-shadow: var(--shadow-suave);
+  padding: var(--space-3);
+  /* Crema semitransparente + desenfoque ("vidrio esmerilado"): al hacer scroll
+     se intuye el contenido de atrás. saturate() aviva un poco esos colores. */
+  background-color: rgba(251, 248, 241, 0.78);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
+  border-bottom: 1px solid rgba(59, 42, 26, 0.08);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -199,8 +223,8 @@ header {
    El ancho es ~0.87 del alto (proporción de un hexágono regular) y object-fit
    evita que la imagen se deforme al no ser cuadrado. */
 .header-logo img {
-  width: 3.5rem;
-  height: 4rem;
+  width: 3rem;
+  height: 3.45rem;
   object-fit: cover;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   transition: transform var(--transicion);
@@ -227,7 +251,7 @@ header {
 .logo-nombre {
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   letter-spacing: 0.04em;
   color: var(--color-brown);
 }
@@ -248,7 +272,7 @@ header nav ul {
 header nav a {
   position: relative;
   font-weight: 500;
-  color: var(--color-text-muted);
+  color: var(--color-text);
   padding-bottom: var(--space-1);
   transition: color var(--transicion);
 }
@@ -290,75 +314,145 @@ header nav a[aria-current="page"]::after {
   order: 2;
 }
 
+/* Botón del carrito: píldora blanca con ícono, texto y contador en fila */
 .header-carrito a {
-  position: relative;
   display: inline-flex;
   align-items: center;
-  font-size: 1.25rem;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  padding: 0 var(--space-3);
+  font-weight: 600;
+  font-size: 0.95rem;
+  background-color: var(--color-white);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-suave);
+  transition: box-shadow var(--transicion), transform var(--transicion);
+}
+
+.header-carrito a:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0.5rem 1.25rem rgba(59, 42, 26, 0.14);
+}
+
+/* En móvil solo se ven el ícono y el número (el aria-label del link ya dice "Carrito");
+   la palabra aparece desde 768px (ver media queries) */
+.carrito-texto {
+  display: none;
+}
+
+.carrito-icono {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .carrito-contador {
-  position: absolute;
-  top: -0.4rem;
-  right: -0.6rem;
-  min-width: 1.1rem;
-  height: 1.1rem;
-  padding: 0 0.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  padding: 0 0.35rem;
   font-family: var(--font-body);
-  font-size: 0.65rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 700;
   color: var(--color-brown); /* marrón sobre ámbar: contraste 6:1 (blanco daba 2.3:1) */
   background-color: var(--color-amber);
   border-radius: var(--radius-full);
+}
+
+/* "Rebote" del contador cuando se agrega un producto. js/carrito.js le pone la
+   clase .rebote; la curva pasa de 1 (cubic-bezier con 1.6) y por eso "se pasa"
+   un poco del tamaño y vuelve, como un resorte. */
+.carrito-contador.rebote {
+  animation: rebote 0.5s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+@keyframes rebote {
+  40% {
+    transform: scale(1.5);
+  }
 }
 
 /* ==========================================================================
    5. HERO / DESTACADOS
    ========================================================================== */
 
-/* Hero: columna con Flexbox, texto claro sobre imagen con degradado oscuro.
-   Capas del fondo (de arriba hacia abajo): degradado, foto y color de respaldo
-   por si la foto no carga. */
+/* Inicio: recorta lo que se salga a los costados (la cinta inclinada y el
+   hexágono que gira) para que no aparezca scroll horizontal. Va en la sección
+   y no en el body porque en el body se aplicaría a toda la ventana. */
+#inicio {
+  overflow-x: clip;
+}
+
+/* Hero en dos columnas con Flexbox: texto a la izquierda y foto a la derecha.
+   flex-wrap + flex-basis: si no entran lado a lado (móvil), la foto pasa abajo
+   sin necesidad de media query. */
 .hero {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-6);
+  max-width: 77rem;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4) var(--space-6);
+}
+
+/* flex-grow 1.4: en escritorio el texto se queda con más ancho que la foto */
+.hero-texto {
+  flex: 1.4 1 26rem;
+  min-width: 0; /* deja que el texto se achique en vez de desbordar */
+  display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: flex-start;
-  gap: var(--space-3);
-  min-height: 28rem;
-  padding: var(--space-6) var(--space-4);
-  color: var(--color-white);
-  background-color: var(--color-brown);
-  background-image:
-    linear-gradient(to right, rgba(59, 42, 26, 0.85), rgba(59, 42, 26, 0.35)),
-    url("../img/hero-colmenas.webp");
-  background-size: cover;
-  background-position: center;
+  gap: var(--space-4);
 }
 
+/* clamp(mínimo, ideal, máximo): el título crece con el ancho de la pantalla
+   (6vw) pero nunca baja de 2.6rem ni pasa de 4.75rem */
 .hero h1 {
-  font-size: 2.25rem;
-  max-width: 16ch;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  font-size: clamp(2.6rem, 6vw, 4.75rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.025em;
 }
 
-.hero p {
-  max-width: 36ch;
+/* "Impenetrable" en itálica y ámbar oscuro (contraste 4.7:1 con el crema) */
+.hero h1 em {
+  color: var(--color-amber-texto);
+}
+
+.hero-bajada {
+  max-width: 32rem;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
 }
 
 /* Etiqueta chica arriba del título, con forma de píldora */
-.hero .hero-etiqueta {
-  padding: var(--space-1) var(--space-3);
-  font-size: 0.8rem;
+.hero-etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: #6B4A12; /* contraste 7:1 sobre el fondo de la etiqueta */
+  background-color: #F3E3C3;
   border-radius: var(--radius-full);
-  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.hero-etiqueta svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* Botones del hero en fila; si no entran, pasan abajo */
@@ -366,19 +460,169 @@ header nav a[aria-current="page"]::after {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
-  margin-top: var(--space-2);
 }
 
-/* Botón claro: borde blanco y fondo transparente, para usar sobre fotos oscuras */
-.boton-claro {
-  color: var(--color-white);
+/* Botón "de línea": fondo transparente y borde marrón fino */
+.boton-linea {
   background-color: transparent;
-  border: 2px solid var(--color-white);
+  box-shadow: inset 0 0 0 1.5px rgba(59, 42, 26, 0.28);
 }
 
-.boton-claro:hover {
-  color: var(--color-brown);
+.boton-linea:hover {
+  background-color: transparent;
+  box-shadow: inset 0 0 0 1.5px var(--color-brown);
+}
+
+/* --- Foto del hero con elementos decorativos --- */
+.hero-visual {
+  flex: 1 1 22rem;
+  min-width: 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+/* Foto con forma de arco: radios grandes arriba y chicos abajo */
+.hero-foto {
+  position: relative; /* queda por encima del hexágono */
+  width: 100%;
+  max-width: 28rem;
+  height: auto; /* sin esto, el atributo height del HTML le gana al aspect-ratio */
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 15rem 15rem 2.25rem 2.25rem;
+  box-shadow: 0 2.5rem 5rem rgba(59, 42, 26, 0.25);
+  background-color: var(--color-arena);
+}
+
+/* Hexágono de líneas finas que gira lento detrás de la foto.
+   inset + margin auto lo centran dentro de .hero-visual. */
+.hero-hexagono {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 125%;
+  max-width: 34rem;
+  opacity: 0.5;
+  fill: none;
+  stroke: var(--color-amber);
+  stroke-width: 0.6;
+  animation: girar 50s linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Etiquetas flotantes sobre la foto: suben y bajan suavemente */
+.hero-sello {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  font-size: 0.875rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 1.25rem 2.5rem rgba(59, 42, 26, 0.2);
+  animation: flotar 6s ease-in-out infinite;
+}
+
+.hero-sello strong {
+  display: block;
+}
+
+.hero-sello-natural {
+  left: 0;
+  bottom: 3.5rem;
   background-color: var(--color-white);
+}
+
+.hero-sello-natural span span {
+  color: var(--color-text-muted);
+}
+
+/* Ícono de hoja dentro de un cuadradito verde monte */
+.hero-sello-natural svg {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.6rem;
+  border-radius: 0.75rem;
+  background-color: #EAF0E2;
+  fill: none;
+  stroke: #4E6B3A;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hero-sello-floral {
+  right: 0;
+  top: 3rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  color: var(--color-cream);
+  background-color: var(--color-brown);
+  animation-duration: 7s;
+  animation-delay: -3s; /* arranca desfasada de la otra etiqueta */
+}
+
+.hero-sello-floral strong {
+  color: var(--color-dorado-claro);
+}
+
+@keyframes flotar {
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* --- Cinta animada con las flores del monte ---
+   La lista está escrita dos veces seguidas en el HTML: la pista se corre
+   hasta la mitad (-50%) y vuelve a empezar, y como la segunda mitad es
+   igual a la primera, el salto no se nota (efecto "marquesina" infinita). */
+.cinta {
+  overflow: hidden;
+  padding: var(--space-3) 0;
+  margin: 0 -1rem;
+  color: #2A1C0E;
+  background-color: var(--color-amber);
+  transform: rotate(-1.2deg);
+}
+
+.cinta-pista {
+  display: flex;
+  width: max-content;
+  animation: deslizar 32s linear infinite;
+}
+
+.cinta-pista span {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.75rem;
+  padding-right: 1.75rem;
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-style: italic;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Hexagonito separador entre flor y flor, hecho con clip-path */
+.cinta-pista span::after {
+  content: "";
+  width: 0.9rem;
+  height: 1rem;
+  background-color: #2A1C0E;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+@keyframes deslizar {
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 /* Entrada del hero: cada elemento aparece subiendo, uno después del otro */
@@ -393,19 +637,44 @@ header nav a[aria-current="page"]::after {
   }
 }
 
-.hero > * {
-  animation: aparecer 0.7s ease both;
+.hero-texto > *,
+.hero-visual {
+  animation: aparecer 0.9s var(--curva) both;
 }
 
-.hero > :nth-child(2) { animation-delay: 0.15s; }
-.hero > :nth-child(3) { animation-delay: 0.3s; }
-.hero > :nth-child(4) { animation-delay: 0.45s; }
+.hero-texto > :nth-child(2) { animation-delay: 0.1s; }
+.hero-texto > :nth-child(3),
+.hero-visual { animation-delay: 0.2s; }
+.hero-texto > :nth-child(4) { animation-delay: 0.3s; }
 
 /* Nuestros productos: contenedor centrado con ancho máximo */
 #productos-destacados {
-  max-width: 64rem;
+  max-width: 77rem;
   margin: 0 auto;
-  padding: var(--space-5) var(--space-4);
+  padding: var(--space-6) var(--space-4);
+}
+
+/* Encabezado de sección: "antetítulo" chico en mayúsculas + título grande */
+.seccion-encabezado {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 40rem;
+}
+
+.seccion-antetitulo {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-amber-texto);
+}
+
+.seccion-encabezado h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
 }
 
 /* Título con líneas decorativas a los costados, hechas con Flexbox y
@@ -440,58 +709,143 @@ header nav a[aria-current="page"]::after {
 }
 
 /* Grilla de tarjetas: auto-fit crea tantas columnas como entren
-   (mínimo 10.5rem cada una), sin necesidad de media queries.
-   En escritorio entran las 5 tarjetas del inicio en una sola fila. */
+   (mínimo 9rem cada una), sin necesidad de media queries.
+   En el celular entran 2 por fila y en escritorio las 5 del inicio en una sola fila. */
 .tarjetas-destacadas {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
-  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--space-3);
   margin-top: var(--space-5);
 }
 
-/* Tarjeta reutilizable: borde, esquinas redondeadas y sombra suave */
+/* Tarjeta reutilizable: esquinas bien redondeadas y sombra suave */
 .tarjeta {
   display: flex;
   flex-direction: column;
   overflow: hidden; /* recorta la imagen con las esquinas redondeadas */
   background-color: var(--color-white);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-grande);
   box-shadow: var(--shadow-suave);
 }
 
-/* Todas las imágenes con la misma proporción; el fondo crema se ve
+/* Todas las imágenes con la misma proporción; el fondo arena se ve
    mientras la imagen carga (o si falta) */
 .tarjeta img {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  background-color: var(--color-cream);
-  transition: transform 0.4s ease;
+  background-color: var(--color-arena);
+  transition: transform 0.7s var(--curva);
 }
 
-/* En las tarjetas clickeables la foto se acerca un poco al pasar el mouse
+/* En las tarjetas clickeables la foto se acerca al pasar el mouse
    (overflow: hidden de .tarjeta evita que se salga del borde) */
 .tarjeta-link:hover img {
-  transform: scale(1.06);
+  transform: scale(1.08);
 }
 
-/* Inicio: alto fijo y "contain" para que la foto se vea entera (sin recortes)
-   y no crezca con el ancho de la tarjeta. El espacio sobrante queda crema. */
+/* Inicio y "Otros productos": foto cuadrada con "contain" para que se vea
+   entera (sin recortar las botellas). El espacio sobrante queda arena. */
 .tarjetas-destacadas .tarjeta img {
-  height: 12rem;
-  aspect-ratio: auto;
+  aspect-ratio: 1 / 1;
   object-fit: contain;
-  padding: var(--space-2);
+  padding: var(--space-3);
+}
+
+/* Contenedor de la foto: permite apoyar encima la etiqueta de categoría */
+.tarjeta-foto {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Etiqueta de categoría sobre la foto, con fondo blanco translúcido */
+.tarjeta-categoria {
+  position: absolute;
+  top: 0.875rem;
+  left: 0.875rem;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.88);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border-radius: var(--radius-full);
 }
 
 .tarjeta-texto {
-  padding: var(--space-3);
+  padding: var(--space-3) var(--space-4) var(--space-4);
 }
 
 .tarjeta-texto h2,
 .tarjeta-texto h3 {
-  font-size: 1rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-wrap: balance; /* reparte el título en renglones parejos (evita una "g" sola abajo) */
+}
+
+/* En las tarjetas angostas del inicio, menos relleno para que entre el texto */
+.tarjetas-destacadas .tarjeta-texto {
+  padding: var(--space-3);
+}
+
+/* Tarjetas del inicio: el texto ocupa el alto que sobra y el pie
+   (precio + botón) queda siempre abajo, aunque los títulos tengan distinto largo */
+.tarjetas-destacadas .tarjeta-texto {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* flex-wrap: si el precio es largo ("Precio a confirmar"), lo de al lado pasa abajo */
+.tarjeta-pie {
+  margin-top: auto;
+  padding-top: var(--space-3);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.tarjeta-pie .precio {
+  font-size: 1.1rem;
+}
+
+.tarjeta-pie .tarjeta-ver {
+  margin-top: 0;
+}
+
+/* Botón redondo "+" para agregar al carrito: gira y se vuelve ámbar al pasar el mouse */
+.boton-agregar {
+  position: relative;
+  z-index: 1; /* por encima del link estirado de .tarjeta-link */
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  color: var(--color-cream);
+  background-color: var(--color-brown);
+  border-radius: var(--radius-full);
+  transition: transform var(--transicion), background-color var(--transicion), color var(--transicion);
+}
+
+.boton-agregar:hover {
+  color: var(--color-brown);
+  background-color: var(--color-amber);
+  transform: rotate(90deg);
+}
+
+.boton-agregar svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
 }
 
 .tarjeta-texto p {
@@ -502,7 +856,7 @@ header nav a[aria-current="page"]::after {
 /* Beneficios: franja crema con Grid (1 columna en móvil) */
 #beneficios {
   padding: var(--space-4);
-  background-color: var(--color-cream);
+  background-color: var(--color-arena);
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
 }
@@ -548,6 +902,174 @@ header nav a[aria-current="page"]::after {
 .beneficio-texto span {
   font-size: 0.85rem;
   color: var(--color-text-muted);
+}
+
+/* --- Del monte a tu mesa: tres pasos sobre fondo oscuro (inicio) --- */
+.pasos {
+  margin: var(--space-6) var(--space-2) 0;
+  color: var(--color-cream);
+  background-color: var(--color-brown-oscuro);
+  border-radius: 3rem 3rem 0 0;
+}
+
+.pasos-contenido {
+  max-width: 77rem;
+  margin: 0 auto;
+  padding: 5rem var(--space-4) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* Sobre el fondo oscuro, el antetítulo y los acentos van en dorado claro */
+.pasos .seccion-antetitulo,
+.pasos h2 em {
+  color: var(--color-dorado-claro);
+}
+
+.pasos-bajada {
+  max-width: 28rem;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--color-texto-claro);
+}
+
+/* Grid auto-fit: 1 columna en móvil y 3 en escritorio, sin media queries.
+   counter-reset + counter-increment numeran los pasos (01, 02, 03) solos. */
+.pasos-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--space-4);
+  counter-reset: paso-origen;
+}
+
+.paso {
+  padding: var(--space-5);
+  border: 1px solid rgba(251, 248, 241, 0.14);
+  border-radius: var(--radius-grande);
+  counter-increment: paso-origen;
+  transition: border-color var(--transicion), background-color var(--transicion), transform var(--transicion);
+}
+
+/* decimal-leading-zero escribe 01, 02, 03 */
+.paso::before {
+  content: counter(paso-origen, decimal-leading-zero);
+  display: block;
+  margin-bottom: var(--space-5);
+  font-family: var(--font-heading);
+  font-size: 3.5rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--color-dorado-claro);
+}
+
+.paso:hover {
+  border-color: var(--color-amber);
+  background-color: rgba(224, 160, 35, 0.06);
+  transform: translateY(-4px);
+}
+
+.paso h3 {
+  margin-bottom: var(--space-2);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.paso p {
+  line-height: 1.6;
+  color: var(--color-texto-claro);
+}
+
+/* Bloque de contacto: caja ámbar con texto y botón (Flexbox con wrap) */
+.contacto-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-4);
+  color: #2A1C0E;
+  background-color: var(--color-amber);
+  border-radius: 2.25rem;
+}
+
+.contacto-cta div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 38rem;
+}
+
+.contacto-cta h2 {
+  font-size: clamp(1.75rem, 3.4vw, 2.9rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.contacto-cta p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* Botón crema sobre la caja ámbar */
+.boton-crema {
+  background-color: var(--color-cream);
+  box-shadow: none;
+}
+
+.boton-crema:hover {
+  background-color: var(--color-white);
+  box-shadow: 0 0.875rem 2rem rgba(0, 0, 0, 0.25);
+}
+
+/* En el inicio, la sección oscura se une con el footer (también oscuro):
+   sin margen entre los dos y con el mismo ancho */
+body:has(.pasos) footer {
+  margin: 0 var(--space-2);
+  border-radius: 0;
+}
+
+/* --- Aviso flotante al agregar un producto (lo crea js/carrito.js) ---
+   Abajo al centro: left 50% + translateX(-50%) lo centra.
+   Oculto: transparente y un poco más abajo; .visible lo hace subir y aparecer. */
+.aviso-flotante {
+  position: fixed;
+  left: 50%;
+  bottom: 1.75rem;
+  z-index: 30; /* por encima del header y del botón de WhatsApp */
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: calc(100% - 2rem);
+  padding: 0.875rem 1.375rem;
+  font-weight: 500;
+  color: var(--color-cream);
+  background-color: var(--color-brown);
+  border-radius: var(--radius-full);
+  box-shadow: 0 1.125rem 2.5rem rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 1.25rem);
+  transition: opacity 0.45s var(--curva), transform 0.45s var(--curva), visibility 0.45s;
+}
+
+.aviso-flotante.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+/* Tilde dorada antes del texto, dibujada con bordes (sin imagen) */
+.aviso-flotante::before {
+  content: "";
+  flex-shrink: 0;
+  width: 0.45rem;
+  height: 0.9rem;
+  margin: 0 0.2rem 0.2rem;
+  border: solid var(--color-dorado-claro);
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg);
 }
 
 
@@ -609,7 +1131,7 @@ header nav a[aria-current="page"]::after {
 }
 
 .categoria-boton:hover {
-  background-color: var(--color-cream);
+  background-color: var(--color-arena);
 }
 
 /* Filtro activo: se marca con aria-pressed, no con una clase */
@@ -664,7 +1186,7 @@ header nav a[aria-current="page"]::after {
    así se puede hacer clic en cualquier parte sin anidar elementos. */
 .tarjeta-link {
   position: relative;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.4s var(--curva), box-shadow 0.4s ease;
 }
 
 .tarjeta-link h2 a::after,
@@ -677,8 +1199,8 @@ header nav a[aria-current="page"]::after {
 /* Al pasar el mouse (o al llegar con el teclado) la tarjeta se eleva */
 .tarjeta-link:hover,
 .tarjeta-link:focus-within {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(59, 42, 26, 0.14);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-elevada);
 }
 
 /* El foco visible se dibuja en toda la tarjeta, no solo en el título */
@@ -687,8 +1209,8 @@ header nav a[aria-current="page"]::after {
 }
 
 .tarjeta-link:focus-within {
-  outline: 2px solid var(--color-amber);
-  outline-offset: 2px;
+  outline: 3px solid var(--color-amber-texto);
+  outline-offset: 3px;
 }
 
 /* El botón queda por encima del link estirado para que siga siendo clickeable */
@@ -770,7 +1292,7 @@ header nav a[aria-current="page"]::after {
   display: flex;
   justify-content: center;
   padding: var(--space-4);
-  background-color: var(--color-cream);
+  background-color: var(--color-arena);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
 }
@@ -795,7 +1317,7 @@ header nav a[aria-current="page"]::after {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  background-color: var(--color-cream);
+  background-color: var(--color-arena);
   border: 1px solid var(--color-amber);
   border-radius: var(--radius-full);
 }
@@ -1006,7 +1528,7 @@ header nav a[aria-current="page"]::after {
   height: 3.5rem;
   object-fit: cover;
   border-radius: var(--radius);
-  background-color: var(--color-cream);
+  background-color: var(--color-arena);
 }
 
 /* Selector de cantidad: − [1] + en fila */
@@ -1025,7 +1547,7 @@ header nav a[aria-current="page"]::after {
 }
 
 .cantidad button:hover:not(:disabled) {
-  background-color: var(--color-cream);
+  background-color: var(--color-arena);
 }
 
 .cantidad input {
@@ -1048,14 +1570,14 @@ header nav a[aria-current="page"]::after {
 }
 
 .boton-eliminar:hover {
-  background-color: var(--color-cream);
+  background-color: var(--color-arena);
 }
 
 /* Aviso de carrito vacío */
 .carrito-vacio {
   padding: var(--space-4);
   text-align: center;
-  background-color: var(--color-cream);
+  background-color: var(--color-arena);
   border-radius: var(--radius);
 }
 
@@ -1114,7 +1636,7 @@ header nav a[aria-current="page"]::after {
   gap: var(--space-3);
   padding: var(--space-3);
   font-size: 0.9rem;
-  background-color: var(--color-cream);
+  background-color: var(--color-arena);
   border-radius: var(--radius);
 }
 
@@ -1250,7 +1772,7 @@ header nav a[aria-current="page"]::after {
    :has() permite darle estilo al contenedor según el radio que tiene adentro */
 .opcion:has(input:checked) {
   border-color: var(--color-amber);
-  background-color: var(--color-cream);
+  background-color: var(--color-arena);
 }
 
 .opcion input,
@@ -1362,6 +1884,12 @@ header nav a[aria-current="page"]::after {
   flex-basis: 100%;
 }
 
+/* El texto ocupa el resto de la fila, al lado de la casilla
+   (sin esto, con flex-wrap el texto largo bajaba a otra línea) */
+.casilla label {
+  flex: 1;
+}
+
 /* Confirmación: misma caja angosta y centrada que el checkout */
 .checkout-confirmacion {
   max-width: 40rem;
@@ -1420,14 +1948,16 @@ header nav a[aria-current="page"]::after {
 /* ==========================================================================
    10. FOOTER
    ========================================================================== */
+/* Footer oscuro (marrón algarrobo) con texto claro y esquinas de arriba redondeadas */
 footer {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-  padding: var(--space-5) var(--space-4);
+  padding: var(--space-6) var(--space-4) var(--space-5);
   margin-top: var(--space-6);
-  background-color: var(--color-cream);
-  border-top: 1px solid var(--color-border);
+  color: var(--color-texto-claro);
+  background-color: var(--color-brown-oscuro);
+  border-radius: 3rem 3rem 0 0;
 }
 
 footer > section {
@@ -1437,16 +1967,32 @@ footer > section {
 }
 
 footer h2 {
-  font-size: 1rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-cream);
 }
 
-/* Links del footer: ámbar oscuro (contraste 4.7:1) y subrayados al pasar el mouse */
+/* Links del footer: dorado claro (contraste 9.6:1 con el fondo) y subrayados al pasar el mouse */
 footer a {
-  color: var(--color-amber-texto);
+  color: var(--color-dorado-claro);
 }
 
 footer a:hover {
+  color: var(--color-white);
   text-decoration: underline;
+}
+
+/* El Botón de Arrepentimiento del footer: píldora con borde ámbar sobre el fondo oscuro */
+footer .boton-arrepentimiento {
+  color: var(--color-dorado-claro);
+  background-color: transparent;
+  border: 1px solid var(--color-amber);
+}
+
+footer .boton-arrepentimiento:hover {
+  color: var(--color-brown);
+  background-color: var(--color-amber);
+  text-decoration: none;
 }
 
 /* Redes: ícono + texto en fila con Flexbox */
@@ -1483,7 +2029,6 @@ footer a:hover {
 /* Leyenda de privacidad (Ley 25.326): texto chico, links siempre subrayados */
 .footer-leyenda {
   font-size: 0.8rem;
-  color: var(--color-text-muted);
 }
 
 .footer-leyenda a {
@@ -1495,10 +2040,10 @@ footer a:hover {
 footer > p {
   padding-top: var(--space-3);
   padding-bottom: var(--space-6);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid rgba(251, 248, 241, 0.12);
   text-align: center;
   font-size: 0.85rem;
-  color: var(--color-text-muted);
+  color: #B8A88F; /* contraste 7.3:1 con el fondo oscuro */
 }
 
 /* Botón flotante de WhatsApp: position fixed lo deja siempre en la misma
@@ -1652,7 +2197,7 @@ footer > p {
 
 .tabla-legal thead th {
   font-weight: 600;
-  background-color: var(--color-cream);
+  background-color: var(--color-arena);
 }
 
 .tabla-legal tbody tr:last-child > * {
@@ -1669,7 +2214,7 @@ footer > p {
 .legal-destacado {
   margin-top: var(--space-4);
   padding: var(--space-3) var(--space-4);
-  background-color: var(--color-cream);
+  background-color: var(--color-arena);
   border-left: 4px solid var(--color-amber);
   border-radius: var(--radius);
 }
@@ -1706,7 +2251,7 @@ footer > p {
 
 .tabla-datos th {
   width: 40%;
-  background-color: var(--color-cream);
+  background-color: var(--color-arena);
 }
 
 /* ==========================================================================
@@ -1721,7 +2266,7 @@ footer > p {
   font-size: 0.85rem;
 }
 
-/* Inicio: franja arriba del hero, así se ve en la primera pantalla.
+/* Inicio: franja oscura arriba del hero, así se ve en la primera pantalla.
    Flexbox: texto y botón en fila; si no entran (móvil), el botón pasa abajo. */
 .aviso-arrepentimiento {
   display: flex;
@@ -1730,10 +2275,16 @@ footer > p {
   align-items: center;
   gap: var(--space-2) var(--space-3);
   padding: var(--space-2) var(--space-4);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   text-align: center;
-  background-color: var(--color-cream);
-  border-bottom: 1px solid var(--color-border);
+  color: #F3E3C3; /* contraste 11:1 con el marrón */
+  background-color: var(--color-brown);
+}
+
+/* Sobre la franja oscura el botón no lleva resplandor */
+.aviso-arrepentimiento .boton {
+  min-height: 2.25rem;
+  box-shadow: none;
 }
 
 /* Footer: un poco de aire debajo del botón, antes de los otros links */
@@ -1747,7 +2298,7 @@ footer > p {
 .aviso-simulado {
   padding: var(--space-2) var(--space-3);
   font-size: 0.85rem;
-  background-color: var(--color-cream);
+  background-color: var(--color-arena);
   border-left: 3px solid var(--color-amber);
   border-radius: var(--radius);
 }
@@ -1774,7 +2325,7 @@ footer > p {
 .arrepentimiento-confirmacion {
   margin-top: var(--space-3);
   padding: var(--space-4);
-  background-color: var(--color-cream);
+  background-color: var(--color-arena);
   border: 2px solid var(--color-amber);
   border-radius: var(--radius);
 }
@@ -1822,6 +2373,30 @@ footer > p {
     font-size: 2.25rem;
   }
 
+  /* Header: con más lugar, logo más grande y la palabra "Carrito" visible */
+  header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .header-logo img {
+    width: 3.5rem;
+    height: 4rem;
+  }
+
+  .logo-nombre {
+    font-size: 1.4rem;
+  }
+
+  .carrito-texto {
+    display: inline;
+  }
+
+  /* Tarjetas del inicio: más separación entre ellas */
+  .tarjetas-destacadas {
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: var(--space-4);
+  }
+
   /* Header: logo, nav y carrito vuelven a una sola fila */
   header nav {
     order: 2;
@@ -1843,14 +2418,15 @@ footer > p {
     flex-basis: 100%;
   }
 
-  /* Hero: más alto y con título más grande */
+  /* Hero: más aire arriba y abajo */
   .hero {
-    min-height: 26rem;
-    padding: var(--space-6);
+    padding-top: var(--space-6);
+    padding-bottom: 5.5rem;
   }
 
-  .hero h1 {
-    font-size: 2.5rem;
+  /* Contacto: más relleno a los costados */
+  .contacto-cta {
+    padding: 3.5rem var(--space-6);
   }
 
   /* Beneficios: 2 columnas */
@@ -1870,7 +2446,7 @@ footer > p {
   /* Categorías: panel crema con los botones en columna */
   .catalogo-categorias {
     padding: var(--space-3);
-    background-color: var(--color-cream);
+    background-color: var(--color-arena);
     border: 1px solid var(--color-border);
     border-radius: var(--radius);
   }
@@ -1911,7 +2487,7 @@ footer > p {
     font-weight: 500;
     text-align: left;
     color: var(--color-text-muted);
-    background-color: var(--color-cream);
+    background-color: var(--color-arena);
   }
 
   .carrito-tabla td {
@@ -1950,15 +2526,6 @@ footer > p {
 
 /* Escritorio: >= 1024px */
 @media (min-width: 1024px) {
-  .hero {
-    min-height: 34rem;
-    padding-left: var(--space-6);
-  }
-
-  .hero h1 {
-    font-size: 3.25rem;
-  }
-
   /* Origen: los dos bloques de la historia lado a lado */
   .origen-historia {
     grid-template-columns: 1fr 1fr;
@@ -2024,7 +2591,14 @@ footer > p {
   .tarjeta-link:hover,
   .tarjeta-link:focus-within,
   .tarjeta-link:hover img,
-  .boton:hover {
+  .boton:hover,
+  .boton-agregar:hover,
+  .paso:hover {
     transform: none;
+  }
+
+  /* La cinta queda quieta en su posición inicial (si no, terminaría corrida) */
+  .cinta-pista {
+    animation: none;
   }
 }
