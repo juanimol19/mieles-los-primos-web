@@ -119,6 +119,7 @@ function crearFormularioCompra(producto) {
 
   const agregar = crear('button', 'boton', 'Agregar al carrito');
   agregar.type = 'button';
+  agregar.dataset.abejaCarrito = ''; // js/efectos.js hace volar una abeja hasta el carrito
 
   // Mensaje de confirmación. role="status" hace que se anuncie en lectores de pantalla.
   const aviso = crear('p', 'producto-aviso');
