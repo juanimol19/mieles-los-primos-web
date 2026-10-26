@@ -44,6 +44,7 @@ La miel es multifloral de monte nativo: algarrobo, chañar, garabato, entre otra
 2. **Flexbox y CSS Grid obligatorios** para estructurar el Home, el catálogo y el formulario.
 3. **Responsive**, que funcione en móvil y escritorio. Enfoque mobile-first con media queries.
 4. **PROHIBIDO usar plantillas o frameworks de terceros**: nada de Bootstrap, Tailwind, Bulma ni temas descargados. Todo CSS escrito a mano.
+   - **Excepción (26/10/2026, CR-06):** el docente habilitó librerías para mejorar el diseño. Se usan solo para efectos, cargadas desde CDN con versión fija: **Three.js** (panal 3D), **GSAP** con ScrollTrigger y MotionPathPlugin (abejas y scroll) y **Lenis** (scroll suave). El CSS de layout sigue escrito a mano y no se agregan frameworks de UI ni React.
 5. **`data/productos.json`** con el catálogo completo. Campos obligatorios por producto:
    `id`, `nombre`, `descripcion`, `precio_simulado`, `imagen_ia_url`, `categoria`.
    - `precio_simulado`: número, sin símbolo ni puntos (ej.: `8850`).
@@ -67,6 +68,8 @@ Al cierre del sprint, el sitio tiene que incluir la **Política de Privacidad (L
 
 Se permite **JavaScript puro, sin frameworks** (ej.: `js/producto.js` lee `data/productos.json` con `fetch`). Como `fetch` necesita un servidor local, hay que probar con Live Server.
 
+Los efectos visuales (CR-06, issue #84) están aislados en `css/efectos.css` y `js/efectos.js`, enlazados en `index.html`, `catalogo.html` y `producto.html`. Respetan `prefers-reduced-motion`: con "reducir movimiento" (por ejemplo, Windows con los efectos de animación apagados) el panal queda quieto, las abejas posadas y no vuelan al carrito. Los botones que hacen volar una abeja al carrito llevan `data-agregar` o `data-abeja-carrito`.
+
 ## Estructura de carpetas
 
 ```
@@ -81,7 +84,8 @@ mieles-los-primos-web/
 ├── arrepentimiento.html   (Botón de Arrepentimiento, Ley 24.240: formulario sin registro)
 ├── terminos.html          (Términos y Condiciones: contrato de adhesión, Ley 24.240)
 ├── css/
-│   └── styles.css
+│   ├── styles.css
+│   └── efectos.css        (panal 3D, abejas y scroll; va después de styles.css)
 ├── js/                    (ES modules: <script type="module">, import/export)
 │   ├── utilidades.js      (funciones compartidas: crear elementos y formatear precios)
 │   ├── productos.js       (único que lee data/productos.json, con fetch + async/await)
@@ -89,7 +93,8 @@ mieles-los-primos-web/
 │   ├── carrito.js         (carrito en localStorage: contador, carrito.html y resumen del checkout)
 │   ├── producto.js        (detalle de producto con JS puro)
 │   ├── checkout.js        (validación del checkout y confirmación simulada del pedido)
-│   └── arrepentimiento.js (formulario de arrepentimiento y código simulado)
+│   ├── arrepentimiento.js (formulario de arrepentimiento y código simulado)
+│   └── efectos.js         (Three.js, GSAP y Lenis: panal 3D, abejas y animaciones de scroll)
 ├── data/
 │   └── productos.json
 ├── img/                   (imágenes IA de productos)
