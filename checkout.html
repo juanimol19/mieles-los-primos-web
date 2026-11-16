@@ -34,6 +34,7 @@
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="catalogo.html">Catálogo</a></li>
                 <li><a href="origen.html">Origen</a></li>
+                <li><a href="pedidos.html">Mis pedidos</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
@@ -295,7 +296,13 @@
                     Tenés <strong>10 días corridos</strong> desde que recibís el producto para arrepentirte de la compra, sin expresar causa y sin costo. Podés hacerlo con el <a href="arrepentimiento.html">Botón de Arrepentimiento</a>, usando tu número de pedido.
                 </p>
 
-                <a href="catalogo.html" class="boton">Seguir comprando</a>
+                <!-- Botón de Arrepentimiento también al final de la compra: js/checkout.js
+                     le agrega el número de pedido al link, así el formulario ya lo trae cargado -->
+                <div class="confirmacion-acciones">
+                    <a href="arrepentimiento.html" class="boton boton-secundario boton-arrepentimiento" id="confirmacion-arrepentimiento">Botón de Arrepentimiento</a>
+                    <a href="pedidos.html" class="boton boton-secundario">Ver mis pedidos</a>
+                    <a href="catalogo.html" class="boton">Seguir comprando</a>
+                </div>
             </div>
         </section>
     </main>

@@ -2093,6 +2093,104 @@ body:has(.pasos) footer {
   color: var(--color-text-muted);
 }
 
+/* Botones al final de la confirmación: en fila y, si no entran, uno debajo del otro */
+.confirmacion-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  align-items: center;
+}
+
+/* ==========================================================================
+   9.b MIS PEDIDOS (pedidos.html, CR-07)
+   Historial guardado en localStorage. Cada pedido es una tarjeta (Flexbox
+   en columna) y la lista es una grilla que pasa a 2 columnas en pantallas anchas.
+   ========================================================================== */
+#pedidos {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-3) var(--space-6);
+}
+
+.pedidos-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.pedido {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+.pedido-encabezado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+}
+
+.pedido-numero {
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+}
+
+.pedido-fecha {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+/* Estado en una "pastilla" dorada, a la derecha */
+.pedido-estado {
+  margin-left: auto;
+  padding: 0.2rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  background-color: var(--color-arena);
+  color: var(--color-amber-texto);
+}
+
+.pedido-entrega {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.pedido .boton-arrepentimiento {
+  align-self: flex-start;
+}
+
+/* Seguimiento compacto (sin abeja): la línea va más arriba */
+.seguimiento-pista-compacta {
+  padding-top: 0;
+}
+
+.seguimiento-pista-compacta::before,
+.seguimiento-pista-compacta::after {
+  top: calc(0.5rem - 2px);
+}
+
+.pedidos-privacidad {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.pedidos-privacidad p {
+  flex: 1 1 20rem;
+}
+
+.pedidos-aviso:empty {
+  display: none;
+}
+
 
 /* ==========================================================================
    10. FOOTER
@@ -2404,36 +2502,15 @@ footer > p {
 }
 
 /* ==========================================================================
-   11.b BOTÓN DE ARREPENTIMIENTO (arrepentimiento.html, inicio, footer y checkout)
+   11.b BOTÓN DE ARREPENTIMIENTO (arrepentimiento.html, footer, checkout y mis pedidos)
    Ley 24.240 y Res. SCI 424/2020: el acceso tiene que estar destacado en
    visibilidad y tamaño. Reutiliza .boton, .campos y .campo.
    ========================================================================== */
 
-/* Botón más chico que el principal, para el aviso del inicio y el footer */
+/* Botón más chico que el principal, para el footer, la confirmación y "Mis pedidos" */
 .boton-arrepentimiento {
   padding: var(--space-1) var(--space-3);
   font-size: 0.85rem;
-}
-
-/* Inicio: franja oscura arriba del hero, así se ve en la primera pantalla.
-   Flexbox: texto y botón en fila; si no entran (móvil), el botón pasa abajo. */
-.aviso-arrepentimiento {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: var(--space-2) var(--space-3);
-  padding: var(--space-2) var(--space-4);
-  font-size: 0.875rem;
-  text-align: center;
-  color: #F3E3C3; /* contraste 11:1 con el marrón */
-  background-color: var(--color-brown);
-}
-
-/* Sobre la franja oscura el botón no lleva resplandor */
-.aviso-arrepentimiento .boton {
-  min-height: 2.25rem;
-  box-shadow: none;
 }
 
 /* Footer: un poco de aire debajo del botón, antes de los otros links */

@@ -13,14 +13,16 @@
       y vacía el carrito.
    5. Al elegir la provincia, sugiere sus localidades (data/localidades.json).
    6. En la confirmación, un seguimiento simulado del pedido: una abeja
-      avanza por cuatro etapas (CR-07).
+      avanza por cuatro etapas, y el pedido se guarda en "Mis pedidos"
+      (js/pedidos.js, CR-07).
 
-   Es una simulación académica: los datos no se envían a ningún servidor
-   ni se guardan.
+   Es una simulación académica: los datos no se envían a ningún servidor.
+   Solo se guarda en el navegador el resumen del pedido, sin datos personales.
    ========================================================================== */
 
 import { crear, formatearPrecio } from './utilidades.js';
 import { cargarItems, calcularTotal, crearFilaResumen, vaciarCarrito } from './carrito.js';
+import { ETAPAS, SEGUNDOS_POR_ETAPA, guardarPedido, linkArrepentimiento } from './pedidos.js';
 
 const formulario = document.querySelector('#form-checkout');
 const seccionCheckout = document.querySelector('#checkout');
@@ -175,13 +177,7 @@ campos.provincia.addEventListener('change', async () => {
    Seguimiento simulado del pedido
    -------------------------------------------------------------------------- */
 
-// Textos de cada etapa según el tipo de entrega
-const ETAPAS = {
-  domicilio: ['Pedido confirmado', 'Preparando tu miel', 'En camino', 'Entregado'],
-  sucursal: ['Pedido confirmado', 'Preparando tu miel', 'Listo para retirar', 'Retirado']
-};
-const SEGUNDOS_POR_ETAPA = 4;
-
+// Las etapas y su duración están en js/pedidos.js: así "Mis pedidos" muestra el mismo estado
 function iniciarSeguimiento() {
   const etapas = ETAPAS[eligioEnvioADomicilio() ? 'domicilio' : 'sucursal'];
   const pista = document.querySelector('.seguimiento-pista');
@@ -246,7 +242,10 @@ function textoEntrega() {
 function mostrarConfirmacion(items) {
   const total = formatearPrecio(calcularTotal(items));
 
-  document.querySelector('#confirmacion-numero').textContent = generarNumeroPedido();
+  const numero = generarNumeroPedido();
+  document.querySelector('#confirmacion-numero').textContent = numero;
+  // Botón de Arrepentimiento con el número de pedido ya cargado en el formulario
+  document.querySelector('#confirmacion-arrepentimiento').href = linkArrepentimiento(numero);
   document.querySelector('#confirmacion-items').replaceChildren(...items.map(crearFilaResumen));
   document.querySelector('#confirmacion-subtotal').textContent = total;
   document.querySelector('#confirmacion-costo-envio').textContent = eligioEnvioADomicilio() ? 'A calcular' : 'No corresponde';
@@ -263,6 +262,20 @@ function mostrarConfirmacion(items) {
   confirmacion.hidden = false;
   confirmacion.querySelector('h1').focus();
   iniciarSeguimiento();
+
+  // Se guarda en el historial de "Mis pedidos" (sin datos personales)
+  guardarPedido({
+    numero,
+    fecha: new Date().toISOString(),
+    items: items.map((item) => ({
+      nombre: item.producto.nombre,
+      cantidad: item.cantidad,
+      subtotal: item.producto.precio_simulado * item.cantidad
+    })),
+    total: calcularTotal(items),
+    entrega: eligioEnvioADomicilio() ? 'domicilio' : 'sucursal',
+    destino: eligioEnvioADomicilio() ? `${campos.localidad.value.trim()}, ${textoProvincia()}` : ''
+  });
 }
 
 /* --------------------------------------------------------------------------
