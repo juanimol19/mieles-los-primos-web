@@ -1,63 +1,258 @@
 /* ==========================================================================
-   Mieles Los Primos — Efectos visuales (panal 3D, abejas y scroll)
+   Mieles Los Primos — Efectos visuales (escena 3D, abejas y scroll)
    Se carga DESPUÉS de styles.css. Solo agrega estilos: no cambia los existentes.
-   Las animaciones las maneja js/efectos.js (Three.js, GSAP y Lenis).
+   Las animaciones las manejan js/frasco3d.js (Three.js) y js/efectos.js (GSAP y Lenis).
    ========================================================================== */
 
-/* ---------- 1. Panal 3D del hero ---------- */
+/* ---------- 1. Escena 3D del inicio (CR-07) ---------- */
 
-/* El canvas de Three.js va detrás de la foto y es más grande que ella,
-   así las celdas del panal "asoman" alrededor del arco. */
-.panal-3d {
-  position: absolute;
-  /* Un canvas no se estira con "inset" (como una imagen), por eso
-     se le da ancho y alto explícitos: 16% más a cada lado y 4% arriba y abajo */
-  top: -4%;
-  left: -16%;
-  z-index: 0;
-  width: 132%;
-  height: 108%;
-  pointer-events: none;
+/* La escena tiene cuatro pantallas de alto. El canvas va "pegado" arriba
+   (position: sticky) mientras se scrollea por ellas; el margin-bottom negativo
+   hace que las pantallas de texto empiecen encima del canvas y no debajo. */
+.escena {
+  position: relative;
+  background-color: #0f2418; /* verde muy oscuro mientras carga el 3D */
+  color: var(--color-cream);
+}
+
+.escena-fondo {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh; /* svh: alto real visible en celulares (sin la barra del navegador) */
+  margin-bottom: -100vh;
+  margin-bottom: -100svh;
+}
+
+.escena-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Cada pantalla ocupa el alto de la ventana. En el celular el frasco va arriba
+   y la tarjeta abajo (por eso align-items: flex-end). */
+.escena-paso {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 6rem 1rem 2.5rem;
+}
+
+/* Tarjeta de texto: aparece subiendo cuando llega a la pantalla
+   (js/frasco3d.js le agrega la clase .visible) */
+.escena-tarjeta {
+  width: 100%;
+  max-width: 30rem;
+  padding: var(--space-4);
+}
+
+.escena.con-js .escena-tarjeta {
   opacity: 0;
-  transition: opacity 1.2s ease;
-  /* Los bordes se desvanecen en círculo: el panal no termina en una línea recta */
-  -webkit-mask-image: radial-gradient(closest-side, #000 60%, transparent 100%);
-  mask-image: radial-gradient(closest-side, #000 60%, transparent 100%);
+  transform: translateY(1.875rem);
+  transition: opacity 0.9s var(--curva), transform 0.9s var(--curva);
 }
 
-.panal-3d.listo {
+.escena.con-js .escena-tarjeta.visible {
   opacity: 1;
+  transform: none;
 }
 
-/* Si el 3D arrancó bien, se oculta el hexágono SVG que había antes */
-.hero-visual.con-3d .hero-hexagono {
+/* Efecto vidrio ("glassmorphism"): fondo blanco translúcido + desenfoque de lo
+   que hay detrás + borde blanco fino + un brillo arriba (inset) */
+.vidrio {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.07));
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  backdrop-filter: blur(22px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-grande);
+  box-shadow:
+    0 1.25rem 3rem rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.escena h1,
+.escena h2 {
+  line-height: 0.92;
+  color: var(--color-cream);
+  text-shadow: 0 0.375rem 2.5rem rgba(0, 0, 0, 0.3);
+}
+
+.escena h1 {
+  font-size: clamp(3rem, 7.2vw, 6.5rem);
+}
+
+.escena h2 {
+  font-size: clamp(2.5rem, 5vw, 4.6rem);
+}
+
+/* Palabras destacadas en dorado (contraste 6.6:1 sobre el verde oscuro) */
+.escena h1 em,
+.escena h2 em {
+  color: var(--color-dorado-claro);
+}
+
+.escena-tarjeta p {
+  margin-top: var(--space-3);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: rgba(244, 238, 224, 0.9);
+}
+
+.escena-tarjeta .escena-antetitulo {
+  margin: 0 0 var(--space-3);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--color-dorado-claro);
+}
+
+.escena-logo {
+  display: none; /* en el celular el logo ya está en el header */
+  width: 6rem;
+  height: 6rem;
+  margin-bottom: var(--space-4);
+  border-radius: 50%;
+  box-shadow: 0 0.75rem 2.5rem rgba(0, 0, 0, 0.4);
+}
+
+.escena-tarjeta .hero-acciones {
+  margin-top: var(--space-4);
+}
+
+/* Botón translúcido para usar sobre la escena */
+.boton-vidrio {
+  color: var(--color-cream);
+  background-color: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: none;
+}
+
+.boton-vidrio:hover {
+  background-color: rgba(255, 255, 255, 0.24);
+}
+
+/* Chips con el peso y características del producto */
+.escena-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-4) 0;
+}
+
+.escena-chips li {
+  padding: 0.45rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  background-color: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+.escena-chips .chip-dorado {
+  color: var(--color-brown);
+  background-color: var(--color-amber);
+  border-color: transparent;
+}
+
+/* Etiqueta como imagen: solo se ve si el navegador no puede dibujar el 3D */
+.escena-respaldo {
   display: none;
 }
 
-/* La foto y las etiquetas quedan por encima del canvas */
-.hero-foto {
-  z-index: 1;
+.escena.sin-3d .escena-respaldo {
+  display: block;
+  margin-bottom: var(--space-4);
+  border-radius: var(--radius);
 }
 
-.hero-sello {
-  z-index: 2;
+/* Indicador "Scroll" con una rueda de mouse animada (solo en pantallas grandes) */
+.escena-scroll {
+  display: none;
+}
+
+@keyframes rueda-scroll {
+  0% { opacity: 0; transform: translateY(0); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(0.875rem); }
+}
+
+/* Pantallas anchas (más anchas que altas, igual que en js/frasco3d.js):
+   las tarjetas van al costado del frasco */
+@media (min-width: 768px) and (min-aspect-ratio: 21/20) {
+  .escena-paso {
+    align-items: flex-start;
+    justify-content: center;
+    padding: 6rem clamp(1.25rem, 6vw, 5.5rem) 3.5rem;
+  }
+
+  .escena-paso-derecha {
+    align-items: flex-end;
+  }
+
+  .escena-paso-abajo {
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  /* La primera tarjeta no lleva vidrio: el título queda sobre el fondo */
+  .escena-tarjeta-hero {
+    max-width: 40rem;
+    padding: 0;
+  }
+
+  .escena-logo {
+    display: block;
+  }
+
+  .escena-tarjeta-historia {
+    max-width: 44rem;
+    text-align: center;
+  }
+
+  .escena-scroll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    position: absolute;
+    bottom: 1.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(244, 238, 224, 0.7);
+  }
+
+  .escena-scroll span {
+    position: relative;
+    width: 1.375rem;
+    height: 2.25rem;
+    border: 1.5px solid rgba(244, 238, 224, 0.6);
+    border-radius: 0.875rem;
+  }
+
+  .escena-scroll span::after {
+    content: "";
+    position: absolute;
+    top: 0.45rem;
+    left: 50%;
+    width: 3px;
+    height: 0.45rem;
+    margin-left: -1.5px;
+    border-radius: 2px;
+    background-color: var(--color-amber);
+    animation: rueda-scroll 1.7s infinite;
+  }
 }
 
 /* ---------- 2. Abejas ---------- */
-
-/* Capa de las abejas que vuelan en el hero: ocupa todo el hero pero no
-   bloquea los clics (solo cada abeja recibe el puntero). */
-.hero {
-  position: relative;
-}
-
-.abejas-hero {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  overflow: visible;
-}
 
 .abeja {
   position: absolute;
@@ -66,7 +261,7 @@
   width: 2.25rem;
   pointer-events: auto;
   cursor: pointer;
-  filter: drop-shadow(0 0.35rem 0.4rem rgba(59, 42, 26, 0.22));
+  filter: drop-shadow(0 0.35rem 0.4rem rgba(43, 31, 26, 0.22));
 }
 
 .abeja svg {
@@ -169,8 +364,7 @@ html.lenis body {
 
 /* ---------- 5. Movimiento reducido ---------- */
 
-/* Si la persona pidió menos movimiento, las abejas del hero quedan posadas
-   (js/efectos.js no las hace volar), sin aleteo y sin vuelos al carrito */
+/* Si la persona pidió menos movimiento, no hay aleteo ni vuelos al carrito */
 @media (prefers-reduced-motion: reduce) {
   .abeja .ala {
     animation: none;

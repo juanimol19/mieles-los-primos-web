@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mieles Los Primos - Miel del Impenetrable Chaqueño</title>
 
-    <!-- Fuentes: Lora para títulos, Inter para texto -->
+    <!-- Fuentes: Barlow Condensed para títulos, Barlow para texto -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Hoja de estilos -->
     <link rel="stylesheet" href="css/styles.css">
-    <!-- Efectos visuales: panal 3D, abejas y scroll (va después de styles.css) -->
+    <!-- Efectos visuales: escena 3D, abejas y scroll (va después de styles.css) -->
     <link rel="stylesheet" href="css/efectos.css">
 
     <!-- Ícono de la pestaña (favicon) y de acceso directo en celulares -->
@@ -24,7 +24,7 @@
     <!-- Encabezado: igual en todas las páginas. aria-current marca la página actual -->
     <header>
         <a href="index.html" class="header-logo">
-            <img src="img/logo.jpg" alt="" width="48" height="48">
+            <img src="img/logo.webp" alt="" width="48" height="48">
             <span class="logo-texto">
                 <span class="logo-marca">Mieles</span>
                 <span class="logo-nombre">LOS PRIMOS</span>
@@ -64,44 +64,69 @@
                 <a href="arrepentimiento.html" class="boton boton-arrepentimiento">Botón de Arrepentimiento</a>
             </p>
 
-            <!-- Hero: texto a la izquierda y foto en arco a la derecha -->
-            <div class="hero">
-                <div class="hero-texto">
-                    <p class="hero-etiqueta">
-                        <!-- Marcador de ubicación -->
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"/>
-                            <circle cx="12" cy="9" r="2.5"/>
-                        </svg>
-                        Juan José Castelli · Chaco
-                    </p>
-                    <h1>Miel del <em>Impenetrable</em>, directo del monte a tu mesa.</h1>
-                    <p class="hero-bajada">Miel pura de abeja, artesanal y multifloral, del monte nativo chaqueño: algarrobo, chañar, garabato y más.</p>
-                    <div class="hero-acciones">
-                        <a href="catalogo.html" class="boton">Ver catálogo <span class="flecha" aria-hidden="true">&rarr;</span></a>
-                        <a href="origen.html" class="boton boton-linea">Conocé nuestro origen</a>
-                    </div>
+            <!-- Escena 3D (CR-07): un frasco de vidrio que gira mientras se scrollea.
+                 El canvas queda "pegado" (position: sticky) detrás de cuatro pantallas
+                 de texto. Lo dibuja js/frasco3d.js con Three.js; si el navegador no
+                 tiene WebGL, cada tarjeta muestra la etiqueta como imagen. -->
+            <section class="escena" aria-label="Presentación de Los Primos">
+                <div class="escena-fondo" aria-hidden="true">
+                    <canvas class="escena-canvas"></canvas>
                 </div>
 
-                <div class="hero-visual">
-                    <!-- Hexágono decorativo que gira detrás de la foto -->
-                    <svg class="hero-hexagono" viewBox="0 0 200 200" aria-hidden="true">
-                        <path d="M100 10l78 45v90l-78 45-78-45V55z"/>
-                        <path d="M100 30l61 35v70l-61 35-61-35V65z" stroke-dasharray="2 3"/>
-                    </svg>
-                    <img class="hero-foto" src="img/hero-colmenas.webp" alt="Colmenas en el monte nativo del Impenetrable chaqueño" width="560" height="700">
-                    <!-- Etiquetas flotantes -->
-                    <p class="hero-sello hero-sello-natural">
-                        <!-- Hoja -->
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M5 19c0-8 6-14 15-14 0 9-6 15-14 15"/>
-                            <path d="M5 19l8-8"/>
-                        </svg>
-                        <span><strong>100% natural</strong> <span>Sin aditivos</span></span>
-                    </p>
-                    <p class="hero-sello hero-sello-floral"><strong>Multifloral</strong> de monte nativo</p>
+                <!-- Pantalla 1: presentación de la marca -->
+                <div class="escena-paso escena-paso-inicio">
+                    <div class="escena-tarjeta escena-tarjeta-hero">
+                        <img class="escena-logo" src="img/logo.webp" alt="Logo de Los Primos: dos abejas sobre una rama de algarrobo" width="120" height="120">
+                        <p class="escena-antetitulo">Miel del Impenetrable · Castelli, Chaco</p>
+                        <h1>Miel pura de <em>monte nativo</em></h1>
+                        <p>Sabor auténtico del Impenetrable, cosechado y envasado artesanalmente por nuestra familia.</p>
+                        <div class="hero-acciones">
+                            <a href="catalogo.html" class="boton">Ver catálogo <span class="flecha" aria-hidden="true">&rarr;</span></a>
+                            <a href="origen.html" class="boton boton-vidrio">Conocé nuestro origen</a>
+                        </div>
+                    </div>
+                    <p class="escena-scroll" aria-hidden="true"><span></span>Scroll</p>
                 </div>
-            </div>
+
+                <!-- Pantalla 2: miel (el frasco queda a la derecha) -->
+                <div class="escena-paso escena-paso-izquierda">
+                    <article class="escena-tarjeta vidrio">
+                        <img class="escena-respaldo" src="img/etiqueta-miel.webp" alt="" width="900" height="560">
+                        <p class="escena-antetitulo">01 · Nuestra miel</p>
+                        <h2>Miel <em>multifloral</em></h2>
+                        <p>Algarrobo, chañar y garabato florecen en el monte nativo y le dan su sabor. Sin aditivos ni conservantes.</p>
+                        <ul class="escena-chips">
+                            <li class="chip-dorado">800 g</li>
+                            <li class="chip-dorado">400 g</li>
+                            <li>Envasado artesanalmente</li>
+                        </ul>
+                        <a href="producto.html?id=1" class="boton">Ver producto</a>
+                    </article>
+                </div>
+
+                <!-- Pantalla 3: almendras en miel (el frasco queda a la izquierda) -->
+                <div class="escena-paso escena-paso-derecha">
+                    <article class="escena-tarjeta vidrio">
+                        <img class="escena-respaldo" src="img/etiqueta-almendras.webp" alt="" width="900" height="560">
+                        <p class="escena-antetitulo">02 · Nuevo</p>
+                        <h2>Almendras <em>en miel</em></h2>
+                        <p>Almendras enteras en miel pura de monte. Para el desayuno, con queso o directo de la cuchara.</p>
+                        <ul class="escena-chips">
+                            <li class="chip-dorado">200 g</li>
+                            <li>Envasado artesanalmente</li>
+                        </ul>
+                        <a href="producto.html?id=6" class="boton">Ver producto</a>
+                    </article>
+                </div>
+
+                <!-- Pantalla 4: los dos frascos juntos arriba y la historia abajo -->
+                <div class="escena-paso escena-paso-abajo">
+                    <article class="escena-tarjeta vidrio escena-tarjeta-historia">
+                        <h2>Del monte <em>a tu mesa</em></h2>
+                        <p>Somos una familia apicultora de Juan José Castelli, en el corazón del Impenetrable chaqueño. Cosechamos, fraccionamos y envasamos nosotros mismos.</p>
+                    </article>
+                </div>
+            </section>
 
             <!-- Cinta animada con las flores del monte. Es decorativa (aria-hidden):
                  la lista está repetida dos veces para que el movimiento sea continuo -->
@@ -293,8 +318,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 
-    <!-- Efectos: panal 3D (Three.js), abejas y animaciones de scroll -->
+    <!-- Efectos: abeja que vuela al carrito y animaciones de scroll -->
     <script type="module" src="js/efectos.js"></script>
+
+    <!-- Escena 3D del inicio: frasco de vidrio que gira con el scroll (Three.js) -->
+    <script type="module" src="js/frasco3d.js"></script>
 
 </body>
 </html>
