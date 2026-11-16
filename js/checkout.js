@@ -11,6 +11,9 @@
    4. Si todo está bien, muestra la confirmación con el N.º de pedido,
       el detalle, el total y la leyenda de los 10 días (ítems 5 y 7),
       y vacía el carrito.
+   5. Al elegir la provincia, sugiere sus localidades (data/localidades.json).
+   6. En la confirmación, un seguimiento simulado del pedido: una abeja
+      avanza por cuatro etapas (CR-07).
 
    Es una simulación académica: los datos no se envían a ningún servidor
    ni se guardan.
@@ -123,6 +126,96 @@ formulario.addEventListener('change', (evento) => {
 });
 
 /* --------------------------------------------------------------------------
+   Localidades según la provincia
+   -------------------------------------------------------------------------- */
+
+// Las localidades se piden una sola vez y quedan guardadas en esta variable
+let localidadesPorProvincia = null;
+
+async function cargarLocalidades() {
+  if (!localidadesPorProvincia) {
+    const respuesta = await fetch('data/localidades.json');
+    if (!respuesta.ok) throw new Error('No se pudieron cargar las localidades');
+    localidadesPorProvincia = await respuesta.json();
+  }
+  return localidadesPorProvincia;
+}
+
+// Llena el <datalist> con las localidades de la provincia elegida.
+// El navegador las muestra como sugerencias al escribir o hacer clic en el campo.
+campos.provincia.addEventListener('change', async () => {
+  const lista = document.querySelector('#lista-localidades');
+  campos.localidad.value = ''; // la localidad anterior puede no ser de esta provincia
+  lista.replaceChildren();
+
+  if (campos.provincia.value === '') {
+    campos.localidad.placeholder = 'Elegí primero la provincia';
+    return;
+  }
+
+  try {
+    const localidades = await cargarLocalidades();
+    const deLaProvincia = localidades[campos.provincia.value] || [];
+    lista.replaceChildren(...deLaProvincia.map((nombre) => {
+      const opcion = document.createElement('option');
+      opcion.value = nombre;
+      return opcion;
+    }));
+    campos.localidad.placeholder = deLaProvincia.length > 0
+      ? `Ej.: ${deLaProvincia[0]} (o escribí la tuya)`
+      : 'Escribí tu localidad';
+  } catch (error) {
+    // Si el JSON no carga, el campo sigue funcionando como texto libre
+    console.error(error);
+    campos.localidad.placeholder = 'Escribí tu localidad';
+  }
+});
+
+/* --------------------------------------------------------------------------
+   Seguimiento simulado del pedido
+   -------------------------------------------------------------------------- */
+
+// Textos de cada etapa según el tipo de entrega
+const ETAPAS = {
+  domicilio: ['Pedido confirmado', 'Preparando tu miel', 'En camino', 'Entregado'],
+  sucursal: ['Pedido confirmado', 'Preparando tu miel', 'Listo para retirar', 'Retirado']
+};
+const SEGUNDOS_POR_ETAPA = 4;
+
+function iniciarSeguimiento() {
+  const etapas = ETAPAS[eligioEnvioADomicilio() ? 'domicilio' : 'sucursal'];
+  const pista = document.querySelector('.seguimiento-pista');
+  const items = [...document.querySelectorAll('#seguimiento-etapas li')];
+  const estado = document.querySelector('#seguimiento-estado');
+
+  items.forEach((item, i) => {
+    item.querySelector('.seguimiento-texto').textContent = etapas[i];
+  });
+
+  let actual = 0;
+  function mostrarEtapa() {
+    // --avance va de 0 a 1: el CSS lo usa para mover la abeja y llenar la línea
+    pista.style.setProperty('--avance', actual / (etapas.length - 1));
+    items.forEach((item, i) => {
+      item.classList.toggle('hecha', i < actual);
+      item.classList.toggle('actual', i === actual);
+      // aria-current="step" indica la etapa actual al lector de pantalla
+      if (i === actual) item.setAttribute('aria-current', 'step');
+      else item.removeAttribute('aria-current');
+    });
+    estado.textContent = `Estado: ${etapas[actual]}`;
+  }
+
+  mostrarEtapa();
+  // Cada pocos segundos pasa a la etapa siguiente, hasta la última
+  const intervalo = setInterval(() => {
+    actual++;
+    mostrarEtapa();
+    if (actual === etapas.length - 1) clearInterval(intervalo);
+  }, SEGUNDOS_POR_ETAPA * 1000);
+}
+
+/* --------------------------------------------------------------------------
    Confirmación simulada
    -------------------------------------------------------------------------- */
 
@@ -169,6 +262,7 @@ function mostrarConfirmacion(items) {
   seccionCheckout.hidden = true;
   confirmacion.hidden = false;
   confirmacion.querySelector('h1').focus();
+  iniciarSeguimiento();
 }
 
 /* --------------------------------------------------------------------------
