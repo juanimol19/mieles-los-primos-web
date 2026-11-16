@@ -63,5 +63,18 @@
     "categoria": "miel",
     "presentacion": "6 botellas (800 g o 400 g)",
     "resumen": "Ideal para regalar"
+  },
+  {
+    "id": 6,
+    "nombre": "Frasco de almendras en miel 200 g",
+    "descripcion": "Almendras enteras sumergidas en miel pura de monte nativo del Impenetrable, envasadas artesanalmente. Ideales para el desayuno, con queso o directo de la cuchara.",
+    "precio_simulado": 7500,
+    "precio_mayorista": null,
+    "precio_a_confirmar": false,
+    "imagen_ia_url": "img/etiqueta-almendras.webp",
+    "imagen_alt": "Etiqueta hexagonal de Los Primos: Almendras en Miel, 200 g",
+    "categoria": "miel",
+    "presentacion": "200 g",
+    "resumen": "Almendras en miel"
   }
 ]

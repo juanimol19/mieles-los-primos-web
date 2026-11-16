@@ -24,6 +24,7 @@ Integra 4 materias: Desarrollo de Sitios Web (DW), Dirección y Gestión de Proy
 | Miel pura multifloral del Impenetrable | 400 g | $6.600 |
 | Polen apícola | — | $9.000 |
 | Porción de panal con miel | — | $6.000 |
+| Almendras en miel (CR-07) | 200 g | $7.500 |
 
 Proyección futura (no implementar todavía): Miel Orgánica Certificada.
 
@@ -68,7 +69,13 @@ Al cierre del sprint, el sitio tiene que incluir la **Política de Privacidad (L
 
 Se permite **JavaScript puro, sin frameworks** (ej.: `js/producto.js` lee `data/productos.json` con `fetch`). Como `fetch` necesita un servidor local, hay que probar con Live Server.
 
-Los efectos visuales (CR-06, issue #84) están aislados en `css/efectos.css` y `js/efectos.js`, enlazados en `index.html`, `catalogo.html` y `producto.html`. Respetan `prefers-reduced-motion`: con "reducir movimiento" (por ejemplo, Windows con los efectos de animación apagados) el panal queda quieto, las abejas posadas y no vuelan al carrito. Los botones que hacen volar una abeja al carrito llevan `data-agregar` o `data-abeja-carrito`.
+Los efectos visuales (CR-06, issue #84) están aislados en `css/efectos.css` y `js/efectos.js`, enlazados en `index.html`, `catalogo.html` y `producto.html`. Respetan `prefers-reduced-motion`: con "reducir movimiento" (por ejemplo, Windows con los efectos de animación apagados) las abejas no vuelan al carrito y no hay scroll suave. Los botones que hacen volar una abeja al carrito llevan `data-agregar` o `data-abeja-carrito`.
+
+### Identidad nueva (CR-07, issue #86, noviembre 2026)
+
+La marca cambió de identidad: logo sello circular (`img/logo.webp`) y etiquetas hexagonales (`img/etiqueta-miel.webp`, `img/etiqueta-almendras.webp`). El inicio es una escena 3D (`js/frasco3d.js`): dos frascos de vidrio con Three.js que giran con el scroll a lo largo de cuatro pantallas, con fondo de color y tarjetas glass (`.vidrio` y `.vidrio-claro` en `efectos.css`). Por pedido de Juana, el frasco se mueve aunque esté activado "reducir movimiento". Los frascos son genéricos hasta tener las fotos reales.
+
+También: localidades sugeridas por provincia en el checkout (`data/localidades.json`), seguimiento simulado del pedido con una abeja, página "Mis pedidos" (`pedidos.html`, historial en `localStorage` sin datos personales) y Botón de Arrepentimiento en la confirmación, que abre `arrepentimiento.html?pedido=LP-000000` con el número cargado.
 
 ## Estructura de carpetas
 
@@ -79,24 +86,28 @@ mieles-los-primos-web/
 ├── producto.html          (detalle de producto: producto.html?id=<id del JSON>)
 ├── origen.html            (historia del emprendimiento)
 ├── carrito.html           (carrito de compras)
+├── pedidos.html           (Mis pedidos: historial guardado en localStorage)
 ├── checkout.html          (formulario de compra)
 ├── privacidad.html        (Política de Privacidad, Ley 25.326)
 ├── arrepentimiento.html   (Botón de Arrepentimiento, Ley 24.240: formulario sin registro)
 ├── terminos.html          (Términos y Condiciones: contrato de adhesión, Ley 24.240)
 ├── css/
 │   ├── styles.css
-│   └── efectos.css        (panal 3D, abejas y scroll; va después de styles.css)
+│   └── efectos.css        (escena 3D, vidrio, abejas y scroll; va después de styles.css)
 ├── js/                    (ES modules: <script type="module">, import/export)
 │   ├── utilidades.js      (funciones compartidas: crear elementos y formatear precios)
 │   ├── productos.js       (único que lee data/productos.json, con fetch + async/await)
 │   ├── catalogo.js        (tarjetas y filtro por categoría de catalogo.html e index.html)
 │   ├── carrito.js         (carrito en localStorage: contador, carrito.html y resumen del checkout)
 │   ├── producto.js        (detalle de producto con JS puro)
-│   ├── checkout.js        (validación del checkout y confirmación simulada del pedido)
+│   ├── checkout.js        (validación, localidades por provincia, confirmación y seguimiento simulado)
+│   ├── pedidos.js         (historial de pedidos en localStorage y página Mis pedidos)
 │   ├── arrepentimiento.js (formulario de arrepentimiento y código simulado)
-│   └── efectos.js         (Three.js, GSAP y Lenis: panal 3D, abejas y animaciones de scroll)
+│   ├── efectos.js         (GSAP y Lenis: abeja que vuela al carrito y animaciones de scroll)
+│   └── frasco3d.js        (Three.js: escena del inicio con frascos de vidrio que giran con el scroll)
 ├── data/
-│   └── productos.json
+│   ├── productos.json
+│   └── localidades.json   (localidades principales de cada provincia, para el checkout)
 ├── img/                   (imágenes IA de productos)
 ├── docs/                  (informes; los del Sprint 2 en docs/Sprint 2/ con formato APA 7)
 ├── LICENSE                (GNU GPL v3.0)
@@ -106,13 +117,13 @@ mieles-los-primos-web/
 
 ## Criterios de estilo CSS
 
-- Variables CSS en `:root` para colores, tipografías y espaciados. Paleta inspirada en la miel y el monte chaqueño: ámbar, dorado, marrón algarrobo y un verde monte suave.
+- Variables CSS en `:root` para colores, tipografías y espaciados. Paleta del logo nuevo (CR-07): verde oscuro, beige, marrón y dorado miel de acento (rojo ladrillo solo para detalles). Las variables conservan sus nombres viejos (`--color-amber` es el dorado, `--color-cream` el beige, `--color-brown-oscuro` el verde oscuro). Títulos en Barlow Condensed (mayúsculas) y texto en Barlow.
 - Unidades relativas (`rem`, `%`, `fr`), imágenes con `max-width: 100%`.
 - Breakpoints sugeridos: base móvil, luego `min-width: 768px` (tablet) y `min-width: 1024px` (escritorio).
 - Catálogo con **Grid** (`repeat(auto-fit, minmax(...))`). Header, nav y tarjetas con **Flexbox**.
 - Accesibilidad: buen contraste, `alt` descriptivos, foco visible, no depender solo del color.
 - Organizar `styles.css` en bloques comentados: variables, reset, base, header, hero, catálogo, origen, carrito, checkout, footer, páginas legales, media queries.
-- Texto en ámbar sobre blanco: usar `--color-amber-texto` (#A0680F, 4.7:1). El ámbar claro (`--color-amber`) solo para fondos, bordes y decoración.
+- Texto dorado sobre claro: usar `--color-amber-texto` (#85601C, 5.7:1 sobre blanco). El dorado (`--color-amber`) solo para fondos, bordes y decoración. Sobre el verde oscuro, `--color-dorado-claro`.
 
 ## Cronograma y entregables del Sprint 2
 

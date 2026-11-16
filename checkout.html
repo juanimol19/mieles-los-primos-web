@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finalizar compra - Mieles Los Primos</title>
 
-    <!-- Fuentes: Lora para títulos, Inter para texto -->
+    <!-- Fuentes: Barlow Condensed para títulos, Barlow para texto -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Hoja de estilos -->
     <link rel="stylesheet" href="css/styles.css">
@@ -22,7 +22,7 @@
     <!-- Encabezado: igual en todas las páginas. aria-current marca la página actual -->
     <header>
         <a href="index.html" class="header-logo">
-            <img src="img/logo.jpg" alt="" width="48" height="48">
+            <img src="img/logo.webp" alt="" width="48" height="48">
             <span class="logo-texto">
                 <span class="logo-marca">Mieles</span>
                 <span class="logo-nombre">LOS PRIMOS</span>
@@ -34,6 +34,7 @@
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="catalogo.html">Catálogo</a></li>
                 <li><a href="origen.html">Origen</a></li>
+                <li><a href="pedidos.html">Mis pedidos</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
@@ -149,7 +150,10 @@
                             </div>
                             <div class="campo">
                                 <label for="localidad">Localidad *</label>
-                                <input type="text" id="localidad" name="localidad" placeholder="Ej: Juan José Castelli" autocomplete="address-level2">
+                                <!-- Al elegir la provincia, js/checkout.js carga sus localidades en el datalist:
+                                     aparecen como sugerencias, pero también se puede escribir otra -->
+                                <input type="text" id="localidad" name="localidad" list="lista-localidades" placeholder="Elegí primero la provincia" autocomplete="address-level2">
+                                <datalist id="lista-localidades"></datalist>
                             </div>
                             <div class="campo">
                                 <label for="direccion">Dirección *</label>
@@ -241,6 +245,34 @@
                 <p class="confirmacion-numero" id="confirmacion-numero"></p>
                 <p class="confirmacion-nota">Guardalo: lo vas a necesitar para cualquier consulta y para usar el Botón de Arrepentimiento.</p>
 
+                <!-- Seguimiento del pedido (simulado): línea de tiempo horizontal con
+                     4 etapas. La abeja vuela hasta la etapa actual. js/checkout.js
+                     escribe los textos según el tipo de entrega y avanza las etapas. -->
+                <section class="seguimiento" aria-labelledby="seguimiento-titulo">
+                    <h2 id="seguimiento-titulo">Seguimiento del pedido</h2>
+                    <div class="seguimiento-pista">
+                        <!-- Abeja decorativa (el estado se lee en el texto de abajo) -->
+                        <svg class="seguimiento-abeja" viewBox="0 0 44 34" aria-hidden="true">
+                            <ellipse class="ala ala-atras" cx="19" cy="9" rx="6" ry="8.5" fill="#FFFFFF" fill-opacity="0.75" stroke="#2B1F1A" stroke-width="1.2"/>
+                            <ellipse class="ala" cx="25" cy="10" rx="5.5" ry="8" fill="#FFFFFF" fill-opacity="0.85" stroke="#2B1F1A" stroke-width="1.2"/>
+                            <path d="M8 21l-5 1.5 5 1.5z" fill="#2B1F1A"/>
+                            <ellipse cx="20" cy="22" rx="12" ry="8" fill="#E2B85C" stroke="#2B1F1A" stroke-width="1.6"/>
+                            <path d="M16 14.6q-2 7.4 0 14.8M22 14q-2 8 0 16" fill="none" stroke="#2B1F1A" stroke-width="3"/>
+                            <circle cx="33.5" cy="20.5" r="5" fill="#2B1F1A"/>
+                            <circle cx="35" cy="19.2" r="1.1" fill="#FFFFFF"/>
+                        </svg>
+                        <ol class="seguimiento-etapas" id="seguimiento-etapas">
+                            <li><span class="seguimiento-punto" aria-hidden="true"></span><span class="seguimiento-texto"></span></li>
+                            <li><span class="seguimiento-punto" aria-hidden="true"></span><span class="seguimiento-texto"></span></li>
+                            <li><span class="seguimiento-punto" aria-hidden="true"></span><span class="seguimiento-texto"></span></li>
+                            <li><span class="seguimiento-punto" aria-hidden="true"></span><span class="seguimiento-texto"></span></li>
+                        </ol>
+                    </div>
+                    <!-- aria-live: el lector de pantalla anuncia cada cambio de estado -->
+                    <p class="seguimiento-estado" id="seguimiento-estado" aria-live="polite"></p>
+                    <p class="seguimiento-nota">Simulación: en la tienda real, el estado se actualizaría a medida que avanza el envío.</p>
+                </section>
+
                 <h2>Detalle del pedido</h2>
                 <ul class="resumen-items" id="confirmacion-items"></ul>
                 <p class="resumen-fila"><span>Subtotal</span> <span id="confirmacion-subtotal"></span></p>
@@ -264,7 +296,13 @@
                     Tenés <strong>10 días corridos</strong> desde que recibís el producto para arrepentirte de la compra, sin expresar causa y sin costo. Podés hacerlo con el <a href="arrepentimiento.html">Botón de Arrepentimiento</a>, usando tu número de pedido.
                 </p>
 
-                <a href="catalogo.html" class="boton">Seguir comprando</a>
+                <!-- Botón de Arrepentimiento también al final de la compra: js/checkout.js
+                     le agrega el número de pedido al link, así el formulario ya lo trae cargado -->
+                <div class="confirmacion-acciones">
+                    <a href="arrepentimiento.html" class="boton boton-secundario boton-arrepentimiento" id="confirmacion-arrepentimiento">Botón de Arrepentimiento</a>
+                    <a href="pedidos.html" class="boton boton-secundario">Ver mis pedidos</a>
+                    <a href="catalogo.html" class="boton">Seguir comprando</a>
+                </div>
             </div>
         </section>
     </main>
