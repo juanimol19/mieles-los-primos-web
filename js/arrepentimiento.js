@@ -4,6 +4,7 @@
 
    Cómo funciona:
    1. Agrega al selector "Producto" las opciones de data/productos.json.
+      Si el link trae ?pedido=LP-000000, completa el N.º de pedido.
    2. Al enviar el formulario (los campos ya los valida el navegador con
       required, type="email" y el pattern del N.º de pedido), genera un código de arrepentimiento simulado
       y muestra la confirmación con el aviso de las 24 horas
@@ -85,4 +86,19 @@ formulario.addEventListener('submit', (evento) => {
   confirmacion.querySelector('h3').focus();
 });
 
+/* --------------------------------------------------------------------------
+   Número de pedido desde el link (CR-07)
+   -------------------------------------------------------------------------- */
+
+// Desde la confirmación de compra y desde "Mis pedidos" se llega con
+// arrepentimiento.html?pedido=LP-000000: el número ya aparece cargado.
+// Solo se usa si tiene el formato correcto (LP- y 6 números).
+function completarPedidoDesdeLink() {
+  const pedido = new URLSearchParams(window.location.search).get('pedido');
+  if (pedido && /^LP-[0-9]{6}$/.test(pedido)) {
+    document.querySelector('#arr-pedido').value = pedido;
+  }
+}
+
+completarPedidoDesdeLink();
 cargarProductos();
