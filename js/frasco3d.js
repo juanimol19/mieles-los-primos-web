@@ -106,11 +106,12 @@ function iniciarEscena() {
   /* ---------- Fondo: manchas de color desenfocadas ---------- */
   // Se dibuja en un <canvas> 2D chico y se usa como textura de un plano detrás
   // de los frascos. Así el vidrio "refracta" (deforma) los colores del fondo.
-  // Un juego de colores por pantalla: verde del logo, ámbar, ladrillo y verde.
+  // Un juego de colores por pantalla: verde del logo, beige con dorado suave
+  // (miel), beige más tostado (almendras) y verde otra vez.
   const FONDOS = [
     { base: '#0d2216', manchas: ['#2f6a45', '#6f9a52', '#c9973a'] },
-    { base: '#2c1606', manchas: ['#d28a2a', '#f0bd55', '#8a4514'] },
-    { base: '#26150d', manchas: ['#b5442b', '#e0a762', '#6b4223'] },
+    { base: '#efe5cf', manchas: ['#e6c47e', '#fbf6ea', '#d8b06a'] },
+    { base: '#ebe1cc', manchas: ['#d6bf98', '#f7f1e3', '#c8a473'] },
     { base: '#0d2216', manchas: ['#2f6a45', '#c9973a', '#5f8f4d'] }
   ].map((fondo) => ({
     base: new THREE.Color(fondo.base),
@@ -160,10 +161,10 @@ function iniciarEscena() {
       pincel.fillStyle = degrade;
       pincel.fillRect(0, 0, 512, 288);
     });
-    // Viñeta: oscurece un poco los bordes
+    // Viñeta: oscurece apenas los bordes
     const vineta = pincel.createRadialGradient(256, 144, 80, 256, 144, 320);
     vineta.addColorStop(0, 'rgba(0, 0, 0, 0)');
-    vineta.addColorStop(1, 'rgba(0, 0, 0, 0.28)');
+    vineta.addColorStop(1, 'rgba(0, 0, 0, 0.18)');
     pincel.fillStyle = vineta;
     pincel.fillRect(0, 0, 512, 288);
     texturaFondo.needsUpdate = true;

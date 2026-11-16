@@ -75,6 +75,41 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
+/* Vidrio claro: para las pantallas con fondo beige (productos).
+   Más blanco y con texto marrón, para que se lea bien sobre fondo claro. */
+.vidrio-claro {
+  color: var(--color-brown);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.34));
+  border-color: rgba(255, 255, 255, 0.75);
+  box-shadow:
+    0 1.25rem 3rem rgba(43, 31, 26, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.escena .vidrio-claro h2 {
+  color: var(--color-brown);
+  text-shadow: none;
+}
+
+.escena .vidrio-claro h2 em,
+.vidrio-claro .escena-antetitulo {
+  color: var(--color-amber-texto); /* dorado oscuro: contraste 4.9:1 sobre el beige */
+}
+
+.escena-tarjeta.vidrio-claro p {
+  color: var(--color-text-muted);
+}
+
+.vidrio-claro .escena-chips li {
+  background-color: rgba(43, 31, 26, 0.06);
+  border-color: rgba(43, 31, 26, 0.14);
+}
+
+.vidrio-claro .escena-chips .chip-dorado {
+  background-color: var(--color-amber);
+  border-color: transparent;
+}
+
 .escena h1,
 .escena h2 {
   line-height: 0.92;
