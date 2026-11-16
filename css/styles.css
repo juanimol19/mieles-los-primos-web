@@ -8,17 +8,21 @@
    1. VARIABLES
    ========================================================================== */
 :root {
-  /* Colores — paleta miel/monte chaqueño */
-  --color-amber: #E0A023;
-  --color-amber-hover: #C4861A;
-  --color-amber-texto: #A0680F; /* ámbar oscuro para texto: contraste 4.7:1 sobre blanco */
-  --color-cream: #FBF8F1;      /* fondo general del sitio */
-  --color-arena: #F3EBDD;      /* superficies destacadas sobre el crema (avisos, paneles, fotos) */
-  --color-brown: #3B2A1A;
-  --color-brown-oscuro: #2E2014; /* fondo de la sección de origen y del footer */
-  --color-dorado-claro: #F6C35A; /* texto dorado sobre fondo oscuro: contraste 9.6:1 */
-  --color-texto-claro: #D9CBB4;  /* texto secundario sobre fondo oscuro: contraste 9.9:1 */
-  --color-border: #EDE6DA;
+  /* Colores — identidad nueva (CR-07), sacada del logo:
+     verde oscuro del arco, beige del fondo, marrón del nombre y dorado del lema.
+     Los nombres de las variables se mantienen para no tocar el resto del CSS. */
+  --color-amber: #C9973A;        /* dorado miel: botones, bordes y decoración */
+  --color-amber-hover: #A97A26;
+  --color-amber-texto: #85601C;  /* dorado oscuro para texto: contraste 5.7:1 sobre blanco */
+  --color-cream: #F4EEE0;        /* beige del logo: fondo general del sitio */
+  --color-arena: #EAE2CF;        /* superficies destacadas sobre el beige (avisos, paneles, fotos) */
+  --color-brown: #2B1F1A;        /* marrón del nombre "LOS PRIMOS" */
+  --color-brown-oscuro: #1F3A2B; /* verde oscuro del logo: sección de origen y footer */
+  --color-verde: #24402F;        /* verde del arco del logo */
+  --color-ladrillo: #B5442B;     /* rojo ladrillo de las etiquetas (solo acentos) */
+  --color-dorado-claro: #E2B85C; /* texto dorado sobre el verde oscuro: contraste 6.6:1 */
+  --color-texto-claro: #D8D2BF;  /* texto secundario sobre el verde oscuro */
+  --color-border: #E3DAC6;
   --color-white: #FFFFFF;
 
   /* Texto */
@@ -27,8 +31,9 @@
   --color-error: #B3261E; /* rojo para errores del formulario: contraste 6.5:1 sobre blanco */
 
   /* Tipografías */
-  --font-heading: 'Lora', Georgia, serif;
-  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  /* Barlow Condensed se parece a la letra condensada del logo y las etiquetas */
+  --font-heading: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-body: 'Barlow', system-ui, -apple-system, sans-serif;
 
   /* Espaciados (escala en rem) */
   --space-1: 0.25rem;
@@ -42,9 +47,9 @@
   --radius: 0.75rem;
   --radius-grande: 1.75rem; /* tarjetas y bloques grandes */
   --radius-full: 999px;
-  --shadow-suave: 0 1px 3px rgba(59, 42, 26, 0.1);
-  --shadow-elevada: 0 1.75rem 3.5rem rgba(59, 42, 26, 0.16);
-  --shadow-miel: 0 0.5rem 1.5rem rgba(224, 160, 35, 0.35); /* resplandor ámbar de los botones */
+  --shadow-suave: 0 1px 3px rgba(43, 31, 26, 0.1);
+  --shadow-elevada: 0 1.75rem 3.5rem rgba(43, 31, 26, 0.16);
+  --shadow-miel: 0 0.5rem 1.5rem rgba(201, 151, 58, 0.35); /* resplandor ámbar de los botones */
 
   /* Transiciones: misma duración y curva en todo el sitio.
      --curva arranca rápido y frena suave al final (se siente más "natural") */
@@ -132,7 +137,19 @@ body {
 
 h1, h2, h3, h4 {
   font-family: var(--font-heading);
-  line-height: 1.2;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+}
+
+/* Los h1 y h2 van en mayúsculas, como "LOS PRIMOS" en el logo */
+h1, h2 {
+  text-transform: uppercase;
+}
+
+/* Los acentos de los títulos se marcan con color, no con itálica */
+h1 em, h2 em, h3 em {
+  font-style: normal;
 }
 
 /* Separador entre secciones: línea fina con el color de bordes de la paleta */
@@ -161,7 +178,7 @@ hr {
 .boton:hover {
   background-color: var(--color-amber-hover);
   transform: translateY(-2px);
-  box-shadow: 0 0.875rem 2rem rgba(224, 160, 35, 0.5);
+  box-shadow: 0 0.875rem 2rem rgba(201, 151, 58, 0.5);
 }
 
 .boton:active {
@@ -201,10 +218,10 @@ header {
   padding: var(--space-3);
   /* Crema semitransparente + desenfoque ("vidrio esmerilado"): al hacer scroll
      se intuye el contenido de atrás. saturate() aviva un poco esos colores. */
-  background-color: rgba(251, 248, 241, 0.78);
+  background-color: rgba(244, 238, 224, 0.78);
   -webkit-backdrop-filter: blur(14px) saturate(1.4);
   backdrop-filter: blur(14px) saturate(1.4);
-  border-bottom: 1px solid rgba(59, 42, 26, 0.08);
+  border-bottom: 1px solid rgba(43, 31, 26, 0.08);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -218,15 +235,12 @@ header {
   order: 1;
 }
 
-/* Logo recortado con forma de celda de panal (hexágono con punta arriba).
-   clip-path: polygon() recibe los 6 vértices en porcentajes del ancho y el alto.
-   El ancho es ~0.87 del alto (proporción de un hexágono regular) y object-fit
-   evita que la imagen se deforme al no ser cuadrado. */
+/* Logo nuevo (CR-07): es un sello circular, así que se recorta en círculo */
 .header-logo img {
   width: 3rem;
-  height: 3.45rem;
+  height: 3rem;
   object-fit: cover;
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  border-radius: 50%;
   transition: transform var(--transicion);
 }
 
@@ -331,7 +345,7 @@ header nav a[aria-current="page"]::after {
 
 .header-carrito a:hover {
   transform: translateY(-1px);
-  box-shadow: 0 0.5rem 1.25rem rgba(59, 42, 26, 0.14);
+  box-shadow: 0 0.5rem 1.25rem rgba(43, 31, 26, 0.14);
 }
 
 /* En móvil solo se ven el ícono y el número (el aria-label del link ya dice "Carrito");
@@ -465,7 +479,7 @@ header nav a[aria-current="page"]::after {
 /* Botón "de línea": fondo transparente y borde marrón fino */
 .boton-linea {
   background-color: transparent;
-  box-shadow: inset 0 0 0 1.5px rgba(59, 42, 26, 0.28);
+  box-shadow: inset 0 0 0 1.5px rgba(43, 31, 26, 0.28);
 }
 
 .boton-linea:hover {
@@ -491,7 +505,7 @@ header nav a[aria-current="page"]::after {
   aspect-ratio: 4 / 5;
   object-fit: cover;
   border-radius: 15rem 15rem 2.25rem 2.25rem;
-  box-shadow: 0 2.5rem 5rem rgba(59, 42, 26, 0.25);
+  box-shadow: 0 2.5rem 5rem rgba(43, 31, 26, 0.25);
   background-color: var(--color-arena);
 }
 
@@ -525,7 +539,7 @@ header nav a[aria-current="page"]::after {
   padding: var(--space-3) var(--space-4);
   font-size: 0.875rem;
   border-radius: 1.25rem;
-  box-shadow: 0 1.25rem 2.5rem rgba(59, 42, 26, 0.2);
+  box-shadow: 0 1.25rem 2.5rem rgba(43, 31, 26, 0.2);
   animation: flotar 6s ease-in-out infinite;
 }
 
@@ -945,7 +959,7 @@ header nav a[aria-current="page"]::after {
 
 .paso {
   padding: var(--space-5);
-  border: 1px solid rgba(251, 248, 241, 0.14);
+  border: 1px solid rgba(244, 238, 224, 0.14);
   border-radius: var(--radius-grande);
   counter-increment: paso-origen;
   transition: border-color var(--transicion), background-color var(--transicion), transform var(--transicion);
@@ -965,7 +979,7 @@ header nav a[aria-current="page"]::after {
 
 .paso:hover {
   border-color: var(--color-amber);
-  background-color: rgba(224, 160, 35, 0.06);
+  background-color: rgba(201, 151, 58, 0.06);
   transform: translateY(-4px);
 }
 
@@ -2040,7 +2054,7 @@ footer .boton-arrepentimiento:hover {
 footer > p {
   padding-top: var(--space-3);
   padding-bottom: var(--space-6);
-  border-top: 1px solid rgba(251, 248, 241, 0.12);
+  border-top: 1px solid rgba(244, 238, 224, 0.12);
   text-align: center;
   font-size: 0.85rem;
   color: #B8A88F; /* contraste 7.3:1 con el fondo oscuro */
@@ -2062,7 +2076,7 @@ footer > p {
   color: var(--color-white);
   background-color: #128C7E;
   border-radius: var(--radius-full);
-  box-shadow: 0 4px 12px rgba(59, 42, 26, 0.25);
+  box-shadow: 0 4px 12px rgba(43, 31, 26, 0.25);
   transition: transform 0.2s;
 }
 
