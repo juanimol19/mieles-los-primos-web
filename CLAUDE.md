@@ -24,7 +24,7 @@ Integra 4 materias: Desarrollo de Sitios Web (DW), Dirección y Gestión de Proy
 | Miel pura multifloral del Impenetrable | 400 g | $6.600 |
 | Polen apícola | — | $9.000 |
 | Porción de panal con miel | — | $6.000 |
-| Almendras en miel (CR-07) | 200 g | $7.500 |
+| Almendras en miel (CR-07) | 200 g | $9.500 |
 
 Proyección futura (no implementar todavía): Miel Orgánica Certificada.
 
@@ -73,7 +73,7 @@ Los efectos visuales (CR-06, issue #84) están aislados en `css/efectos.css` y `
 
 ### Identidad nueva (CR-07, issue #86, noviembre 2026)
 
-La marca cambió de identidad: logo sello circular (`img/logo.webp`) y etiquetas hexagonales (`img/etiqueta-miel.webp`, `img/etiqueta-almendras.webp`). El inicio es una escena 3D (`js/frasco3d.js`): dos frascos de vidrio con Three.js que giran con el scroll a lo largo de cuatro pantallas, con fondo de color y tarjetas glass (`.vidrio` y `.vidrio-claro` en `efectos.css`). Por pedido de Juana, el frasco se mueve aunque esté activado "reducir movimiento". Los frascos son genéricos hasta tener las fotos reales.
+La marca cambió de identidad: logo sello circular (`img/logo.webp`) y etiquetas hexagonales (`img/etiqueta-liquida-800.webp`, `-liquida-400`, `-almendras`, `-polen` y `img/sticker-tapa.webp`). El inicio es una escena 3D (`js/frasco3d.js`): los cuatro envases reales (botellas de miel líquida de 800 g y 400 g, frascos de almendras y de polen) hechos con Three.js con sus medidas en cm, que giran con el scroll a lo largo de cinco pantallas, con fondo de color y tarjetas glass (`.vidrio` y `.vidrio-claro` en `efectos.css`). Por pedido de Juana, los envases se mueven aunque esté activado "reducir movimiento". Las fotos del catálogo son las fotos de producto de noviembre 2026 (carpeta `catalogo` de Juana), pasadas a WebP de 600×800. Medidas (alto / vuelta del envase): botella 800 g 20 / 21,5 cm; botella 400 g 15 / 18 cm; frascos de polen y almendras 8 / 21 cm. Juana dio la vuelta como "diámetro": se toma como perímetro hasta que lo confirme.
 
 También: localidades sugeridas por provincia en el checkout (`data/localidades.json`), seguimiento simulado del pedido con una abeja, página "Mis pedidos" (`pedidos.html`, historial en `localStorage` sin datos personales) y Botón de Arrepentimiento en la confirmación, que abre `arrepentimiento.html?pedido=LP-000000` con el número cargado.
 
