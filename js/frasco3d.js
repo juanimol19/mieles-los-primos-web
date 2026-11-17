@@ -37,6 +37,22 @@ function iniciarEscena() {
   }, { threshold: 0.25 });
   escena3d.querySelectorAll('.escena-tarjeta').forEach((tarjeta) => observadorTarjetas.observe(tarjeta));
 
+  /* ---------- Header que se esconde durante la presentación ---------- */
+  // Apenas se empieza a scrollear, el header sube y deja toda la pantalla para
+  // la escena. Cuando la escena termina (aparece el catálogo), vuelve a bajar.
+  // Va antes de crear el 3D para que funcione aunque no haya WebGL.
+  const header = document.querySelector('header');
+  function actualizarHeader() {
+    const caja = escena3d.getBoundingClientRect();
+    const empezoScroll = window.scrollY > 40;
+    const escenaEnPantalla = caja.bottom > header.offsetHeight;
+    header.classList.toggle('header-oculto', empezoScroll && escenaEnPantalla);
+  }
+  if (header) {
+    window.addEventListener('scroll', actualizarHeader, { passive: true });
+    actualizarHeader();
+  }
+
   /* ---------- Renderer, escena y cámara ---------- */
   let renderer;
   try {

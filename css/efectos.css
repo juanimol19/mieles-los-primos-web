@@ -200,6 +200,21 @@
   display: none;
 }
 
+/* Header que se esconde mientras dura la escena 3D (la clase la pone frasco3d.js).
+   translateY(-100%) lo sube exactamente su propio alto, hasta que no se ve. */
+header {
+  transition: transform 0.35s ease;
+}
+
+header.header-oculto {
+  transform: translateY(-100%);
+}
+
+/* Accesibilidad: si se navega con el teclado (Tab) y el foco entra al menú, se muestra */
+header.header-oculto:focus-within {
+  transform: none;
+}
+
 .escena.sin-3d .escena-respaldo {
   display: block;
   width: auto;
